@@ -1,6 +1,8 @@
-package com.example.warehost.model;
+package com.example.warehost.model.aggregates;
 
 import java.util.*;
+
+import com.example.warehost.model.Sale;
 
 public class Inventory {
     private ArrayList<Item> items = new ArrayList<Item>();
