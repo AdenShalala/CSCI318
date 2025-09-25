@@ -19,7 +19,13 @@ public class StockQueryService {
         return itemRepository.findAll();
     }
 
+
+    /*
+     * Fetches an item by its ID.
+     * @param id
+     * @return Item
+     */
     public Item getItemById(ItemId id) {
-        return itemRepository.findById(id).orElse(null);
+        return itemRepository.findByItemId(id.getItemId()).orElse(null);
     }
 }

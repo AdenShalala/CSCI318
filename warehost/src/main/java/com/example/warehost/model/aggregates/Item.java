@@ -1,13 +1,26 @@
 package com.example.warehost.model.aggregates;
 
 import jakarta.persistence.*;
+import org.springframework.data.domain.AbstractAggregateRoot;
 import java.util.Date;
 import com.example.warehost.model.valueobjects.*;
 import com.example.warehost.model.aggregates.ItemId;
 import com.example.warehost.model.commands.AddItemCommand;
 
 @Entity
-public class Item {
+@NamedQueries(
+    {
+        @NamedQuery(
+            name = "Item.findByItemId",
+            query = "SELECT i FROM Item i WHERE i.itemId = :itemId"
+        ),
+        @NamedQuery(
+            name = "Item.findAll",
+            query = "SELECT i FROM Item i"
+        )
+    }
+)
+public class Item extends AbstractAggregateRoot<Item> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,14 +41,14 @@ public class Item {
         this.description = new ItemDescription(command.getDescription());
         this.order_date = new ItemDate(command.getOrderDate());
 
-        addDomainEvent(
-            new ItemAddedEvent(
-                new ItemAddedEventData (
-                    command.getItemId(),
-                    command.getType(),
-                    command.getDescription(),
-                    command.getOrderDate()
-        )));
+        // addDomainEvent(
+        //     new ItemAddedEvent(
+        //         new ItemAddedEventData (
+        //             command.getItemId(),
+        //             command.getType(),
+        //             command.getDescription(),
+        //             command.getOrderDate()
+        // )));
     }
 
     public ItemId getItemId() {
@@ -54,5 +67,5 @@ public class Item {
         return this.order_date;
     }
 
-    
+
 }

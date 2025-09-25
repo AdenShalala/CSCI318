@@ -14,5 +14,5 @@ public class ItemId implements Serializable {
 
     public ItemId(String ItemId){this.ItemId = ItemId;}
 
-    public String getBookingId(){return this.ItemId;}
+    public String getItemId(){return this.ItemId;}
 }
