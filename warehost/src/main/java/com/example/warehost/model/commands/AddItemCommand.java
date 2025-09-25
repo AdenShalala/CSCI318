@@ -1,6 +1,7 @@
 package com.example.warehost.model.commands;
 
 import java.util.Date;
+import com.example.warehost.model.aggregates.ItemId;
 
 public class AddItemCommand {
     public String type;

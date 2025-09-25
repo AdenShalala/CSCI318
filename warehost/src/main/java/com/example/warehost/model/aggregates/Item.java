@@ -1,9 +1,10 @@
 package com.example.warehost.model.aggregates;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 import com.example.warehost.model.valueobjects.*;
 import com.example.warehost.model.aggregates.ItemId;
+import com.example.warehost.model.commands.AddItemCommand;
 
 @Entity
 public class Item {
@@ -21,10 +22,37 @@ public class Item {
 
     public Item() {}
 
-    public Item(ItemId id, String type, String description, LocalDate order_date) {
-        this.id = id;
-        this.type = type;
-        this.description = description;
-        this.order_date = order_date;
+    public Item(AddItemCommand command) {
+        this.itemId = new ItemId(command.getItemId());
+        this.type = new ItemType(command.getType());
+        this.description = new ItemDescription(command.getDescription());
+        this.order_date = new ItemDate(command.getOrderDate());
+
+        addDomainEvent(
+            new ItemAddedEvent(
+                new ItemAddedEventData (
+                    command.getItemId(),
+                    command.getType(),
+                    command.getDescription(),
+                    command.getOrderDate()
+        )));
     }
+
+    public ItemId getItemId() {
+        return this.itemId;
+    }
+
+    public ItemType getType() {
+        return this.type;
+    }
+
+    public ItemDescription getDescription() {
+        return this.description;
+    }
+
+    public ItemDate getOrderDate() {
+        return this.order_date;
+    }
+
+    
 }
