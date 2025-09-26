@@ -1,9 +1,11 @@
 package com.example.sales.domain.model.valueobjects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Price {
+    @Column(name="price", insertable=false, updatable=false)
     private double price;
 
     public Price(){}

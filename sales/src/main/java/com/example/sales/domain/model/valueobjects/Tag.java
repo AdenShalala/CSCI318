@@ -1,9 +1,11 @@
 package com.example.sales.domain.model.valueobjects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Tag {
+    @Column(name="tag")
     private String tag;
 
     public Tag(){}

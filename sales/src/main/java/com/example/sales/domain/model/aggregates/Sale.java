@@ -32,7 +32,7 @@ public class Sale extends AbstractAggregateRoot<Sale> {
     @Embedded
     private Charge charge;
     @ElementCollection
-    @CollectionTable(name = "sale_additional_charges", joinColumns = @JoinColumn(name = "sale_id"))
+    @CollectionTable(name = "additionalCharges", joinColumns = @JoinColumn(name = "saleID"))
     private List<Charge> additionalCharges;
 
     //AND CONSTRUCTORS! IMPORTANT!
