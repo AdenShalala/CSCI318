@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.example.sales.domain.model.entities.Charge;
+import com.example.sales.interfaces.rest.dto.SalesResource;
 
 public class SalesCommand {
     //sort out Item ID's
@@ -11,6 +12,14 @@ public class SalesCommand {
     private Charge charge;
     private Date date;
     private List<Charge> additionalCharges;
+
+    public SalesCommand(){}
+    public SalesCommand(SalesResource salesResource){
+        this.saleID = salesResource.getSaleID();
+        this.charge = salesResource.getCharge();
+        this.date = salesResource.getDate();
+        this.additionalCharges = salesResource.getAdditionalCharges();
+    }
     
 
     
