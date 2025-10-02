@@ -2,6 +2,8 @@ package com.example.warehost.model;
 
 import java.util.ArrayList;
 
+import com.example.warehost.model.aggregates.Item;
+
 public class Sale {
     private ArrayList<Item> items = new ArrayList<Item>();
     private Charge charge;
