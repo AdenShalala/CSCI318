@@ -5,7 +5,7 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Price {
-    @Column(name="price", insertable=false, updatable=false)
+    @Column(name="price")
     private double price;
 
     public Price(){}

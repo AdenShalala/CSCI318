@@ -20,7 +20,9 @@ import jakarta.persistence.CollectionTable;
 import jakarta.persistence.JoinColumn;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @NamedQueries ( {
@@ -31,23 +33,51 @@ import java.util.List;
 public class Sale extends AbstractAggregateRoot<Sale> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
+
     @Embedded
     private SaleID saleID;
+
+    private String date;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="chargeID")
     private Charge charge;
-    String date;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="saleID")
-    private List<Charge> additionalCharges;
+
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Charge> additionalCharges = new ArrayList<>();
 
     //AND CONSTRUCTORS! IMPORTANT!
     public Sale(){};
 
     public Sale(SalesCommand salesCommand) {
-        this.saleID = new SaleID(salesCommand.getSaleID());
+    this.saleID = new SaleID(salesCommand.getSaleID());
+    this.date = salesCommand.getDate(); // if applicable
+
+    if (salesCommand.getCharge() != null) {
+        this.charge = salesCommand.getCharge();
+        this.charge.setSale(this);
     }
+
+    if (salesCommand.getAdditionalCharges() != null) {
+        this.additionalCharges = salesCommand.getAdditionalCharges()
+                                           .stream()
+                                           .map(c -> {
+                                               c.setSale(this);
+                                               return c;
+                                           })
+                                           .collect(Collectors.toList());
+    }
+}
     //Highlight your getters and setters and the like
+    public SaleID getSaleID(){return this.saleID;}
+    public Charge getCharge(){return this.charge;}
+    public String getDate(){return this.date;}
+    public List<Charge> getAdditionalCharges(){return this.additionalCharges;}
+
+    public void setSaleID(SaleID saleID) { this.saleID = saleID; }
+    public void setCharge(Charge charge) { this.charge = charge; }
+    public void setDate(String date) { this.date = date; }
+    public void setAdditionalCharges(List<Charge> additionalCharges) { this.additionalCharges = additionalCharges; }
     
 }
