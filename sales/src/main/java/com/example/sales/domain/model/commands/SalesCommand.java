@@ -10,16 +10,23 @@ public class SalesCommand {
     //sort out Item ID's
     private String saleID;
     private Charge charge;
-    private Date date;
+    private String date;
     private List<Charge> additionalCharges;
 
     public SalesCommand(){}
-    public SalesCommand(SalesResource salesResource){
-        this.saleID = salesResource.getSaleID();
-        this.charge = salesResource.getCharge();
-        this.date = salesResource.getDate();
-        this.additionalCharges = salesResource.getAdditionalCharges();
+    // public SalesCommand(SalesResource salesResource){
+    //     this.saleID = salesResource.getSaleID();
+    //     this.charge = salesResource.getCharge();
+    //     this.date = salesResource.getDate();
+    //     this.additionalCharges = salesResource.getAdditionalCharges();
+    // }
+    public SalesCommand(Charge charge, String date, List<Charge> additionalCharges) {
+
+        this.charge = charge;
+        this.date = date;
+        this.additionalCharges = additionalCharges;
     }
+    public void setSaleID(String saleID){this.saleID = saleID;}
     
 
     
@@ -27,7 +34,7 @@ public class SalesCommand {
 
     public String getSaleID(){return this.saleID;};
     public Charge getCharge(){return this.charge;};
-    public Date getDate(){return this.date;};
+    public String getDate(){return this.date;};
     public List<Charge> getAdditionalCharges(){return this.additionalCharges;};
 
     

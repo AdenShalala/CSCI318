@@ -9,18 +9,17 @@ import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 
-@Embeddable
+@Entity
 public class Charge {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long chargeID;
-    @Embedded
     private String type;
     @ElementCollection
     @CollectionTable(name = "tags", joinColumns = @JoinColumn(name = "chargeID"))

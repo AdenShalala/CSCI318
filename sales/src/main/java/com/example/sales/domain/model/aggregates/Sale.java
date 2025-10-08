@@ -12,16 +12,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.ElementCollection;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.JoinColumn;
+
+import java.sql.Date;
 import java.util.List;
 
 @Entity
 @NamedQueries ( {
     @NamedQuery (name="Sale.findAllSales", query="Select s from Sale s"),
     @NamedQuery (name="Sale.findAllSaleIDs", query="Select s.saleID from Sale s"),
-    @NamedQuery (name="Sale.findSaleWithID", query="Select s from Sale s where s.SaleID = ?1")
+    @NamedQuery (name="Sale.findSaleWithID", query="Select s from Sale s where s.saleID = ?1")
     } )
 public class Sale extends AbstractAggregateRoot<Sale> {
     @Id
@@ -29,10 +34,12 @@ public class Sale extends AbstractAggregateRoot<Sale> {
     Long id;
     @Embedded
     private SaleID saleID;
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="chargeID")
     private Charge charge;
-    @ElementCollection
-    @CollectionTable(name = "additionalCharges", joinColumns = @JoinColumn(name = "saleID"))
+    String date;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="saleID")
     private List<Charge> additionalCharges;
 
     //AND CONSTRUCTORS! IMPORTANT!
