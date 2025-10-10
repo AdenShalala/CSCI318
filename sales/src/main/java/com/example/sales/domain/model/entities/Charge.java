@@ -58,4 +58,18 @@ public class Charge {
     public void setPrice(Price price) { this.price = price; }
     public Sale getSale(){return this.sale;}
     public void setSale(Sale sale) {this.sale = sale;}
+
+    public String toString() {
+        String output = "";
+        output += "[Charge]\n";
+        output += "\tType: " + this.type + "\n";
+        output += "\tPrice: " + this.price.getPrice() + "\n";
+        output += "\tTags: ";
+        for (Tag tag: tags) {
+            output += "[" + tag.getTag() + "] ";
+        }
+        output += "\n";
+
+        return output;
+    }
 }

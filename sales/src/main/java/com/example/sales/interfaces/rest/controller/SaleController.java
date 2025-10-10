@@ -1,6 +1,9 @@
 package com.example.sales.interfaces.rest.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.sales.application.commandservices.SalesCommandService;
 import com.example.sales.application.queryservices.SalesQueryService;
+import com.example.sales.domain.model.aggregates.Sale;
 import com.example.sales.domain.model.aggregates.SaleID;
 import com.example.sales.interfaces.rest.dto.SalesResource;
 import com.example.sales.interfaces.rest.transform.SalesCommandDTOAssembler;
@@ -31,5 +35,18 @@ public class SaleController {
         System.out.println("Now adding Sale " + saleID);
         return saleID;
     }
+
+    @GetMapping("/findAllSales")
+    @ResponseBody
+    public List<Sale> findAllSales() {
+        final List<Sale> sales = salesQueryService.findAllSales();
+        System.out.println("[[ALL SALES]]");
+        for (Sale sale: sales) {
+            System.out.println(sale);
+        }
+
+        return sales;
+    }
+
     
 }

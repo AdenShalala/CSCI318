@@ -1,4 +1,6 @@
 curl -X POST -H "Content-Type:application/json" -d "{\"charge\":{\"type\": \"Base\",\"tags\":[{\"tag\": \"standard\"}],\"price\":{\"price\": 150.0}},\"date\":\"DDMMYYYY\",\"additionalCharges\": [{\"type\": \"GST\",\"tags\":[{\"tag\": \"tax\"}],\"price\":{\"price\": 15.0}},{\"type\": \"Sunday Surcharge\",\"tags\":[{\"tag\": \"surcharge\"}],\"price\":{\"price\": 1.50}}]}" http://localhost:8082/sales
 
+curl -X GET -H "Content-Type:application/json" http://localhost:8082/sales/findAllSales
+
 http://localhost:8082/h2-console/login
 

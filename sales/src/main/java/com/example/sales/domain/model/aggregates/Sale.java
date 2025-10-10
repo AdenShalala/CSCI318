@@ -79,5 +79,27 @@ public class Sale extends AbstractAggregateRoot<Sale> {
     public void setCharge(Charge charge) { this.charge = charge; }
     public void setDate(String date) { this.date = date; }
     public void setAdditionalCharges(List<Charge> additionalCharges) { this.additionalCharges = additionalCharges; }
+    public double getTotalPrice() {
+        double total = this.charge.getPrice().getPrice();
+        for (Charge charge: additionalCharges) {
+            total += charge.getPrice().getPrice();
+        }
+
+        return total;
+    }
+
+    public String toString(){
+        String output = "[Sale Details]\n";
+        output += "Sale ID: " + this.saleID.getSaleID() + "\n";
+        output += this.charge;
+        output += "Date: " + this.date + "\n";
+        output += "-Additional Charges-\n";
+        for (Charge charge: this.additionalCharges) {
+            output += charge;
+        }
+        output += "Total Price: $" + this.getTotalPrice();
+
+        return output;
+    }
     
 }
