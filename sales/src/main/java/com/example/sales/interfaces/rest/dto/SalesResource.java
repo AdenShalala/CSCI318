@@ -1,6 +1,5 @@
 package com.example.sales.interfaces.rest.dto;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.example.sales.domain.model.entities.Charge;

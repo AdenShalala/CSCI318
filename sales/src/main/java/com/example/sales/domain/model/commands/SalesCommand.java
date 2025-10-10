@@ -1,10 +1,8 @@
 package com.example.sales.domain.model.commands;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.example.sales.domain.model.entities.Charge;
-import com.example.sales.interfaces.rest.dto.SalesResource;
 
 public class SalesCommand {
     //sort out Item ID's
