@@ -39,6 +39,7 @@ public class Sale extends AbstractAggregateRoot<Sale> {
     private SaleID saleID;
 
     private String date;
+    private String itemID;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="chargeID")
@@ -73,9 +74,11 @@ public class Sale extends AbstractAggregateRoot<Sale> {
     public SaleID getSaleID(){return this.saleID;}
     public Charge getCharge(){return this.charge;}
     public String getDate(){return this.date;}
+    public String getItemID(){return this.itemID;}
     public List<Charge> getAdditionalCharges(){return this.additionalCharges;}
 
-    public void setSaleID(SaleID saleID) { this.saleID = saleID; }
+    public void setSaleID(SaleID saleID) { this.saleID = saleID;}
+    public void setItemID(String itemID) {this.itemID = itemID;}
     public void setCharge(Charge charge) { this.charge = charge; }
     public void setDate(String date) { this.date = date; }
     public void setAdditionalCharges(List<Charge> additionalCharges) { this.additionalCharges = additionalCharges; }

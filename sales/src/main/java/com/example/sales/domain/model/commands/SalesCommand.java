@@ -9,6 +9,7 @@ import com.example.sales.interfaces.rest.dto.SalesResource;
 public class SalesCommand {
     //sort out Item ID's
     private String saleID;
+    private String itemID;
     private Charge charge;
     private String date;
     private List<Charge> additionalCharges;
@@ -32,10 +33,11 @@ public class SalesCommand {
     
 
 
-    public String getSaleID(){return this.saleID;};
-    public Charge getCharge(){return this.charge;};
-    public String getDate(){return this.date;};
-    public List<Charge> getAdditionalCharges(){return this.additionalCharges;};
+    public String getSaleID(){return this.saleID;}
+    public String getItemID(){return this.itemID;}
+    public Charge getCharge(){return this.charge;}
+    public String getDate(){return this.date;}
+    public List<Charge> getAdditionalCharges(){return this.additionalCharges;}
 
     
 }
