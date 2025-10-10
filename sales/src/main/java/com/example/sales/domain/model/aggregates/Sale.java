@@ -25,7 +25,8 @@ import java.util.stream.Collectors;
 @NamedQueries ( {
     @NamedQuery (name="Sale.findAllSales", query="Select s from Sale s"),
     @NamedQuery (name="Sale.findAllSaleIDs", query="Select s.saleID from Sale s"),
-    @NamedQuery (name="Sale.findSaleWithID", query="Select s from Sale s where s.saleID = ?1")
+    @NamedQuery (name="Sale.findSaleWithID", query="Select s from Sale s where s.saleID = ?1"),
+    @NamedQuery (name="Sale.findSalesByItemID", query="Select s from Sale s where s.itemID = ?1")
     } )
 public class Sale extends AbstractAggregateRoot<Sale> {
     @Id
