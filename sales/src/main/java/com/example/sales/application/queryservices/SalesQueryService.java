@@ -27,4 +27,8 @@ public class SalesQueryService {
     public Sale findSaleID(SaleID saleID) {
         return salesRepository.findSaleWithID(saleID);
     }
+
+    public List<Sale> findSalesByItemID(String itemID) {
+        return salesRepository.findSalesByItemID(itemID);
+    }
 }
