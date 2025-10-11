@@ -21,9 +21,9 @@ import com.example.warehost.model.commands.AddItemCommand;
     }
 )
 public class Item extends AbstractAggregateRoot<Item> {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Id
     @Embedded
     private ItemId itemId;
     @Embedded
