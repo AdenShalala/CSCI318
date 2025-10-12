@@ -1,14 +1,15 @@
-package com.example.warehost.model.aggregates;
+package com.example.warehost.domain.model.aggregates;
 
 import java.util.*;
 
-import com.example.warehost.model.Sale;
+//import com.example.warehost.domain.model.Sale;
 
 public class Inventory {
     private ArrayList<Item> items;
     private int capacity;
     private ArrayList<String> categories = new ArrayList<String>();
-    private ArrayList<Sale> sales;
+    //private ArrayList<Sale> sales;
+    // need to add sales from external data source
 
     public Inventory(){}
 
@@ -16,6 +17,6 @@ public class Inventory {
         this.items = new ArrayList<Item>();
         this.capacity = capacity;
         this.categories = categories;
-        this.sales = new ArrayList<Sale>(); // Needs external data to populate - h
+        //this.sales = new ArrayList<Sale>(); // Needs external data to populate - h
     }
 }

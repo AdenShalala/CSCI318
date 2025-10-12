@@ -1,4 +1,4 @@
-package com.example.warehost.model.aggregates;
+package com.example.warehost.domain.model.aggregates;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

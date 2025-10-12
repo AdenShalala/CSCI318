@@ -1,8 +1,9 @@
-package com.example.warehost.service.queryservices;
+package com.example.warehost.application.queryservices;
 
 import java.util.List;
-import com.example.warehost.model.aggregates.ItemId;
-import com.example.warehost.model.aggregates.Item;
+
+import com.example.warehost.domain.model.aggregates.Item;
+import com.example.warehost.domain.model.aggregates.ItemId;
 import com.example.warehost.infrastructure.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +20,7 @@ public class StockQueryService {
         return itemRepository.findAll();
     }
 
-
-    /*
-     * Fetches an item by its ID.
-     * @param id
-     * @return Item
-     */
-    public Item getItemById(ItemId id) {
-        return itemRepository.findByItemId(id.getItemId()).orElse(null);
+    public Item getItemById(String id) {
+        return itemRepository.findByItemId(id);
     }
 }

@@ -1,17 +1,18 @@
-package com.example.warehost.model.commands;
+package com.example.warehost.domain.model.commands;
 
 import java.util.Date;
-import com.example.warehost.model.aggregates.ItemId;
 
-public class AddItemCommand {
+import com.example.warehost.domain.model.aggregates.ItemId;
+
+public class ItemCommand {
     public String type;
     private String item_id;
     public String description;
     public Date order_date;
     
-    public AddItemCommand() {}
+    public ItemCommand() {}
 
-    public AddItemCommand(String item_id, String type, String description, Date order_date) {
+    public ItemCommand(String item_id, String type, String description, Date order_date) {
         this.item_id = item_id;
         this.type = type;
         this.description = description;

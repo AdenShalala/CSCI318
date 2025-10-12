@@ -1,0 +1,7 @@
+To do for Stock MS
+- implement domain logic for Inventory, including startup fetch from repo, contents management
+- finish domain logic for Item (ask aden)
+- implement acl file (ask aden)
+- add toString() for aggregates
+- GET RID OF RED LINES
+- test http messaging
