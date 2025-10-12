@@ -1,7 +1,7 @@
 package com.example.warehost.model.commands;
 
 import java.util.Date;
-import com.example.warehost.model.aggregates.ItemId;
+import com.example.warehost.model.aggregates.ItemID;
 
 public class AddItemCommand {
     public String type;
@@ -17,10 +17,10 @@ public class AddItemCommand {
         this.description = description;
         this.order_date = order_date;
     }
-    public String getItemId() {
+    public String getItemID() {
         return item_id;
     }
-    public void setItemId(String item_id) {
+    public void setItemID(String item_id) {
         this.item_id = item_id;
     }
     public String getType() {

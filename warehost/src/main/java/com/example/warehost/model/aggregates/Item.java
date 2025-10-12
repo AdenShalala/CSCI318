@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import java.util.Date;
 import com.example.warehost.model.valueobjects.*;
-import com.example.warehost.model.aggregates.ItemId;
+import com.example.warehost.model.aggregates.ItemID;
 import com.example.warehost.model.commands.AddItemCommand;
 
 @Entity
@@ -25,7 +25,7 @@ public class Item extends AbstractAggregateRoot<Item> {
     private Long id;
     @Id
     @Embedded
-    private ItemId itemId;
+    private ItemID itemId;
     @Embedded
     private ItemType type;
     @Embedded
@@ -36,7 +36,7 @@ public class Item extends AbstractAggregateRoot<Item> {
     public Item() {}
 
     public Item(AddItemCommand command) {
-        this.itemId = new ItemId(command.getItemId());
+        this.itemID = new ItemID(command.getItemID());
         this.type = new ItemType(command.getType());
         this.description = new ItemDescription(command.getDescription());
         this.order_date = new ItemDate(command.getOrderDate());
@@ -51,7 +51,7 @@ public class Item extends AbstractAggregateRoot<Item> {
         // )));
     }
 
-    public ItemId getItemId() {
+    public ItemID getItemId() {
         return this.itemId;
     }
 
