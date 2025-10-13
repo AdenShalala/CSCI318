@@ -1,8 +1,9 @@
-curl -X POST -H "Content-Type:application/json" -d "{\"charge\":{\"type\": \"*string here*\",\"tags\":[{\"tag\": \"*string here*\"}],\"price\":{\"price\": *double here*}},\"date\":\"*string here*\",\"additionalCharges\": [{\"type\": \"*string here*\",\"tags\":[{\"tag\": \"*string here*\"}],\"price\":{\"price\": *double here*}},{\"type\": \"*string here*\",\"tags\":[{\"tag\": \"*string here*\"}],\"price\":{\"price\": *double here*}}]}" http://localhost:8082/sales
+curl -X POST -H "Content-Type:application/json" -d "{\"itemID\": \"*string here*\", \"charge\":{\"type\": \"*string here*\",\"tags\":[{\"tag\": \"*string here*\"}],\"price\":{\"price\": *double here*}},\"date\":\"*string here*\",\"additionalCharges\": [{\"type\": \"*string here*\",\"tags\":[{\"tag\": \"*string here*\"}],\"price\":{\"price\": *double here*}},{\"type\": \"*string here*\",\"tags\":[{\"tag\": \"*string here*\"}],\"price\":{\"price\": *double here*}}]}" http://localhost:8082/sales
 Below is the same script/JSON unpacked, for easier interpretation
 
 curl -X POST -H "Content-Type:application/json" -d 
-"{\"charge\":
+"{  \"itemID\": \"*string here*\",
+    ,\"charge\":
     {\"type\": \"*string here*\",\"tags\":
         [{\"tag\": \"*string here*\"}],
     \"price\":{\"price\": *double here*}
@@ -14,7 +15,7 @@ curl -X POST -H "Content-Type:application/json" -d
     ]}" 
 
 and below is one with filled details for easy running
-curl -X POST -H "Content-Type:application/json" -d "{\"charge\":{\"type\": \"Basic\",\"tags\":[{\"tag\": \"Basic\"}],\"price\":{\"price\": 15.00}},\"date\":\"17102001\",\"additionalCharges\": [{\"type\": \"GST\",\"tags\":[{\"tag\": \"Tax\"}],\"price\":{\"price\": 1.50}},{\"type\": \"Sunday Surcharge\",\"tags\":[{\"tag\": \"Surcharge\"}],\"price\":{\"price\": 3.00}}]}" http://localhost:8082/sales
+curl -X POST -H "Content-Type:application/json" -d "{\"itemID\": \"Item ID goes here\", \"charge\":{\"type\": \"Basic\",\"tags\":[{\"tag\": \"Basic\"}],\"price\":{\"price\": 15.00}},\"date\":\"17102001\",\"additionalCharges\": [{\"type\": \"GST\",\"tags\":[{\"tag\": \"Tax\"}],\"price\":{\"price\": 1.50}},{\"type\": \"Sunday Surcharge\",\"tags\":[{\"tag\": \"Surcharge\"}],\"price\":{\"price\": 3.00}}]}" http://localhost:8082/sales
 
 http://localhost:8082/sales
 
