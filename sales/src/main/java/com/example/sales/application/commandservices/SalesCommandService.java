@@ -21,18 +21,19 @@ public class SalesCommandService {
     public SaleID addSale(SalesCommand saleCommand) {
         //ID's will be full UUID's, no mods
         String saleID = UUID.randomUUID().toString();
-        //Unnescessary, just a check for now, remove?
         saleCommand.setSaleID(saleID);
         Sale sale = new Sale(saleCommand);
         
         if (sale.getAdditionalCharges() != null) {
             for (Charge addCharge : sale.getAdditionalCharges()) {
                 addCharge.setSale(sale);
+                addCharge.setIsMain(false);
             }
         }
 
         if (sale.getCharge() != null) {
             sale.getCharge().setSale(sale);
+            sale.getCharge().setIsMain(true);
         }
 
         salesRepository.save(sale);

@@ -12,11 +12,17 @@ curl -X POST -H "Content-Type:application/json" -d
         [{\"type\": \"*string here*\",\"tags\":[{\"tag\": \"*string here*\"}],\"price\":{\"price\": *double here*}},
         {\"type\": \"*string here*\",\"tags\":[{\"tag\": \"*string here*\"}],\"price\":{\"price\": *double here*}}
     ]}" 
+
+and below is one with filled details for easy running
+curl -X POST -H "Content-Type:application/json" -d "{\"charge\":{\"type\": \"Basic\",\"tags\":[{\"tag\": \"Basic\"}],\"price\":{\"price\": 15.00}},\"date\":\"17102001\",\"additionalCharges\": [{\"type\": \"GST\",\"tags\":[{\"tag\": \"Tax\"}],\"price\":{\"price\": 1.50}},{\"type\": \"Sunday Surcharge\",\"tags\":[{\"tag\": \"Surcharge\"}],\"price\":{\"price\": 3.00}}]}" http://localhost:8082/sales
+
 http://localhost:8082/sales
 
 
-
+Below gets all Sales
 curl -X GET -H "Content-Type:application/json" http://localhost:8082/sales/findAllSales
+Below gets Sale by SaleID 
+curl -X GET -H "Content-Type:application/json" http://localhost:8082/sales/findSaleWithID?SaleID=<Sale ID here>
 
 http://localhost:8082/h2-console/login
 
