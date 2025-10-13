@@ -6,6 +6,7 @@ import com.example.sales.interfaces.rest.dto.SalesResource;
 public class SalesCommandDTOAssembler {
     public static SalesCommand toCommandFromDTO(SalesResource salesResource) {
         return new SalesCommand(
+            salesResource.getItemID(),
             salesResource.getCharge(),
             salesResource.getDate(),
             salesResource.getAdditionalCharges()

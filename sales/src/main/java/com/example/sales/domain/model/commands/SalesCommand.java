@@ -19,18 +19,14 @@ public class SalesCommand {
     //     this.date = salesResource.getDate();
     //     this.additionalCharges = salesResource.getAdditionalCharges();
     // }
-    public SalesCommand(Charge charge, String date, List<Charge> additionalCharges) {
-
+    public SalesCommand(String itemID, Charge charge, String date, List<Charge> additionalCharges) {
+        this.itemID = itemID;
         this.charge = charge;
         this.date = date;
         this.additionalCharges = additionalCharges;
     }
     public void setSaleID(String saleID){this.saleID = saleID;}
     
-
-    
-
-
     public String getSaleID(){return this.saleID;}
     public String getItemID(){return this.itemID;}
     public Charge getCharge(){return this.charge;}
