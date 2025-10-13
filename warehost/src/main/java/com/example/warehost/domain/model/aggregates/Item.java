@@ -1,11 +1,13 @@
-package com.example.warehost.model.aggregates;
+package com.example.warehost.domain.model.aggregates;
 
 import jakarta.persistence.*;
 import org.springframework.data.domain.AbstractAggregateRoot;
+
+import com.example.warehost.domain.model.aggregates.ItemId;
+import com.example.warehost.domain.model.commands.ItemCommand;
+import com.example.warehost.domain.model.valueobjects.*;
+
 import java.util.Date;
-import com.example.warehost.model.valueobjects.*;
-import com.example.warehost.model.aggregates.ItemId;
-import com.example.warehost.model.commands.AddItemCommand;
 
 @Entity
 @NamedQueries(
@@ -35,7 +37,7 @@ public class Item extends AbstractAggregateRoot<Item> {
 
     public Item() {}
 
-    public Item(AddItemCommand command) {
+    public Item(ItemCommand command) {
         this.itemId = new ItemId(command.getItemId());
         this.type = new ItemType(command.getType());
         this.description = new ItemDescription(command.getDescription());

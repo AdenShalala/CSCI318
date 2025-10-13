@@ -1,4 +1,4 @@
-package com.example.warehost.model.valueobjects;
+package com.example.warehost.domain.model.valueobjects;
 
 import jakarta.persistence.*;
 
