@@ -1,5 +1,2 @@
 IN this folder will go interservice relations.
 
-NOTES TO SELF:
-    Stop Sale Get Request from returning full sale object in JSON from
-    Enforce that the Primary charge is NOT INCLUDED in additional charges
