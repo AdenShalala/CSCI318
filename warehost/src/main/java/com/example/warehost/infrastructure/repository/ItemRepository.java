@@ -8,6 +8,7 @@ import com.example.warehost.domain.model.aggregates.ItemId;
 import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
-    Item findByItemId(String itemId);
+    Item findByItemId(String itemID);
     List<Item> findAll();
+    void removeByID(String itemID);
 }
