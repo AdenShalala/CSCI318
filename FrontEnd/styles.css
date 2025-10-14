@@ -943,11 +943,11 @@ body.sales {
 }
 
 .container.sales {
-  max-width: 1400px;
+  max-width: 800px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 350px;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 body.sales .main-content {
