@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Insights - Inventory Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="insights">
+  <div class="container insights">
+    <header>
+      <h1>🤖 AI Insights Dashboard</h1>
+      <p class="subtitle">Data-driven recommendations powered by machine learning</p>
+    </header>
+
+    <div class="insights-grid">
+      <!-- Stock Recommendations Section -->
+      <section>
+        <h2><span class="icon">📦</span> Stock Recommendations</h2>
+
+        <article>
+          <div class="recommendation-header">
+            <div class="item-name">Premium Coffee Beans - Dark Roast</div>
+            <span class="confidence">95% Confidence</span>
+          </div>
+          <div class="details">
+            <span class="metric"><strong>Order:</strong> 120 units</span>
+            <span class="metric"><strong>Current:</strong> 15 units</span>
+            <span class="metric"><strong>Lead Time:</strong> 5 days</span>
+          </div>
+          <div class="reason">
+            💡 Predicted stockout in 3 days based on current velocity. Historical data shows 40% sales increase next
+            week.
+          </div>
+        </article>
+
+        <article>
+          <div class="recommendation-header">
+            <div class="item-name">Organic Honey Jars (500g)</div>
+            <span class="confidence">88% Confidence</span>
+          </div>
+          <div class="details">
+            <span class="metric"><strong>Order:</strong> 80 units</span>
+            <span class="metric"><strong>Current:</strong> 22 units</span>
+            <span class="metric"><strong>Lead Time:</strong> 7 days</span>
+          </div>
+          <div class="reason">
+            💡 Seasonal demand spike detected. Similar pattern observed in previous years during this period.
+          </div>
+        </article>
+
+        <article>
+          <div class="recommendation-header">
+            <div class="item-name">Artisan Pasta Collection</div>
+            <span class="confidence">82% Confidence</span>
+          </div>
+          <div class="details">
+            <span class="metric"><strong>Order:</strong> 60 units</span>
+            <span class="metric"><strong>Current:</strong> 30 units</span>
+            <span class="metric"><strong>Lead Time:</strong> 4 days</span>
+          </div>
+          <div class="reason">
+            💡 Safety stock threshold approaching. Supplier has limited availability - order soon.
+          </div>
+        </article>
+
+        <button onclick="applyStockRecommendations()">Apply Stock Recommendations</button>
+      </section>
+
+      <!-- Pricing Recommendations Section -->
+      <section>
+        <h2><span class="icon">💰</span> Pricing Recommendations</h2>
+
+        <article>
+          <div class="recommendation-header">
+            <div class="item-name">Gourmet Olive Oil (750ml)</div>
+            <span class="confidence status high">Increase</span>
+          </div>
+          <div class="details">
+            <span class="metric"><strong>Current:</strong> $24.99</span>
+            <span class="metric"><strong>Suggested:</strong> $27.99</span>
+            <span class="metric"><strong>Impact:</strong> +$180/week</span>
+          </div>
+          <div class="reason">
+            💡 Competitor pricing 15% higher. Demand remains inelastic. Low price sensitivity detected in this category.
+          </div>
+        </article>
+
+        <article>
+          <div class="recommendation-header">
+            <div class="item-name">Breakfast Cereal - Multi-Pack</div>
+            <span class="confidence status medium">Decrease</span>
+          </div>
+          <div class="details">
+            <span class="metric"><strong>Current:</strong> $18.99</span>
+            <span class="metric"><strong>Suggested:</strong> $16.99</span>
+            <span class="metric"><strong>Impact:</strong> +45 units/week</span>
+          </div>
+          <div class="reason">
+            💡 Slow movement detected. Price reduction could boost volume by 60% based on elasticity analysis.
+          </div>
+        </article>
+
+        <article>
+          <div class="recommendation-header">
+            <div class="item-name">Premium Tea Selection Box</div>
+            <span class="confidence status high">Increase</span>
+          </div>
+          <div class="details">
+            <span class="metric"><strong>Current:</strong> $32.99</span>
+            <span class="metric"><strong>Suggested:</strong> $35.99</span>
+            <span class="metric"><strong>Impact:</strong> +$120/week</span>
+          </div>
+          <div class="reason">
+            💡 High demand product with premium positioning. Market analysis suggests room for margin expansion.
+          </div>
+        </article>
+
+        <button onclick="applyPricingRecommendations()">Apply Pricing Adjustments</button>
+      </section>
+    </div>
+
+    <!-- Sales Regime Suggestions Section -->
+    <section class="regime-section">
+      <h2><span class="icon">📊</span> Sales Regime Analysis</h2>
+
+      <div class="regime-cards">
+        <div class="regime-card">
+          <h3>Current Regime: High Velocity 🚀</h3>
+          <div class="regime-metric">
+            <strong>Duration:</strong> 12 days
+          </div>
+          <div class="regime-metric">
+            <strong>Average Daily Sales:</strong> $3,450
+          </div>
+          <div class="regime-metric">
+            <strong>vs. Baseline:</strong> +45%
+          </div>
+          <p>Strong sales momentum detected. Recommend maintaining high stock levels and considering promotional pricing
+            on complementary products.</p>
+        </div>
+
+        <div class="regime-card">
+          <h3>Predicted Next Regime: Stable 📈</h3>
+          <div class="regime-metric">
+            <strong>Transition Probability:</strong> 78%
+          </div>
+          <div class="regime-metric">
+            <strong>Expected Start:</strong> 5 days
+          </div>
+          <div class="regime-metric">
+            <strong>Projected Daily Sales:</strong> $2,100-$2,400
+          </div>
+          <p>Sales velocity expected to normalize. Optimize inventory levels and focus on margin optimization
+            strategies.</p>
+        </div>
+
+        <div class="regime-card">
+          <h3>Seasonal Pattern: Autumn Peak 🍂</h3>
+          <div class="regime-metric">
+            <strong>Pattern Strength:</strong> 92%
+          </div>
+          <div class="regime-metric">
+            <strong>Peak Expected:</strong> 3 weeks
+          </div>
+          <div class="regime-metric">
+            <strong>Historical Increase:</strong> +65%
+          </div>
+          <p>Strong seasonal indicator. Recommend increasing orders for seasonal products and preparing promotional
+            campaigns.</p>
+        </div>
+      </div>
+
+      <button onclick="applyRegimeStrategy()">Apply Regime-Based Strategy</button>
+    </section>
+  </div>
+
+  <script>
+    function applyStockRecommendations() {
+      const recommendations = [
+        { name: 'Premium Coffee Beans - Dark Roast', quantity: 120 },
+        { name: 'Organic Honey Jars (500g)', quantity: 80 },
+        { name: 'Artisan Pasta Collection', quantity: 60 }
+      ];
+
+      const timestamp = new Date().toLocaleString();
+      alert(`✅ Stock Recommendations Applied!\n\nProcessing orders for:\n${recommendations.map(r => `• ${r.name}: ${r.quantity} units`).join('\n')}\n\nTimestamp: ${timestamp}\n\nOrders will be generated and sent to suppliers automatically.`);
+    }
+
+    function applyPricingRecommendations() {
+      const adjustments = [
+        { name: 'Gourmet Olive Oil', from: '$24.99', to: '$27.99' },
+        { name: 'Breakfast Cereal Multi-Pack', from: '$18.99', to: '$16.99' },
+        { name: 'Premium Tea Selection Box', from: '$32.99', to: '$35.99' }
+      ];
+
+      const timestamp = new Date().toLocaleString();
+      alert(`✅ Pricing Adjustments Applied!\n\nUpdating prices:\n${adjustments.map(a => `• ${a.name}: ${a.from} → ${a.to}`).join('\n')}\n\nTimestamp: ${timestamp}\n\nPrice changes will be reflected immediately in the system.`);
+    }
+
+    function applyRegimeStrategy() {
+      const timestamp = new Date().toLocaleString();
+      alert(`✅ Regime-Based Strategy Activated!\n\nImplementing:\n• Maintain high stock levels for peak period\n• Optimize safety stock thresholds\n• Prepare seasonal marketing campaigns\n• Adjust reorder points for transition\n\nTimestamp: ${timestamp}\n\nStrategy parameters updated in system.`);
+    }
+  </script>
+</body>
+
+</html>
