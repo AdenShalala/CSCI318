@@ -19,153 +19,153 @@
   --info: #1976d2;
 }
 /* =========================
-   DASHBOARD (old global styles)
-   ========================= */
-  body {
+  DASHBOARD (old global styles)
+  ========================= */
+body {
   font-family: 'Ubuntu', sans-serif;
   background: #f5f5f5;
   margin: 0;
   padding: 0;
-  }
+}
 
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #67ab9f;
-    color: #fff;
-    padding: 10px 20px;
-  }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #67ab9f;
+  color: #fff;
+  padding: 10px 20px;
+}
 
-  header .logo {
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    font-weight: bold;
-  }
+header .logo {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
 
-  header .user-actions button {
-    margin-left: 10px;
-    padding: 5px 12px;
-    border: none;
-    border-radius: 5px;
-    background: #fff;
-    color: #67ab9f;
-    cursor: pointer;
-  }
+header .user-actions button {
+  margin-left: 10px;
+  padding: 5px 12px;
+  border: none;
+  border-radius: 5px;
+  background: #fff;
+  color: #67ab9f;
+  cursor: pointer;
+}
 
-  main {
-    padding: 20px;
-  }
+main {
+  padding: 20px;
+}
 
-  h2 {
-    margin-bottom: 15px;
-  }
+h2 {
+  margin-bottom: 15px;
+}
 
-  /* Dashboard Sections */
-  .metrics {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-  }
+/* Dashboard Sections */
+.metrics {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
 
-  .card {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    text-align: center;
-    flex: 1;
-    margin: 0 10px;
-  }
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+  flex: 1;
+  margin: 0 10px;
+}
 
-  .dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-gap: 20px;
-    margin-bottom: 20px;
-  }
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 20px;
+  margin-bottom: 20px;
+}
 
-  .section {
-    background: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
+.section {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-  .recommendations {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-  }
+.recommendations {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
 
-  .recommendation-card {
-    background: #fdfdfd;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    flex: 1;
-  }
+.recommendation-card {
+  background: #fdfdfd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  flex: 1;
+}
 
-  .recommendation-card button {
-    margin: 10px 5px 0 0;
-    padding: 8px 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+.recommendation-card button {
+  margin: 10px 5px 0 0;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-  .approve {
-    background: #4caf50;
-    color: #fff;
-  }
+.approve {
+  background: #4caf50;
+  color: #fff;
+}
 
-  .dismiss {
-    background: #f44336;
-    color: #fff;
-  }
+.dismiss {
+  background: #f44336;
+  color: #fff;
+}
 
-  /* Chatbot */
-  .chatbot {
-    background: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-  }
+/* Chatbot */
+.chatbot {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
 
-  .chat-window {
-    flex: 1;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    overflow-y: auto;
-    background: #fafafa;
-  }
+.chat-window {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  overflow-y: auto;
+  background: #fafafa;
+}
 
-  .chat-input {
-    display: flex;
-  }
+.chat-input {
+  display: flex;
+}
 
-  .chat-input input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-  }
+.chat-input input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+}
 
-  .chat-input button {
-    padding: 8px 12px;
-    border: none;
-    background: #2e6f95;
-    color: #fff;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-  }
+.chat-input button {
+  padding: 8px 12px;
+  border: none;
+  background: #2e6f95;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
 
 /* =========================
    LOGIN PAGE STYLES
