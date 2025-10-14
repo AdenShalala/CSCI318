@@ -24,57 +24,55 @@
         </div>
       </div>
 
-      <!-- Create New Promotion Form -->
-      <div class="card">
-        <h2>Create New Promotion</h2>
-        <form id="promotionForm">
-          <div class="form-group">
-            <label for="promoName">Promotion Name</label>
-            <input type="text" id="promoName" name="promoName" placeholder="e.g., Summer Sale 2024" required>
-          </div>
+<!-- Create New Promotion Form -->
+<div class="card promotion-form">
+  <h2>Create New Promotion</h2>
+  <form id="promotionForm">
+    <div class="form-group">
+      <label for="promoName">Promotion Name</label>
+      <input type="text" id="promoName" name="promoName" placeholder="e.g., Summer Sale 2024" required>
+    </div>
 
-          <div class="form-group">
-            <label for="promoDescription">Description</label>
-            <textarea id="promoDescription" name="promoDescription" rows="3"
-              placeholder="Describe the promotion details..."></textarea>
-          </div>
+    <div class="form-group">
+      <label for="promoDescription">Description</label>
+      <textarea id="promoDescription" name="promoDescription" rows="3"
+        placeholder="Describe the promotion details..."></textarea>
+    </div>
 
-          <div class="form-group">
-            <label for="discountPercent">Discount Percentage (%)</label>
-            <input type="number" id="discountPercent" name="discountPercent" min="1" max="100" placeholder="e.g., 25"
-              required>
-          </div>
+    <div class="form-group">
+      <label for="discountPercent">Discount Percentage (%)</label>
+      <input type="number" id="discountPercent" name="discountPercent" min="1" max="100" placeholder="e.g., 25" required>
+    </div>
 
-          <div class="form-group">
-            <label>Promotion Period</label>
-            <div class="date-range">
-              <div>
-                <label for="startDate">Start Date</label>
-                <input type="date" id="startDate" name="startDate" required>
-              </div>
-              <div>
-                <label for="endDate">End Date</label>
-                <input type="date" id="endDate" name="endDate" required>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="targetCategory">Target Category (Optional)</label>
-            <select id="targetCategory" name="targetCategory">
-              <option value="">All Products</option>
-              <option value="electronics">Electronics</option>
-              <option value="clothing">Clothing</option>
-              <option value="home">Home & Garden</option>
-              <option value="sports">Sports & Outdoors</option>
-              <option value="books">Books</option>
-            </select>
-          </div>
-
-          <button type="submit">Create Promotion</button>
-        </form>
+    <div class="form-group">
+      <label>Promotion Period</label>
+      <div class="date-range">
+        <div>
+          <label for="startDate">Start Date</label>
+          <input type="date" id="startDate" name="startDate" required>
+        </div>
+        <div>
+          <label for="endDate">End Date</label>
+          <input type="date" id="endDate" name="endDate" required>
+        </div>
       </div>
     </div>
+
+    <div class="form-group">
+      <label for="targetCategory">Target Category (Optional)</label>
+      <select id="targetCategory" name="targetCategory">
+        <option value="">All Products</option>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+        <option value="home">Home & Garden</option>
+        <option value="sports">Sports & Outdoors</option>
+        <option value="books">Books</option>
+      </select>
+    </div>
+
+    <button type="submit">Create Promotion</button>
+  </form>
+</div>
 
     <!-- AI-Suggested Promotions Panel -->
     <aside>
