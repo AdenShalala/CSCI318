@@ -23,4 +23,6 @@ public class StockQueryService {
     public Item getItemById(String id) {
         return itemRepository.findByItemId(id);
     }
+
+    public void removeByItemID(String id){}
 }

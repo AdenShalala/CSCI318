@@ -8,11 +8,11 @@ public class ItemCommand {
     public String type;
     private String item_id;
     public String description;
-    public Date order_date;
+    public String order_date;
     
     public ItemCommand() {}
 
-    public ItemCommand(String item_id, String type, String description, Date order_date) {
+    public ItemCommand(String item_id, String type, String description, String order_date) {
         this.item_id = item_id;
         this.type = type;
         this.description = description;
@@ -36,10 +36,10 @@ public class ItemCommand {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return order_date;
     }
-    public void setOrderDate(Date order_date) {
+    public void setOrderDate(String order_date) {
         this.order_date = order_date;
     }
 }

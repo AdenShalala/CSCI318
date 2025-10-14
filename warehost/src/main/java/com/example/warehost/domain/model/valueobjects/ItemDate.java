@@ -5,12 +5,12 @@ import java.util.Date;
 
 @Embeddable
 public class ItemDate {
-    @Temporal(TemporalType.DATE)
-    private Date orderDate;
+    // format ddmmyyyy
+    private String orderDate;
 
     public ItemDate() {}
 
-    public ItemDate(Date orderDate) {
+    public ItemDate(String orderDate) {
         this.orderDate = orderDate;
     }
 }
