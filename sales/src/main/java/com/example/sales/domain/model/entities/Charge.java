@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.sales.domain.model.aggregates.Sale;
 import com.example.sales.domain.model.valueobjects.Price;
 import com.example.sales.domain.model.valueobjects.Tag;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
@@ -19,7 +20,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Charge {
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chargeID;
 
@@ -34,7 +35,9 @@ public class Charge {
 
     @ManyToOne
     @JoinColumn(name = "saleID")
+    @JsonBackReference
     private Sale sale; // link back to sale
+    private boolean isMain;
     
     public Charge(){};
     public Charge(String type, List<Tag> tags, Price price) {
@@ -57,6 +60,8 @@ public class Charge {
     public void setPrice(Price price) { this.price = price; }
     public Sale getSale(){return this.sale;}
     public void setSale(Sale sale) {this.sale = sale;}
+    public boolean getIsMain(){return this.isMain;}
+    public void setIsMain(boolean inBool){this.isMain = inBool;}
 
     public String toString() {
         String output = "";

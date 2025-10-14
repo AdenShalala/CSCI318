@@ -4,6 +4,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 
 import com.example.sales.domain.model.commands.SalesCommand;
 import com.example.sales.domain.model.entities.Charge;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -40,6 +41,7 @@ public class Sale extends AbstractAggregateRoot<Sale> {
     private String itemID;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
     @JoinColumn(name="chargeID")
     private Charge charge;
 
