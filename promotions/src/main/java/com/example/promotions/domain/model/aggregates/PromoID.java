@@ -1,4 +1,4 @@
-package com.example.promotions.domain.model.valueobjects;
+package com.example.promotions.domain.model.aggregates;
 
 import jakarta.persistence.Embeddable;
 
