@@ -1,0 +1,28 @@
+curl -X POST -H "Content-Type:application/json" -d "{\"startDate\": \"DDMMYYYY\", \"endDate\": \"DDMMYYYY\", \"items\":[{\"itemID\":\"Item ID goes here\"}], \"promoCode\":\"10off\", \"discount\": {\"type\": \"Type Here\", \"amount\": 10.00}}" http://localhost:8083/promotion
+Below is the same script/JSON unpacked, for easier interpretation
+
+curl -X POST -H "Content-Type:application/json" -d 
+"{  \"startDate\": \"DDMMYYYY\",
+    \"endDate\": \"DDMMYYYY\",
+    \"items\":[{\"itemID\":{\"itemID\":\"Item ID goes here\"}}],
+    \"promoCode\":\"10off\",
+    \"discount\": {\"type\": \"Type Here\", \"amount\": 10.00}
+}" 
+
+and below is one with filled details for easy running
+curl -X POST -H "Content-Type:application/json" -d "{}" http://localhost:8083/promotion
+
+http://localhost:8083/promotion
+
+
+Below gets all Promotions
+curl -X GET -H "Content-Type:application/json" http://localhost:8083/promotion/findAllPromotions
+Below gets Promotion by PromoID 
+curl -X GET -H "Content-Type:application/json" http://localhost:8083/promotion/findPromotionByID?PromoID=<Promo ID here>
+
+http://localhost:8082/h2-console/login
+
+
+3:30-4:30 Tue 28th 
+0262 619 952
+0436 819 640

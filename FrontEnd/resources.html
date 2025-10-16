@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resource Management</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body> class="resources">
+  <div class="container resources">
+    <!-- I will replace "images/logo.png" with the actual path to our logo later -->
+    <img src="images/logo.png" alt="WareHost Logo" class="logo">
+    <h1>Resource Management</h1>
+
+    <!-- Employee Section -->
+    <div class="section">
+      <h2>Employee List</h2>
+      <table id="employeeTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John Smith</td>
+            <td>Project Manager</td>
+            <td><span class="status active">Active</span></td>
+            <td><button class="action-btn delete-btn" onclick="deleteRow(this)">Delete</button></td>
+          </tr>
+          <tr>
+            <td>Sarah Johnson</td>
+            <td>Developer</td>
+            <td><span class="status active">Active</span></td>
+            <td><button class="action-btn delete-btn" onclick="deleteRow(this)">Delete</button></td>
+          </tr>
+          <tr>
+            <td>Mike Davis</td>
+            <td>Designer</td>
+            <td><span class="status on-leave">On Leave</span></td>
+            <td><button class="action-btn delete-btn" onclick="deleteRow(this)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Add Employee Form -->
+    <div class="section">
+      <h2>Add New Employee</h2>
+      <form id="employeeForm" onsubmit="addEmployee(event)">
+        <div class="form-group">
+          <label for="empName">Employee Name</label>
+          <input type="text" id="empName" name="empName" required>
+        </div>
+        <div class="form-group">
+          <label for="empRole">Role</label>
+          <input type="text" id="empRole" name="empRole" required>
+        </div>
+        <div class="form-group">
+          <label for="empStatus">Status</label>
+          <select id="empStatus" name="empStatus" required>
+            <option value="active">Active</option>
+            <option value="on-leave">On Leave</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+        <button type="submit">Add Employee</button>
+      </form>
+    </div>
+
+    <!-- Equipment Section -->
+    <div class="section">
+      <h2>Equipment List</h2>
+      <table id="equipmentTable">
+        <thead>
+          <tr>
+            <th>Equipment Type</th>
+            <th>Model/Description</th>
+            <th>Availability</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Laptop</td>
+            <td>Dell XPS 15</td>
+            <td><span class="availability available">Available</span></td>
+            <td><button class="action-btn delete-btn" onclick="deleteRow(this)">Delete</button></td>
+          </tr>
+          <tr>
+            <td>Monitor</td>
+            <td>Samsung 27" 4K</td>
+            <td><span class="availability in-use">In Use</span></td>
+            <td><button class="action-btn delete-btn" onclick="deleteRow(this)">Delete</button></td>
+          </tr>
+          <tr>
+            <td>Projector</td>
+            <td>Epson EB-2250U</td>
+            <td><span class="availability available">Available</span></td>
+            <td><button class="action-btn delete-btn" onclick="deleteRow(this)">Delete</button></td>
+          </tr>
+          <tr>
+            <td>Server</td>
+            <td>HP ProLiant DL380</td>
+            <td><span class="availability maintenance">Maintenance</span></td>
+            <td><button class="action-btn delete-btn" onclick="deleteRow(this)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Add Equipment Form -->
+    <div class="section">
+      <h2>Add New Equipment</h2>
+      <form id="equipmentForm" onsubmit="addEquipment(event)">
+        <div class="form-group">
+          <label for="equipType">Equipment Type</label>
+          <input type="text" id="equipType" name="equipType" required>
+        </div>
+        <div class="form-group">
+          <label for="equipModel">Model/Description</label>
+          <input type="text" id="equipModel" name="equipModel" required>
+        </div>
+        <div class="form-group">
+          <label for="equipAvail">Availability</label>
+          <select id="equipAvail" name="equipAvail" required>
+            <option value="available">Available</option>
+            <option value="in-use">In Use</option>
+            <option value="maintenance">Maintenance</option>
+          </select>
+        </div>
+        <button type="submit">Add Equipment</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function addEmployee(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('empName').value;
+      const role = document.getElementById('empRole').value;
+      const status = document.getElementById('empStatus').value;
+
+      const table = document.getElementById('employeeTable').getElementsByTagName('tbody')[0];
+      const newRow = table.insertRow();
+
+      const statusClass = status.replace(' ', '-');
+      const statusText = status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ');
+
+      newRow.innerHTML = `
+                <td>${name}</td>
+                <td>${role}</td>
+                <td><span class="status ${statusClass}">${statusText}</span></td>
+                <td><button class="action-btn delete-btn" onclick="deleteRow(this)">Delete</button></td>
+            `;
+
+      document.getElementById('employeeForm').reset();
+    }
+
+    function addEquipment(e) {
+      e.preventDefault();
+
+      const type = document.getElementById('equipType').value;
+      const model = document.getElementById('equipModel').value;
+      const avail = document.getElementById('equipAvail').value;
+
+      const table = document.getElementById('equipmentTable').getElementsByTagName('tbody')[0];
+      const newRow = table.insertRow();
+
+      const availClass = avail.replace(' ', '-');
+      const availText = avail.charAt(0).toUpperCase() + avail.slice(1).replace('-', ' ');
+
+      newRow.innerHTML = `
+                <td>${type}</td>
+                <td>${model}</td>
+                <td><span class="availability ${availClass}">${availText}</span></td>
+                <td><button class="action-btn delete-btn" onclick="deleteRow(this)">Delete</button></td>
+            `;
+
+      document.getElementById('equipmentForm').reset();
+    }
+
+    function deleteRow(btn) {
+      const row = btn.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+  </script>
+</body>
+
+</html>
