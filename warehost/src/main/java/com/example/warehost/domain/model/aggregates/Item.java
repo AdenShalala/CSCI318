@@ -3,7 +3,6 @@ package com.example.warehost.domain.model.aggregates;
 import jakarta.persistence.*;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
-import com.example.warehost.domain.model.aggregates.ItemId;
 import com.example.warehost.domain.model.commands.ItemCommand;
 import com.example.warehost.domain.model.valueobjects.*;
 

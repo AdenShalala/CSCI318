@@ -1,7 +1,5 @@
 package com.example.warehost.domain.model.commands;
 
-import com.example.warehost.domain.model.aggregates.ItemId;
-
 public class ItemCommand {
     public String name;
     public String type;

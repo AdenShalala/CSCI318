@@ -3,7 +3,6 @@ package com.example.warehost.application.queryservices;
 import java.util.List;
 
 import com.example.warehost.domain.model.aggregates.Item;
-import com.example.warehost.domain.model.aggregates.ItemId;
 import com.example.warehost.infrastructure.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 

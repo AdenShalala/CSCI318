@@ -6,7 +6,6 @@ import com.example.warehost.interfaces.rest.dto.ItemResource;
 public class ItemCommandDTOAssembler {
     public static ItemCommand toCommandFromDTO(ItemResource itemResource) {
         return new ItemCommand(
-            itemResource.getItemID(),
             itemResource.getName(),
             itemResource.getType(),
             itemResource.getDescription(),
