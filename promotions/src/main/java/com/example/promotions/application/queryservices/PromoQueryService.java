@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.promotions.domain.model.aggregates.PromoID;
 import com.example.promotions.domain.model.aggregates.Promotion;
 import com.example.promotions.infrastructure.repositories.PromoRepository;
 
@@ -19,7 +20,7 @@ public class PromoQueryService {
         return promotions;
     }
     public List<Promotion> findPromotionByID(String promoID) {
-        List<Promotion> promotions = promoRepository.findPromotionByID(promoID);
+        List<Promotion> promotions = promoRepository.findPromotionByPromoID(new PromoID(promoID));
         return promotions;
     }
 }

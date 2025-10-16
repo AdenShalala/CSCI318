@@ -19,9 +19,9 @@ import jakarta.persistence.NamedQuery;
 @Entity
 @NamedQueries ({
     @NamedQuery (name="Promotion.findAllPromotions", query="SELECT p from Promotion p"),
-    @NamedQuery (name="Promotion.findAllPromotionIDs", query="SELECT p.PromoID from Promotion p"),
-    @NamedQuery (name="Promotion.findPromoWithID", query="SELECT p FROM Promotion p WHERE p.promoID = ?1"),
-    @NamedQuery (name="Promotion.findPromoWithItemID", query="SELECT p FROM Promotion p WHERE p.itemID = ?1")
+    @NamedQuery (name="Promotion.findAllPromotionIDs", query="SELECT p.promoID.promoID from Promotion p"),
+    @NamedQuery (name="Promotion.findPromoWithID", query="SELECT p FROM Promotion p WHERE p.promoID.promoID = ?1"),
+    @NamedQuery (name = "Promotion.findPromoWithItemID", query = "SELECT DISTINCT p FROM Promotion p JOIN p.items i WHERE i.itemID = :itemID")
 })
 public class Promotion extends AbstractAggregateRoot<Promotion>{
     @Id

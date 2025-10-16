@@ -18,7 +18,7 @@ import com.example.promotions.interfaces.rest.dto.PromoResource;
 import com.example.promotions.interfaces.rest.transform.PromoCommandDTOAssembler;
 
 @Controller
-@RequestMapping("/promotions")
+@RequestMapping("/promotion")
 public class PromoController {
     private PromoCommandService promoCommandService;
     private PromoQueryService promoQueryService;
