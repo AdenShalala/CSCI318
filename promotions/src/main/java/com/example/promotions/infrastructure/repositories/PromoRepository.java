@@ -7,4 +7,5 @@ import com.example.promotions.domain.model.aggregates.Promotion;
 
 public interface PromoRepository extends JpaRepository<Promotion, Long>{
     public List<Promotion> findAllPromotions();
+    public List<Promotion> findPromotionByID(String promoID);
 }

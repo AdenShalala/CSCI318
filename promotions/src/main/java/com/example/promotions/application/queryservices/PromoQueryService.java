@@ -18,4 +18,8 @@ public class PromoQueryService {
         List<Promotion> promotions = promoRepository.findAllPromotions();
         return promotions;
     }
+    public List<Promotion> findPromotionByID(String promoID) {
+        List<Promotion> promotions = promoRepository.findPromotionByID(promoID);
+        return promotions;
+    }
 }
