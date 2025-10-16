@@ -13,7 +13,6 @@ import com.example.warehost.application.commandservices.ItemCommandService;
 import com.example.warehost.application.queryservices.StockQueryService;
 import com.example.warehost.domain.model.aggregates.Item;
 import com.example.warehost.domain.model.aggregates.ItemId;
-import com.example.warehost.domain.model.valueobjects.ItemDescription;
 import com.example.warehost.interfaces.rest.dto.ItemResource;
 import com.example.warehost.interfaces.rest.transform.ItemCommandDTOAssembler;
 
@@ -44,7 +43,12 @@ public class ItemController {
         for (Item item: items) {
             System.out.println(item);
         }
-
         return items;
+    }
+    @GetMapping("findByID")
+    @ResponseBody
+    public Item findByID(@RequestBody String id) {
+        Item item = itemQueryService.getItemById(id);
+        return item;
     }
 }

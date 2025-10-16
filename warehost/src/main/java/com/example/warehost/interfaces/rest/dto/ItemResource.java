@@ -2,20 +2,23 @@ package com.example.warehost.interfaces.rest.dto;
 
 public class ItemResource {
     private String itemID;
+    private String name;
     private String type;
     private String description;
     private String orderDate;
 
     public ItemResource() {}
 
-    public ItemResource(String itemID, String type, String description, String orderDate) {
+    public ItemResource(String itemID, String name, String type, String description, String orderDate) {
         this.itemID = itemID;
+        this.name =name;
         this.type = type;
         this.description = description;
         this.orderDate = orderDate;
     }
 
     public String getItemID(){return this.itemID;}
+    public String getName(){return this.name;}
     public String getType(){return this.type;}
     public String getDescription(){return this.description;}
     public String getOrderDate(){return this.orderDate;}

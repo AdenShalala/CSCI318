@@ -15,4 +15,8 @@ public class ItemId implements Serializable {
     public ItemId(String ItemId){this.ItemId = ItemId;}
 
     public String getItemId(){return this.ItemId;}
+
+    public String toString() {
+        return this.ItemId;
+    }
 }

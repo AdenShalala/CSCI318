@@ -1,9 +1,15 @@
 To do for Stock MS
+- Item
+    - add jpa structuring tags
+    - domain events
 - Inventory
     - add item to inv
     - startup fetch from repo
-- implement acl file
+- implement acl file (outboundservices)
     - for interacting with other microservices
+- ItemController
+    - Add GetMapping for http messaging (including findAll and findByID)
+    - PostMapping for POST curl commands (addItem)
 
 - add toString() for aggregates
 

@@ -7,9 +7,10 @@ public class ItemCommandDTOAssembler {
     public static ItemCommand toCommandFromDTO(ItemResource itemResource) {
         return new ItemCommand(
             itemResource.getItemID(),
+            itemResource.getName(),
             itemResource.getType(),
             itemResource.getDescription(),
-            java.sql.Date.valueOf(itemResource.getOrderDate()) // Convert String to Date
+            itemResource.getOrderDate() // Convert String to Date
         );
     }
 }

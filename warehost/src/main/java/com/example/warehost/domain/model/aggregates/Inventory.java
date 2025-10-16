@@ -14,7 +14,7 @@ public class Inventory {
     // need to add sales from external data source
 
     public Inventory(ArrayList<Item> items, int capacity, ArrayList<String> categories, /*ArrayList<Sale> sales,*/ ItemRepository itemRepository) {
-        this.items = new ArrayList<Item>();
+        this.items = new ArrayList<Item>(itemRepository.findAll());
         this.capacity = capacity;
         this.categories = categories;
         //this.sales = new ArrayList<Sale>(); // Needs external data to populate - h
@@ -43,6 +43,7 @@ public class Inventory {
 
     public ItemId addToInventory(Item item){
         itemRepository.save(item);
+        this.items.add(item);
         return item.getItemId();
     }
 

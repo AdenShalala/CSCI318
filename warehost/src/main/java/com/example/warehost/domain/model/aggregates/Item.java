@@ -19,8 +19,6 @@ import com.example.warehost.domain.model.valueobjects.*;
 // import jakarta.persistence.CascadeType;
 // import jakarta.persistence.JoinColumn;
 
-import java.util.Date;
-
 @Entity
 @NamedQueries(
     {
@@ -45,6 +43,8 @@ public class Item extends AbstractAggregateRoot<Item> {
     @Embedded
     private ItemId itemId;
     @Embedded
+    private ItemName name;
+    @Embedded
     private ItemType type;
     @Embedded
     private ItemDescription description;
@@ -55,6 +55,7 @@ public class Item extends AbstractAggregateRoot<Item> {
 
     public Item(ItemCommand command) {
         this.itemId = new ItemId(command.getItemId());
+        this.name = new ItemName(command.getItemName());
         this.type = new ItemType(command.getType());
         this.description = new ItemDescription(command.getDescription());
         this.order_date = new ItemDate(command.getOrderDate());
@@ -74,5 +75,7 @@ public class Item extends AbstractAggregateRoot<Item> {
     public ItemDescription getDescription() {return this.description;}
     public ItemDate getOrderDate() {return this.order_date;}
 
-
+    public String toString() {
+        return "=== Item ===\n" + this.name + "\nID: " + this.itemId + "\nType: " + this.type + "\nDescription: " + this.description + "\nOrder Date: " + this.order_date;
+    }
 }

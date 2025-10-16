@@ -1,7 +1,6 @@
 package com.example.warehost.domain.model.valueobjects;
 
 import jakarta.persistence.*;
-import java.util.Date;
 
 @Embeddable
 public class ItemDate {
@@ -12,5 +11,8 @@ public class ItemDate {
 
     public ItemDate(String orderDate) {
         this.orderDate = orderDate;
+    }
+    public String toString() {
+        return this.orderDate;
     }
 }

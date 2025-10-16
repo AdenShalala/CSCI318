@@ -19,7 +19,6 @@ public class ItemCommandService {
 
     public ItemId addItem(ItemCommand itemCommand) {
         String itemIdStr = UUID.randomUUID().toString();
-        System.out.println("Generated Item ID: " + itemIdStr);
         itemCommand.setItemId(itemIdStr);
         Item item = new Item(itemCommand);
         itemRepository.save(item);
