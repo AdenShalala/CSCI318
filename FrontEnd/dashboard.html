@@ -1,98 +1,626 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Warehouse Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WareHost - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #67ab9f 0%, #4a8c7d 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #67ab9f;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: #67ab9f;
+            color: white;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-left: 4px solid #67ab9f;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #67ab9f;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            color: #2c3e50;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .alert {
+            color: #e74c3c;
+        }
+
+        .success {
+            color: #27ae60;
+        }
+
+        .warning {
+            color: #f39c12;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f3f4;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .btn {
+            padding: 0.7rem 1.3rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: #67ab9f;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a9a8f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(103, 171, 159, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #67ab9f;
+            color: #67ab9f;
+        }
+
+        .btn-outline:hover {
+            background: #67ab9f;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-low {
+            background-color: #ffeaa7;
+            color: #e17055;
+        }
+
+        .status-good {
+            background-color: #55efc4;
+            color: #00b894;
+        }
+
+        .status-out {
+            background-color: #fab1a0;
+            color: #d63031;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .notification-item i {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .notification-warning i {
+            color: #e74c3c;
+        }
+
+        .notification-info i {
+            color: #67ab9f;
+        }
+
+        .notification-success i {
+            color: #27ae60;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .action-btn {
+            background: white;
+            border: 2px solid #f1f3f4;
+            padding: 1.2rem 0.5rem;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            border-color: #67ab9f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(103, 171, 159, 0.2);
+        }
+
+        .action-btn i {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #67ab9f;
+        }
+
+        .action-btn div {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .badge {
+            background: #67ab9f;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo">WH | WareHouse</div>
-    <div class="user-actions">
-      <button>User</button>
-      <button>Logout</button>
-    </div>
-  </header>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">WareHost</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Dashboard</a></li>
+                    <li><a href="inventory-management.html">Inventory</a></li>
+                    <li><a href="ai-insights.html">AI Insights</a></li>
+                    <li><a href="#">Sales</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+            </nav>
+        </header>
 
-  <main>
-    <h2>Dashboard</h2>
-
-    <!-- Metrics -->
-    <div class="metrics">
-      <div class="card">
-        <h3>Total Weekly Revenue</h3>
-        <p>$2450</p>
-        <small>12% more than last week</small>
-      </div>
-      <div class="card">
-        <h3>Total Profit</h3>
-        <p>$1200</p>
-        <small>8% more than last week</small>
-      </div>
-      <div class="card">
-        <h3>Products Sold</h3>
-        <p>170</p>
-        <small>5% more than last week</small>
-      </div>
-    </div>
-
-    <!-- Grid: Stock Alerts / AI / Notifications / Chat -->
-    <div class="dashboard-grid">
-      <!-- Stock Alerts -->
-      <div class="section">
-        <h3>Stock Alerts</h3>
-        <ul>
-          <li>Water stock low</li>
-          <li>Order sports t-shirts (seasonal demand)</li>
-        </ul>
-      </div>
-
-      <!-- AI Recommendations -->
-      <div class="section">
-        <h3>AI Recommendation</h3>
-        <div class="recommendations">
-          <div class="recommendation-card">
-            <h4>Stock Recommendation</h4>
-            <p>Request: Order 20x water bottles</p>
-            <p>Reason: Rising seasonal demand. Current stock may not meet projected sales.</p>
-            <p>Suggested Supplier: AquaSupplies</p>
-            <p>Est. Cost: $200</p>
-            <button class="approve">Approve</button>
-            <button class="dismiss">Dismiss</button>
-          </div>
-          <div class="recommendation-card">
-            <h4>Sales Recommendation</h4>
-            <p>Product: Running Shoes</p>
-            <p>Recommendation: Discount 10%</p>
-            <p>Reason: Slow moving stock</p>
-            <button class="approve">Approve</button>
-            <button class="dismiss">Dismiss</button>
-          </div>
+        <!-- Stats Grid -->
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <i class="fas fa-boxes"></i>
+                <div class="stat-number">142</div>
+                <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div class="stat-number alert">8</div>
+                <div class="stat-label">Low Stock Items</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-chart-line"></i>
+                <div class="stat-number success">$15,327</div>
+                <div class="stat-label">Monthly Revenue</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-robot"></i>
+                <div class="stat-number warning">12</div>
+                <div class="stat-label">AI Recommendations</div>
+            </div>
         </div>
-      </div>
 
-      <!-- Notifications -->
-      <div class="section">
-        <h3>Notifications</h3>
-        <p>- Tent supply arriving tomorrow.</p>
-      </div>
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Inventory Overview -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Inventory Overview</h2>
+                        <a href="inventory.html" class="btn btn-primary">Manage Inventory</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Stock Level</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Camping Tent Pro</td>
+                                <td>Outdoor Gear</td>
+                                <td>8/50</td>
+                                <td><span class="status-badge status-low">Low Stock</span></td>
+                                <td><button class="btn btn-outline" onclick="goToPurchaseStock()">Reorder</button></td>
+                            </tr>
+                            <tr>
+                                <td>Hiking Backpack</td>
+                                <td>Outdoor Gear</td>
+                                <td>45/100</td>
+                                <td><span class="status-badge status-good">Good</span></td>
+                                <td><button class="btn btn-outline">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>Sleeping Bag</td>
+                                <td>Outdoor Gear</td>
+                                <td>0/30</td>
+                                <td><span class="status-badge status-out">Out of Stock</span></td>
+                                <td><button class="btn btn-primary" onclick="goToPurchaseStock()">Restock</button></td>
+                            </tr>
+                            <tr>
+                                <td>Portable Stove</td>
+                                <td>Cooking</td>
+                                <td>25/60</td>
+                                <td><span class="status-badge status-good">Good</span></td>
+                                <td><button class="btn btn-outline">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="content-card" style="margin-top: 1.5rem;">
+                    <div class="card-header">
+                        <h2 class="card-title">Recent Activity</h2>
+                        <button class="btn btn-outline">View All</button>
+                    </div>
+                    <div class="notification-list">
+                        <div class="notification-item notification-success">
+                            <i class="fas fa-shipping-fast"></i>
+                            <div>
+                                <strong>New Stock Arrived</strong>
+                                <p>50 units of Hiking Boots added to inventory</p>
+                                <small>2 hours ago</small>
+                            </div>
+                        </div>
+                        <div class="notification-item notification-info">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <strong>Sales Peak Detected</strong>
+                                <p>Camping gear sales increased by 35%</p>
+                                <small>5 hours ago</small>
+                            </div>
+                        </div>
+                        <div class="notification-item notification-warning">
+                            <i class="fas fa-bell"></i>
+                            <div>
+                                <strong>Restock Reminder</strong>
+                                <p>Portable charger stock below threshold</p>
+                                <small>1 day ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Notifications -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2 class="card-title">System Alerts</h2>
+                        <span class="badge">3 New</span>
+                    </div>
+                    <div class="notification-list">
+                        <div class="notification-item notification-warning">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div>
+                                <strong>Low Stock Alert</strong>
+                                <p>Camping Tent Pro running low (8 left)</p>
+                            </div>
+                        </div>
+                        <div class="notification-item notification-info">
+                            <i class="fas fa-lightbulb"></i>
+                            <div>
+                                <strong>AI Recommendation</strong>
+                                <p>New stock suggestions available</p>
+                            </div>
+                        </div>
+                        <div class="notification-item notification-success">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <strong>Sales Update</strong>
+                                <p>Great performance on hiking gear</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="content-card" style="margin-top: 1.5rem;">
+                    <div class="card-header">
+                        <h2 class="card-title">Quick Actions</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="action-btn" onclick="goToInventory()">
+                            <i class="fas fa-boxes"></i>
+                            <div>Manage Inventory</div>
+                        </div>
+                        <div class="action-btn" onclick="goToPurchaseStock()">
+                            <i class="fas fa-shopping-cart"></i>
+                            <div>Purchase Stock</div>
+                        </div>
+                        <div class="action-btn" onclick="goToAIInsights()">
+                            <i class="fas fa-robot"></i>
+                            <div>AI Insights</div>
+                        </div>
+                        <div class="action-btn" onclick="goToResources()">
+                            <i class="fas fa-users"></i>
+                            <div>Resources</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics -->
+                <div class="content-card" style="margin-top: 1.5rem;">
+                    <div class="card-header">
+                        <h2 class="card-title">Performance</h2>
+                    </div>
+                    <div style="text-align: center; padding: 1rem 0;">
+                        <div style="font-size: 2rem; font-weight: bold; color: #67ab9f;">94%</div>
+                        <div style="color: #666; margin-top: 0.5rem;">System Efficiency</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-around; margin-top: 1rem;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.2rem; font-weight: bold; color: #67ab9f;">28</div>
+                            <div style="font-size: 0.8rem; color: #666;">Orders Today</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.2rem; font-weight: bold; color: #67ab9f;">12</div>
+                            <div style="font-size: 0.8rem; color: #666;">AI Suggestions</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.2rem; font-weight: bold; color: #67ab9f;">97%</div>
+                            <div style="font-size: 0.8rem; color: #666;">Uptime</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Chatbot -->
-    <div class="chatbot">
-      <h3>Chatbot</h3>
-      <div class="chat-window">
-        <p><strong>Bot:</strong> Hello! How can I assist you?</p>
-      </div>
-      <div class="chat-input">
-        <input type="text" placeholder="Type your message...">
-        <button>Send</button>
-      </div>
-    </div>
+    <script>
+        // Navigation functions
+        function goToInventory() {
+            window.location.href = 'inventory.html';
+        }
 
-  </main>
+        function goToPurchaseStock() {
+            window.location.href = 'purchase-stock.html';
+        }
+
+        function goToAIInsights() {
+            window.location.href = 'ai-insights.html';
+        }
+
+        function goToResources() {
+            window.location.href = 'resources.html';
+        }
+
+        // Add interactivity to buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to all buttons
+            const buttons = document.querySelectorAll('.btn, .action-btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Add a simple click effect
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+
+            // Simulate real-time updates
+            setInterval(() => {
+                const stockNumber = document.querySelector('.stat-number.alert');
+                if (stockNumber) {
+                    const current = parseInt(stockNumber.textContent);
+                    // Randomly update stock numbers for demo
+                    const newValue = Math.max(0, current + (Math.random() > 0.5 ? -1 : 1));
+                    stockNumber.textContent = newValue;
+                }
+            }, 8000);
+
+            // Check if files exist and update navigation accordingly
+            checkFileExists('inventory.html', function(exists) {
+                if (!exists) {
+                    document.querySelector('a[href="inventory.html"]').style.opacity = '0.5';
+                    document.querySelector('a[href="inventory.html"]').title = 'File not found';
+                }
+            });
+
+            checkFileExists('purchase-stock.html', function(exists) {
+                if (!exists) {
+                    // Disable purchase stock buttons
+                    document.querySelectorAll('[onclick*="goToPurchaseStock"]').forEach(btn => {
+                        btn.style.opacity = '0.5';
+                        btn.style.cursor = 'not-allowed';
+                        btn.onclick = null;
+                    });
+                }
+            });
+
+            checkFileExists('ai-insights.html', function(exists) {
+                if (!exists) {
+                    document.querySelector('a[href="ai-insights.html"]').style.opacity = '0.5';
+                    document.querySelector('a[href="ai-insights.html"]').title = 'File not found';
+                    document.querySelector('[onclick*="goToAIInsights"]').style.opacity = '0.5';
+                    document.querySelector('[onclick*="goToAIInsights"]').style.cursor = 'not-allowed';
+                    document.querySelector('[onclick*="goToAIInsights"]').onclick = null;
+                }
+            });
+
+            checkFileExists('resources.html', function(exists) {
+                if (!exists) {
+                    document.querySelector('a[href="resources.html"]').style.opacity = '0.5';
+                    document.querySelector('a[href="resources.html"]').title = 'File not found';
+                    document.querySelector('[onclick*="goToResources"]').style.opacity = '0.5';
+                    document.querySelector('[onclick*="goToResources"]').style.cursor = 'not-allowed';
+                    document.querySelector('[onclick*="goToResources"]').onclick = null;
+                }
+            });
+        });
+
+        // Function to check if file exists
+        function checkFileExists(url, callback) {
+            fetch(url, { method: 'HEAD' })
+                .then(response => callback(response.ok))
+                .catch(() => callback(false));
+        }
+    </script>
 </body>
 </html>
