@@ -32,19 +32,19 @@ public class Inventory {
     //public void setSales(ArrayList<Sale> sales) {this.sales = sales;}
 
     public void removeItemByID(String id) {
-        ItemId itemID = new ItemId(id);
-        items.removeIf(item -> item.getItemId().equals(itemID));
+        ItemID itemID = new ItemID(id);
+        items.removeIf(item -> item.getItemID().equals(itemID));
         for (Item item : items) {
-            if (itemID == item.getItemId()) {
-                this.itemRepository.removeByID(id);
+            if (itemID == item.getItemID()) {
+                this.itemRepository.removeItemByID(id);
             }
         }
     }
 
-    public ItemId addToInventory(Item item){
+    public ItemID addToInventory(Item item){
         itemRepository.save(item);
         this.items.add(item);
-        return item.getItemId();
+        return item.getItemID();
     }
 
     public String toString() {

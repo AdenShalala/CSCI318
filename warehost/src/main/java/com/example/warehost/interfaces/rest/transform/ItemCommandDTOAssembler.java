@@ -9,7 +9,7 @@ public class ItemCommandDTOAssembler {
             itemResource.getName(),
             itemResource.getType(),
             itemResource.getDescription(),
-            itemResource.getOrderDate() // Convert String to Date
+            itemResource.getOrderDate()
         );
     }
 }
