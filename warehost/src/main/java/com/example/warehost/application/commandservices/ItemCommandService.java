@@ -4,7 +4,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.example.warehost.domain.model.aggregates.Item;
-import com.example.warehost.domain.model.aggregates.ItemId;
+import com.example.warehost.domain.model.aggregates.ItemID;
 import com.example.warehost.domain.model.commands.ItemCommand;
 import com.example.warehost.infrastructure.repository.ItemRepository;
 
@@ -17,11 +17,11 @@ public class ItemCommandService {
         this.itemRepository = itemRepository;
     }
 
-    public ItemId addItem(ItemCommand itemCommand) {
+    public ItemID addItem(ItemCommand itemCommand) {
         String itemIdStr = UUID.randomUUID().toString();
-        itemCommand.setItemId(itemIdStr);
+        itemCommand.setItemID(itemIdStr);
         Item item = new Item(itemCommand);
         itemRepository.save(item);
-        return new ItemId(itemIdStr);
+        return new ItemID(itemIdStr);
     }
 }

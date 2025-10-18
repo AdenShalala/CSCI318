@@ -5,18 +5,18 @@ import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class ItemId implements Serializable {
+public class ItemID implements Serializable {
 
-    @Column(name="Item_id")
-    private String ItemId;
+    @Column(name="ItemID")
+    private String ItemID;
 
-    public ItemId(){}
+    public ItemID(){}
 
-    public ItemId(String ItemId){this.ItemId = ItemId;}
+    public ItemID(String ItemID){this.ItemID = ItemID;}
 
-    public String getItemId(){return this.ItemId;}
+    public String getItemID(){return this.ItemID;}
 
     public String toString() {
-        return this.ItemId;
+        return this.ItemID;
     }
 }

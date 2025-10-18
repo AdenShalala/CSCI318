@@ -3,7 +3,7 @@ package com.example.warehost.domain.model.commands;
 public class ItemCommand {
     public String name;
     public String type;
-    private String item_id;
+    private String itemID;
     public String description;
     public String order_date;
     
@@ -15,13 +15,13 @@ public class ItemCommand {
         this.description = description;
         this.order_date = order_date;
     }
-    public String getItemId() {return this.item_id;}
+    public String getItemID() {return this.itemID;}
     public String getItemName() {return this.name;}
     public String getType() {return this.type;}
     public String getDescription() {return this.description;}
     public String getOrderDate() {return this.order_date;}
 
-    public void setItemId(String item_id) {this.item_id = item_id;}
+    public void setItemID(String itemID) {this.itemID = itemID;}
     public void setItemName(String name) {this.name = name;}
     public void setType(String type) {this.type = type;}
     public void setDescription(String description) {this.description = description;}

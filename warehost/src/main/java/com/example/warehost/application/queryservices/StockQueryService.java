@@ -3,6 +3,7 @@ package com.example.warehost.application.queryservices;
 import java.util.List;
 
 import com.example.warehost.domain.model.aggregates.Item;
+import com.example.warehost.domain.model.aggregates.ItemID;
 import com.example.warehost.infrastructure.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +16,15 @@ public class StockQueryService {
         this.itemRepository = itemRepository;
     }
 
-    public List<Item> getAllItems() {
+    public List<Item> findAllItems() {
         return itemRepository.findAll();
     }
 
-    public Item getItemById(String id) {
-        return itemRepository.findByItemId(id);
+    public Item findItemWithID(ItemID itemID) {
+        return itemRepository.findItemWithID(itemID);
     }
 
-    public void removeByItemID(String id){}
+    public void removeItemByID(String id){
+        
+    }
 }

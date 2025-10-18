@@ -22,15 +22,15 @@ import com.example.warehost.domain.model.valueobjects.*;
 @NamedQueries(
     {
         @NamedQuery(
-            name = "Item.findByItemId",
-            query = "SELECT i FROM Item i WHERE i.itemId = ?1"
+            name = "Item.findItemWithID",
+            query = "SELECT i FROM Item i WHERE i.itemID = ?1"
         ),
         @NamedQuery(
-            name = "Item.findAll",
+            name = "Item.findAllItems",
             query = "SELECT i FROM Item i"
         ),
         @NamedQuery(
-            name = "Item.removeByID",
+            name = "Item.removeItemByID",
             query = "DELETE FROM Item i WHERE i.itemID = ?1"
         )
     }
@@ -40,7 +40,7 @@ public class Item extends AbstractAggregateRoot<Item> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Embedded
-    private ItemId itemId;
+    private ItemID itemID;
     @Embedded
     private ItemName name;
     @Embedded
@@ -53,7 +53,7 @@ public class Item extends AbstractAggregateRoot<Item> {
     public Item() {}
 
     public Item(ItemCommand command) {
-        this.itemId = new ItemId(command.getItemId());
+        this.itemID = new ItemID(command.getItemID());
         this.name = new ItemName(command.getItemName());
         this.type = new ItemType(command.getType());
         this.description = new ItemDescription(command.getDescription());
@@ -69,12 +69,12 @@ public class Item extends AbstractAggregateRoot<Item> {
         // )));
     }
 
-    public ItemId getItemId() {return this.itemId;}
+    public ItemID getItemID() {return this.itemID;}
     public ItemType getType() {return this.type;}
     public ItemDescription getDescription() {return this.description;}
     public ItemDate getOrderDate() {return this.order_date;}
 
     public String toString() {
-        return "=== Item ===\n" + this.name + "\nID: " + this.itemId + "\nType: " + this.type + "\nDescription: " + this.description + "\nOrder Date: " + this.order_date;
+        return "=== Item ===\n" + this.name + "\nID: " + this.itemID + "\nType: " + this.type + "\nDescription: " + this.description + "\nOrder Date: " + this.order_date;
     }
 }
