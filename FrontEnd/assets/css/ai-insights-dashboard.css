@@ -404,3 +404,219 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #5a9a8f;
 }
+
+/* Inventory page layout & header overrides (moved from inventory.html) */
+.dashboard-container .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.dashboard-container .main-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+}
+
+.dashboard-container .left-column,
+.dashboard-container .right-column {
+  width: 100%;
+}
+
+/* Content card style (inventory) - keep consistent with dashboard visuals */
+.dashboard-container .content-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-container .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.dashboard-container .card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Buttons */
+.dashboard-container .btn {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.dashboard-container .btn-primary {
+  background: linear-gradient(135deg, #67ab9f, #3AA6A0);
+  color: #fff;
+}
+
+.dashboard-container .btn-outline {
+  background: transparent;
+  border: 2px solid #67ab9f;
+  color: #67ab9f;
+}
+
+.dashboard-container .btn-danger {
+  background: #ef4444;
+  color: #fff;
+}
+
+.dashboard-container .btn-success {
+  background: #10b981;
+  color: #fff;
+}
+
+/* Search / filter */
+.dashboard-container .search-section {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.dashboard-container .search-box {
+  flex: 1;
+  min-width: 260px;
+  position: relative;
+}
+
+.dashboard-container .search-box input {
+  width: 100%;
+  padding: 0.7rem 1rem 0.7rem 2.4rem;
+  border: 1px solid #e6eef0;
+  border-radius: 8px;
+}
+
+.dashboard-container .filter-select {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #e6eef0;
+  background: white;
+  min-width: 140px;
+}
+
+/* Table */
+.dashboard-container .table-responsive {
+  overflow-x: auto;
+}
+
+.dashboard-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dashboard-container th,
+.dashboard-container td {
+  padding: 0.9rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.dashboard-container th {
+  background: #f8fafc;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Modal (inventory) */
+.dashboard-container .modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-container .modal.active {
+  display: flex;
+}
+
+.dashboard-container .modal-content {
+  background: white;
+  padding: 1.75rem;
+  border-radius: 12px;
+  max-width: 540px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.dashboard-container .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.dashboard-container .modal-close {
+  background: none;
+  border: 0;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+/* modal-actions helper already added earlier */
+
+/* Recommendation card minor tweaks */
+.dashboard-container .recommendation-card {
+  padding: 1rem;
+  border-left: 4px solid #67ab9f;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Header animation and teal object constrained to header */
+.dashboard-container header {
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-container header #teal-3d-object {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: 1.25rem;
+  top: 0.6rem;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.dashboard-container header #vanta-bg,
+.dashboard-container header #vanta-bg canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+
+  .dashboard-container header #teal-3d-object,
+  .dashboard-container header #vanta-bg,
+  .dashboard-container header #vanta-bg canvas {
+    display: none !important;
+  }
+
+  .dashboard-container .main-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* spacing under header to match dashboard pages */
+.dashboard-container header+.main-content {
+  margin-top: 1.25rem;
+}
