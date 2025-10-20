@@ -25,9 +25,23 @@
                 display: none !important;
             }
         }
-    </style>
 
-    <style>
+        /* Ensure Vanta canvas does not cover header content */
+        header>.container {
+            position: relative;
+            z-index: 40;
+            /* content above the Vanta canvas */
+        }
+
+        /* If Vanta injects a canvas, keep it behind content and non-interactive */
+        #vanta-bg,
+        #vanta-bg canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -427,6 +441,41 @@
             .search-box {
                 min-width: 100%;
             }
+        }
+    </style>
+
+    <style>
+        /* Page-specific override: keep the 3D object constrained to the header on this page */
+        header #teal-3d-object {
+            position: absolute !important;
+            width: 150px;
+            height: 150px;
+            right: 1.5rem;
+            top: 0.6rem;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            header #teal-3d-object {
+                display: none !important;
+            }
+        }
+
+        /* Ensure Vanta canvas does not cover header content */
+        header>.container {
+            position: relative;
+            z-index: 40;
+            /* content above the Vanta canvas */
+        }
+
+        /* If Vanta injects a canvas, keep it behind content and non-interactive */
+        #vanta-bg,
+        #vanta-bg canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            pointer-events: none;
         }
     </style>
 </head>
