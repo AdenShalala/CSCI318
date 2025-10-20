@@ -349,6 +349,11 @@
   }
 }
 
+/* Add spacing under header for dashboard pages */
+.dashboard-container header+.dashboard-grid {
+  margin-top: 1.5rem;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
