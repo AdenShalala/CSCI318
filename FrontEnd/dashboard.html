@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WareHost - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <link rel="stylesheet" href="assets/css/resources-common.css">
     <style>
         * {
@@ -325,23 +326,26 @@
 
 <body>
     <div class="dashboard-container">
-        <!-- Header (shared with resources/ai-insights/promotion) -->
-        <header class="bg-[#3AA6A0] text-white shadow-md relative overflow-hidden" style="margin-bottom:1.25rem;">
+        <!-- Header (shared style with resources.html) -->
+        <header class="bg-[#3AA6A0] text-white shadow-md relative overflow-hidden">
             <div id="vanta-bg" class="absolute inset-0"></div>
             <div id="teal-3d-object"></div>
             <div class="container mx-auto px-4 py-4 flex justify-between items-center relative z-10">
                 <div class="flex items-center space-x-2">
-                    <div class="logo text-white text-2xl font-bold">WareHost</div>
+                    <i data-feather="users" class="w-6 h-6"></i>
+                    <h1 class="text-2xl font-bold">WareHost</h1>
                 </div>
                 <nav class="hidden md:flex space-x-8">
-                    <a href="#" class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">Dashboard</a>
-                    <a href="inventory-management.html"
+                    <a href="index.html"
+                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Dashboard</a>
+                    <a href="inventory.html"
                         class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Inventory</a>
-                    <a href="ai-insights.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">AI
-                        Insights</a>
-                    <a href="#" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Sales</a>
                     <a href="resources.html"
                         class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Resources</a>
+                    <a href="ai-insights.html"
+                        class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">AI Insights</a>
+                    <a href="promotions.html"
+                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Promotions</a>
                 </nav>
             </div>
         </header>
@@ -543,6 +547,16 @@
             </div>
         </div>
     </div>
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <p class="text-[#3AA6A0]">&copy; 2025 WareHost. All rights reserved.</p>
+            <div class="space-x-4">
+                <a href="#" class="hover:text-[#3AA6A0]">Help</a>
+                <a href="#" class="hover:text-[#3AA6A0]">Privacy</a>
+                <a href="#" class="hover:text-[#3AA6A0]">Contact</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Navigation functions
@@ -638,6 +652,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <script src="assets/js/resources-common.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function () { if (window.feather) feather.replace(); });</script>
 </body>
 
 </html>
