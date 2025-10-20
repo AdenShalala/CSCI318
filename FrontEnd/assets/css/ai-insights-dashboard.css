@@ -620,3 +620,61 @@
 .dashboard-container header+.main-content {
   margin-top: 1.25rem;
 }
+
+/* Modal form styles for Add/Edit Product */
+.dashboard-container .modal-content form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.dashboard-container .modal-content .form-group {
+  margin-bottom: 1rem;
+}
+
+.dashboard-container .modal-content label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+.dashboard-container .modal-content input,
+.dashboard-container .modal-content select,
+.dashboard-container .modal-content textarea {
+  width: 100%;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid #e6eef0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.dashboard-container .modal-content textarea {
+  min-height: 80px;
+}
+
+/* Modal actions already exists; ensure spacing on mobile */
+.dashboard-container .modal-actions {
+  margin-top: 0.75rem;
+}
+
+/* Close button color */
+.dashboard-container .modal-close {
+  color: #6b7280;
+}
+
+.dashboard-container .modal-close:hover {
+  color: #ef4444;
+}
+
+/* Ensure form buttons align and have consistent sizes */
+.dashboard-container .modal-actions .btn {
+  min-width: 100px;
+}
+
+@media (max-width: 480px) {
+  .dashboard-container .modal-content form .form-row {
+    grid-template-columns: 1fr;
+  }
+}
