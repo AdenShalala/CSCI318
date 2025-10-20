@@ -1,0 +1,39 @@
+.dashboard-container .insight-card {
+  transition: all 0.3s ease;
+}
+
+.dashboard-container .insight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container .trend-up {
+  color: #10b981;
+}
+
+.dashboard-container .trend-down {
+  color: #ef4444;
+}
+
+.dashboard-container .ai-highlight {
+  position: relative;
+}
+
+.dashboard-container .ai-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #4f46e5, #10b981);
+}
+
+/* Accent color matching the header teal */
+.dashboard-container .page-accent {
+  color: #3AA6A0 !important;
+}
+
+.dashboard-container .page-accent-sub {
+  color: rgba(34, 101, 96, 1) !important;
+}
