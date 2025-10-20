@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WareHost - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/resources-common.css">
     <style>
         * {
             margin: 0;
@@ -58,7 +60,8 @@
             transition: all 0.3s ease;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             background: #67ab9f;
             color: white;
         }
@@ -186,7 +189,8 @@
             margin-top: 1rem;
         }
 
-        th, td {
+        th,
+        td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #eee;
@@ -297,41 +301,49 @@
             .main-content {
                 grid-template-columns: 1fr;
             }
-            
+
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .header {
                 flex-direction: column;
                 gap: 1rem;
             }
-            
+
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
+
             .quick-actions {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo">WareHost</div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#" class="active">Dashboard</a></li>
-                    <li><a href="inventory-management.html">Inventory</a></li>
-                    <li><a href="ai-insights.html">AI Insights</a></li>
-                    <li><a href="#">Sales</a></li>
-                    <li><a href="resources.html">Resources</a></li>
-                </ul>
-            </nav>
+        <!-- Header (shared with resources/ai-insights/promotion) -->
+        <header class="bg-[#3AA6A0] text-white shadow-md relative overflow-hidden" style="margin-bottom:1.25rem;">
+            <div id="vanta-bg" class="absolute inset-0"></div>
+            <div id="teal-3d-object"></div>
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center relative z-10">
+                <div class="flex items-center space-x-2">
+                    <div class="logo text-white text-2xl font-bold">WareHost</div>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">Dashboard</a>
+                    <a href="inventory-management.html"
+                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Inventory</a>
+                    <a href="ai-insights.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">AI
+                        Insights</a>
+                    <a href="#" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Sales</a>
+                    <a href="resources.html"
+                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Resources</a>
+                </nav>
+            </div>
         </header>
 
         <!-- Stats Grid -->
@@ -551,11 +563,11 @@
         }
 
         // Add interactivity to buttons
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Add click handlers to all buttons
             const buttons = document.querySelectorAll('.btn, .action-btn');
             buttons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     // Add a simple click effect
                     this.style.transform = 'scale(0.95)';
                     setTimeout(() => {
@@ -576,14 +588,14 @@
             }, 8000);
 
             // Check if files exist and update navigation accordingly
-            checkFileExists('inventory.html', function(exists) {
+            checkFileExists('inventory.html', function (exists) {
                 if (!exists) {
                     document.querySelector('a[href="inventory.html"]').style.opacity = '0.5';
                     document.querySelector('a[href="inventory.html"]').title = 'File not found';
                 }
             });
 
-            checkFileExists('purchase-stock.html', function(exists) {
+            checkFileExists('purchase-stock.html', function (exists) {
                 if (!exists) {
                     // Disable purchase stock buttons
                     document.querySelectorAll('[onclick*="goToPurchaseStock"]').forEach(btn => {
@@ -594,7 +606,7 @@
                 }
             });
 
-            checkFileExists('ai-insights.html', function(exists) {
+            checkFileExists('ai-insights.html', function (exists) {
                 if (!exists) {
                     document.querySelector('a[href="ai-insights.html"]').style.opacity = '0.5';
                     document.querySelector('a[href="ai-insights.html"]').title = 'File not found';
@@ -604,7 +616,7 @@
                 }
             });
 
-            checkFileExists('resources.html', function(exists) {
+            checkFileExists('resources.html', function (exists) {
                 if (!exists) {
                     document.querySelector('a[href="resources.html"]').style.opacity = '0.5';
                     document.querySelector('a[href="resources.html"]').title = 'File not found';
@@ -622,5 +634,10 @@
                 .catch(() => callback(false));
         }
     </script>
+    <!-- Three.js + Vanta + shared 3D/interaction script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <script src="assets/js/resources-common.js"></script>
 </body>
+
 </html>
