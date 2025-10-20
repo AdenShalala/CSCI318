@@ -1,0 +1,32 @@
+.sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: #4B5563 #1F2937;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #1F2937;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #4B5563;
+  border-radius: 3px;
+}
+
+.highlight-card {
+  box-shadow:
+    0 10px 15px -3px rgba(58, 166, 160, 0.2),
+    0 4px 6px -2px rgba(58, 125, 120, 0.1);
+}
+
+#teal-3d-object {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: 40px;
+  top: 40px;
+  z-index: 10;
+}
