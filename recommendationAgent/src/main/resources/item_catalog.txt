@@ -1,0 +1,181 @@
+Name: Apples. Type: Food. Description: Fresh red apples perfect for snacking or baking.
+Name: Bananas. Type: Food. Description: Ripe yellow bananas packed with potassium.
+Name: Bread Loaf. Type: Food. Description: Soft wholemeal bread loaf for sandwiches.
+Name: Milk. Type: Food. Description: Full-cream milk in a 2L bottle.
+Name: Cheese Block. Type: Food. Description: Tasty cheddar cheese for cooking or snacking.
+Name: Eggs. Type: Food. Description: A dozen free-range eggs.
+Name: Butter. Type: Food. Description: Creamy unsalted butter for baking or spreading.
+Name: Chicken Breast. Type: Food. Description: Boneless, skinless chicken breast fillets.
+Name: Beef Mince. Type: Food. Description: Fresh ground beef, 500g pack.
+Name: Salmon Fillet. Type: Food. Description: Fresh Atlantic salmon fillet, perfect for grilling.
+Name: Pasta. Type: Food. Description: Dried penne pasta made from durum wheat.
+Name: Rice. Type: Food. Description: Long-grain white rice, 1kg bag.
+Name: Tomato Sauce. Type: Food. Description: Classic tomato pasta sauce with herbs.
+Name: Olive Oil. Type: Food. Description: Extra virgin olive oil for cooking or dressing.
+Name: Cereal. Type: Food. Description: Crunchy breakfast cereal fortified with vitamins.
+Name: Yogurt. Type: Food. Description: Creamy Greek-style yogurt, plain flavor.
+Name: Orange Juice. Type: Food. Description: Freshly squeezed orange juice, 1L carton.
+Name: Frozen Peas. Type: Food. Description: Snap-frozen green peas, 500g bag.
+Name: Ice Cream. Type: Food. Description: Vanilla ice cream tub, 2L.
+Name: Chocolate Bar. Type: Food. Description: Milk chocolate bar with caramel filling.
+Name: Peanut Butter. Type: Food. Description: Smooth peanut butter spread.
+Name: Jam. Type: Food. Description: Strawberry jam made with real fruit.
+Name: Crackers. Type: Food. Description: Savory wheat crackers, 200g box.
+Name: Soup Can. Type: Food. Description: Tomato soup in a ready-to-heat can.
+Name: Coffee. Type: Food. Description: Ground Arabica coffee blend, 250g pack.
+Name: Tea Bags. Type: Food. Description: Black tea bags, pack of 100.
+Name: Sugar. Type: Food. Description: White granulated sugar, 1kg bag.
+Name: Flour. Type: Food. Description: All-purpose flour, 1kg bag.
+Name: Salt. Type: Food. Description: Fine sea salt for seasoning.
+Name: Pepper. Type: Food. Description: Ground black pepper in a shaker.
+Name: Canned Tuna. Type: Food. Description: Tuna chunks in olive oil.
+Name: Baked Beans. Type: Food. Description: Canned baked beans in tomato sauce.
+Name: Instant Noodles. Type: Food. Description: Quick-cook chicken-flavored noodles.
+Name: Chips. Type: Food. Description: Crispy potato chips, original flavor.
+Name: Nuts. Type: Food. Description: Mixed nuts, roasted and salted.
+Name: Frozen Pizza. Type: Food. Description: Pepperoni frozen pizza ready to bake.
+Name: Cheese Slices. Type: Food. Description: Processed cheese slices for sandwiches.
+Name: Lettuce. Type: Food. Description: Fresh iceberg lettuce head.
+Name: Tomatoes. Type: Food. Description: Juicy vine-ripened tomatoes.
+Name: Onions. Type: Food. Description: Brown onions for cooking.
+Name: Potatoes. Type: Food. Description: Washed white potatoes, 2kg bag.
+Name: Carrots. Type: Food. Description: Fresh orange carrots, 1kg bag.
+Name: Broccoli. Type: Food. Description: Fresh green broccoli florets.
+Name: Garlic. Type: Food. Description: Fresh garlic bulbs for seasoning.
+Name: Lemons. Type: Food. Description: Fresh yellow lemons for cooking or drinks.
+Name: Biscuits. Type: Food. Description: Sweet butter biscuits, 300g pack.
+Name: Muffins. Type: Food. Description: Chocolate chip muffins, 4-pack.
+Name: Granola Bars. Type: Food. Description: Oat and honey snack bars.
+Name: Pancake Mix. Type: Food. Description: Ready-to-use pancake batter mix.
+Name: Honey. Type: Food. Description: Pure Australian honey, 500g jar.
+Name: Vinegar. Type: Food. Description: White vinegar for cooking and cleaning.
+Name: Shampoo. Type: Bathroom. Description: Moisturizing shampoo for dry hair.
+Name: Conditioner. Type: Bathroom. Description: Nourishing conditioner for smooth hair.
+Name: Body Wash. Type: Bathroom. Description: Refreshing scented body wash.
+Name: Toothpaste. Type: Bathroom. Description: Whitening toothpaste with fluoride.
+Name: Toothbrush. Type: Bathroom. Description: Soft-bristle toothbrush, 2-pack.
+Name: Mouthwash. Type: Bathroom. Description: Antibacterial mouthwash for fresh breath.
+Name: Hand Soap. Type: Bathroom. Description: Liquid hand soap with aloe vera.
+Name: Razor. Type: Bathroom. Description: Disposable razors, pack of 5.
+Name: Shaving Cream. Type: Bathroom. Description: Foamy shaving cream for sensitive skin.
+Name: Deodorant. Type: Bathroom. Description: Roll-on deodorant with long-lasting scent.
+Name: Towel. Type: Bathroom. Description: Soft cotton bath towel.
+Name: Toilet Paper. Type: Bathroom. Description: 3-ply toilet tissue, 12-roll pack.
+Name: Face Wash. Type: Bathroom. Description: Gentle cleanser for all skin types.
+Name: Moisturizer. Type: Bathroom. Description: Daily face moisturizer with SPF.
+Name: Cotton Swabs. Type: Bathroom. Description: 200-pack of cotton-tipped applicators.
+Name: Cotton Pads. Type: Bathroom. Description: Soft cotton pads for makeup removal.
+Name: Bath Sponge. Type: Bathroom. Description: Exfoliating bath sponge.
+Name: Hair Gel. Type: Bathroom. Description: Strong hold styling gel.
+Name: Feminine Pads. Type: Bathroom. Description: Ultra-thin pads with wings.
+Name: Toilet Cleaner. Type: Bathroom. Description: Antibacterial toilet bowl cleaner.
+Name: Laundry Detergent. Type: Cleaning. Description: Concentrated liquid detergent for clothes.
+Name: Fabric Softener. Type: Cleaning. Description: Fresh-scented fabric conditioner.
+Name: Dishwashing Liquid. Type: Cleaning. Description: Lemon-scented dish soap.
+Name: All-Purpose Spray. Type: Cleaning. Description: Surface cleaner for kitchen and bathroom.
+Name: Glass Cleaner. Type: Cleaning. Description: Streak-free glass cleaning spray.
+Name: Disinfectant Wipes. Type: Cleaning. Description: Antibacterial wipes for quick cleaning.
+Name: Paper Towels. Type: Cleaning. Description: Absorbent kitchen paper rolls.
+Name: Sponges. Type: Cleaning. Description: Dual-sided cleaning sponges, 4-pack.
+Name: Mop. Type: Cleaning. Description: Microfiber mop for floors.
+Name: Broom. Type: Cleaning. Description: Sturdy broom for sweeping.
+Name: Dustpan. Type: Cleaning. Description: Plastic dustpan for easy sweeping.
+Name: Vacuum Bags. Type: Cleaning. Description: Replacement vacuum cleaner bags.
+Name: Trash Bags. Type: Cleaning. Description: Large garbage bags, 30-pack.
+Name: Bleach. Type: Cleaning. Description: Household bleach for disinfecting.
+Name: Floor Cleaner. Type: Cleaning. Description: Lemon-scented floor wash.
+Name: Scrub Brush. Type: Cleaning. Description: Heavy-duty cleaning brush.
+Name: Air Freshener. Type: Cleaning. Description: Plug-in air freshener refill.
+Name: Rubber Gloves. Type: Cleaning. Description: Reusable gloves for cleaning.
+Name: Lint Roller. Type: Cleaning. Description: Roller for removing lint and pet hair.
+Name: Toilet Brush. Type: Cleaning. Description: Plastic toilet brush with holder.
+Name: Light Bulbs. Type: Home. Description: LED bulbs, warm white, pack of 4.
+Name: Batteries. Type: Home. Description: AA batteries, 8-pack.
+Name: Candles. Type: Home. Description: Scented candles for ambiance.
+Name: Picture Frame. Type: Home. Description: Wooden 5x7 photo frame.
+Name: Cushion. Type: Home. Description: Decorative throw cushion for sofa.
+Name: Blanket. Type: Home. Description: Soft fleece blanket.
+Name: Pillow. Type: Home. Description: Standard-size sleeping pillow.
+Name: Bedsheet. Type: Home. Description: Queen-size cotton bedsheet set.
+Name: Curtains. Type: Home. Description: Blackout curtains for bedrooms.
+Name: Rug. Type: Home. Description: Soft living room area rug.
+Name: Wall Clock. Type: Home. Description: Minimalist round wall clock.
+Name: Vase. Type: Home. Description: Glass flower vase.
+Name: Plant Pot. Type: Home. Description: Ceramic pot for indoor plants.
+Name: Laundry Basket. Type: Home. Description: Plastic hamper with handles.
+Name: Iron. Type: Home. Description: Steam iron with adjustable settings.
+Name: Hangers. Type: Home. Description: Wooden clothes hangers, 10-pack.
+Name: Storage Box. Type: Home. Description: Foldable fabric storage box.
+Name: Candlestick Holder. Type: Home. Description: Metal candle holder for décor.
+Name: Clock Radio. Type: Home. Description: Digital alarm clock with FM radio.
+Name: Door Mat. Type: Home. Description: Coir doormat with welcome text.
+Name: Laptop. Type: Technology. Description: Lightweight laptop with 8GB RAM.
+Name: Smartphone. Type: Technology. Description: Android smartphone with 128GB storage.
+Name: Earphones. Type: Technology. Description: Wired in-ear headphones.
+Name: Bluetooth Speaker. Type: Technology. Description: Portable wireless speaker.
+Name: Power Bank. Type: Technology. Description: 10,000mAh USB-C power bank.
+Name: Phone Charger. Type: Technology. Description: Fast-charging USB cable and adapter.
+Name: USB Drive. Type: Technology. Description: 32GB flash drive.
+Name: External Hard Drive. Type: Technology. Description: 1TB portable drive.
+Name: Keyboard. Type: Technology. Description: Wireless keyboard with numeric pad.
+Name: Mouse. Type: Technology. Description: Optical wireless mouse.
+Name: Monitor. Type: Technology. Description: 24-inch HD computer monitor.
+Name: HDMI Cable. Type: Technology. Description: 2-meter HDMI cable.
+Name: Printer Ink. Type: Technology. Description: Black ink cartridge.
+Name: Smartwatch. Type: Technology. Description: Fitness-tracking smartwatch.
+Name: Webcam. Type: Technology. Description: 1080p USB webcam.
+Name: Laptop Stand. Type: Technology. Description: Adjustable metal laptop stand.
+Name: Extension Cord. Type: Technology. Description: 4-outlet power board.
+Name: Batteries Pack. Type: Technology. Description: Rechargeable battery set with charger.
+Name: MicroSD Card. Type: Technology. Description: 64GB memory card for devices.
+Name: Screen Cleaner. Type: Technology. Description: Cleaning spray and microfiber cloth.
+Name: Dog Food. Type: Pet Supplies. Description: Dry kibble for adult dogs.
+Name: Cat Food. Type: Pet Supplies. Description: Wet cat food in pouches.
+Name: Pet Shampoo. Type: Pet Supplies. Description: Gentle shampoo for dogs and cats.
+Name: Pet Toy. Type: Pet Supplies. Description: Rubber chew toy for pets.
+Name: Cat Litter. Type: Pet Supplies. Description: Clumping cat litter, 10kg.
+Name: Dog Leash. Type: Pet Supplies. Description: Nylon leash with metal clip.
+Name: Pet Bed. Type: Pet Supplies. Description: Soft cushion bed for small pets.
+Name: Fish Food. Type: Pet Supplies. Description: Flake food for aquarium fish.
+Name: Pet Bowl. Type: Pet Supplies. Description: Stainless steel food bowl.
+Name: Pet Brush. Type: Pet Supplies. Description: Grooming brush for shedding control.
+Name: Notebook. Type: Stationery. Description: Lined notebook, A4 size.
+Name: Pens. Type: Stationery. Description: Blue ballpoint pens, pack of 10.
+Name: Pencils. Type: Stationery. Description: HB pencils with erasers, 12-pack.
+Name: Eraser. Type: Stationery. Description: Soft white eraser for clean corrections.
+Name: Sharpener. Type: Stationery. Description: Compact pencil sharpener.
+Name: Highlighters. Type: Stationery. Description: Fluorescent marker set, 5 colors.
+Name: Sticky Notes. Type: Stationery. Description: Adhesive note pads, assorted colors.
+Name: Folder. Type: Stationery. Description: Plastic A4 document folder.
+Name: Binder. Type: Stationery. Description: 2-ring binder for papers.
+Name: Scissors. Type: Stationery. Description: Stainless steel office scissors.
+Name: Glue Stick. Type: Stationery. Description: Non-toxic glue stick, 40g.
+Name: Tape. Type: Stationery. Description: Clear adhesive tape roll.
+Name: Stapler. Type: Stationery. Description: Medium-sized stapler with staples.
+Name: Ruler. Type: Stationery. Description: 30cm transparent ruler.
+Name: Calculator. Type: Stationery. Description: Basic scientific calculator.
+Name: Whiteboard Marker. Type: Stationery. Description: Black dry-erase marker.
+Name: Envelopes. Type: Stationery. Description: DL envelopes, 50-pack.
+Name: Printer Paper. Type: Stationery. Description: A4 printing paper, 500 sheets.
+Name: Notebook Organizer. Type: Stationery. Description: Leather-bound planner.
+Name: Sticky Labels. Type: Stationery. Description: Blank label sheets for writing.
+Name: Light Bulb Adapter. Type: Hardware. Description: Screw socket converter for bulbs.
+Name: Nails. Type: Hardware. Description: Steel nails, assorted sizes.
+Name: Screws. Type: Hardware. Description: Multi-size screw set in box.
+Name: Hammer. Type: Hardware. Description: 16oz claw hammer.
+Name: Screwdriver. Type: Hardware. Description: Phillips-head screwdriver.
+Name: Tape Measure. Type: Hardware. Description: 5-meter retractable tape.
+Name: Drill Bits. Type: Hardware. Description: Metal drill bit set.
+Name: Wrench. Type: Hardware. Description: Adjustable steel wrench.
+Name: Duct Tape. Type: Hardware. Description: Heavy-duty silver duct tape.
+Name: Flashlight. Type: Hardware. Description: LED torch with batteries included.
+Name: Batteries. Type: Hardware. Description: D-size batteries, 4-pack.
+Name: Super Glue. Type: Hardware. Description: Instant adhesive tube.
+Name: Paint Brush. Type: Hardware. Description: Medium-sized paint brush.
+Name: Sandpaper. Type: Hardware. Description: Fine grit sandpaper sheets.
+Name: Electrical Tape. Type: Hardware. Description: Black insulation tape roll.
+Name: Safety Glasses. Type: Hardware. Description: Clear protective eyewear.
+Name: Work Gloves. Type: Hardware. Description: Durable leather gloves.
+Name: Level. Type: Hardware. Description: Small spirit level for straight alignment.
+Name: Utility Knife. Type: Hardware. Description: Retractable box cutter.
+Name: Extension Cord Reel. Type: Hardware. Description: 15-meter heavy-duty cord reel.

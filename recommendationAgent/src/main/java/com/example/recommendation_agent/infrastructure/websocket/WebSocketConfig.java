@@ -1,6 +1,6 @@
 package com.example.recommendation_agent.infrastructure.websocket;
 
-import recommendation_agent.demo.presentation.websocket.ChatWebSocketHandler;
+import com.example.recommendation_agent.interfaces.websocket.ChatWebSocketHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;

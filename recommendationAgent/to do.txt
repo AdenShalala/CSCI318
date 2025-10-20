@@ -1,15 +1,5 @@
 Recommendation Enging MS
+
 Infrastructure
 AgentConfig
-- add the agent linking from application
 - modify the content retriever if applicable
-
-Interfaces
-- Create controllers
-
-Application
-- create agent instructions
-- create recommendation service
-
-Other
-- check websocket Y/N?
