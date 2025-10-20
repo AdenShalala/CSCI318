@@ -1,5 +1,8 @@
 package com.example.recommendation_agent.infrastructure.agentic;
 
+import com.example.recommendation_agent.application.ChatAgent;
+import com.example.recommendation_agent.application.RecAgent;
+
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.parser.TextDocumentParser;
 import dev.langchain4j.data.embedding.Embedding;
@@ -14,8 +17,6 @@ import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
-
-import org.apache.logging.log4j.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +34,7 @@ import static dev.langchain4j.data.document.loader.FileSystemDocumentLoader.load
 @Configuration
 public class AgentConfiguration {
     
-    private static final Logger log = LoggerFactory.getLogger(AgentConfiguration.class)
+    private static final Logger log = LoggerFactory.getLogger(AgentConfiguration.class);
 
     // provides chat history for agent
     // allocates memory to store previous messages (up to 10)
@@ -57,7 +58,7 @@ public class AgentConfiguration {
 
         EmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
 
-        Resource resource = resourceLoader.getResource(""); // ADD RESOURCE OF ITEMS
+        Resource resource = resourceLoader.getResource("classpath:item_catalog.txt"); // ADD RESOURCE OF ITEMS
         Document document = loadDocument(resource.getFile().toPath(), new TextDocumentParser());
 
         String[] lines = document.text().split("\r?\n");
@@ -81,7 +82,7 @@ public class AgentConfiguration {
         // and data but i will leave this here for now
 
         int max_results = 10;
-        double min_score = 0.6; // this is a minimum similarity score
+        double min_score = 0.4; // this is a minimum similarity score
                                 // higher = Stricter (few precise results)
                                 // lower = More recall (many imprecise results)
 
@@ -93,18 +94,14 @@ public class AgentConfiguration {
         .build();                                       // }
     }
 
-    // need to add the agents from application
     // Links service interfaces with LLM components
-    // EXAMPLE
-    // @Bean
-    // RAGAgent bookRecommendationAgent(ChatModel chatModel, // chosen LLM
-    //                                  ContentRetriever contentRetriever, // does it need content from store
-    //                                  ChatMemoryProvider chatMemoryProvider) { // conversation history
-    //     return AiServices.builder(RAGAgent.class) 
-    //             .chatModel(chatModel)
-    //             .contentRetriever(contentRetriever)
-    //             .chatMemoryProvider(chatMemoryProvider)
-    //             .build();
-    // }
-}
+    @Bean
+    RecAgent stockRecommendationAgent(ChatModel chatModel, ContentRetriever contentRetriever, ChatMemoryProvider chatMemoryProvider) {
+        return AiServices.builder(RecAgent.class).chatModel(chatModel).contentRetriever(contentRetriever).chatMemoryProvider(chatMemoryProvider).build();
+    }
+    @Bean
+    ChatAgent stockChatAgent(ChatModel chatModel, ChatMemoryProvider chatMemoryProvider) {
+        return AiServices.builder(ChatAgent.class).chatModel(chatModel).chatMemoryProvider(chatMemoryProvider).build();
+    }
 
+}
