@@ -23,10 +23,21 @@
 }
 
 #teal-3d-object {
-  position: absolute;
+  /* position fixed so the object floats over the page body (not limited to header) */
+  position: fixed;
   width: 150px;
   height: 150px;
   right: 40px;
-  top: 40px;
-  z-index: 10;
+  top: 120px;
+  /* move below header so it appears over the body */
+  z-index: 50;
+  pointer-events: none;
+  /* do not block clicks */
+}
+
+@media (max-width: 768px) {
+  #teal-3d-object {
+    display: none;
+    /* hide on small screens */
+  }
 }
