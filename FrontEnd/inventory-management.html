@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WareHost - Inventory Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/resources-common.css">
+
+    <style>
+        /* Page-specific override: keep the 3D object constrained to the header on this page */
+        header #teal-3d-object {
+            position: absolute !important;
+            width: 150px;
+            height: 150px;
+            right: 1.5rem;
+            top: 0.6rem;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            header #teal-3d-object {
+                display: none !important;
+            }
+        }
+    </style>
+
     <style>
         * {
             margin: 0;
@@ -58,7 +80,8 @@
             transition: all 0.3s ease;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             background: #67ab9f;
             color: white;
         }
@@ -210,7 +233,8 @@
             margin-top: 1rem;
         }
 
-        th, td {
+        th,
+        td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #eee;
@@ -268,7 +292,9 @@
             color: #2c3e50;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 0.8rem 1rem;
             border: 2px solid #e1e5e9;
@@ -277,7 +303,9 @@
             transition: border-color 0.3s ease;
         }
 
-        input:focus, select:focus, textarea:focus {
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #67ab9f;
         }
@@ -377,45 +405,55 @@
             .main-content {
                 grid-template-columns: 1fr;
             }
-            
+
             .header {
                 flex-direction: column;
                 gap: 1rem;
             }
-            
+
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
+
             .form-row {
                 grid-template-columns: 1fr;
             }
-            
+
             .search-section {
                 flex-direction: column;
             }
-            
+
             .search-box {
                 min-width: 100%;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Header -->
-        <header class="header">
-            <div class="logo">WareHost</div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="#" class="active">Inventory</a></li>
-                    <li><a href="ai-insights.html">AI Insights</a></li>
-                    <li><a href="#">Sales</a></li>
-                    <li><a href="#">Resources</a></li>
-                </ul>
-            </nav>
+        <header class="bg-[#3AA6A0] text-white shadow-md relative overflow-hidden">
+            <div id="vanta-bg" class="absolute inset-0"></div>
+            <div id="teal-3d-object"></div>
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center relative z-10">
+                <div class="flex items-center space-x-2">
+                    <i data-feather="users" class="w-6 h-6 text-white"></i>
+                    <h1 class="text-2xl font-bold">WareHost</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="dashboard.html"
+                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Dashboard</a>
+                    <a href="inventory-management.html"
+                        class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">Inventory</a>
+                    <a href="ai-insights.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">AI
+                        Insights</a>
+                    <a href="sales.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Sales</a>
+                    <a href="resources.html"
+                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Resources</a>
+                </nav>
+            </div>
         </header>
 
         <!-- Main Content -->
@@ -440,7 +478,8 @@
                     <div class="search-section">
                         <div class="search-box">
                             <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+                            <input type="text" id="searchInput" placeholder="Search products..."
+                                onkeyup="filterProducts()">
                         </div>
                         <select class="filter-select" onchange="filterProducts()">
                             <option value="all">All Categories</option>
@@ -485,7 +524,7 @@
                         <h2 class="card-title">Stock Recommendations</h2>
                         <span class="status-badge status-good" id="recommendationCount">3 New</span>
                     </div>
-                    
+
                     <div id="recommendationsList">
                         <!-- Recommendations will be populated by JavaScript -->
                     </div>
@@ -662,7 +701,7 @@
         ];
 
         // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             renderProductsTable();
             renderRecommendations();
         });
@@ -699,11 +738,11 @@
             const container = document.getElementById('recommendationsList');
             const countElement = document.getElementById('recommendationCount');
             const pendingRecommendations = recommendations.filter(rec => rec.status === 'pending');
-            
+
             countElement.textContent = `${pendingRecommendations.length} New`;
-            
+
             container.innerHTML = '';
-            
+
             pendingRecommendations.forEach(recommendation => {
                 const card = document.createElement('div');
                 card.className = 'recommendation-card';
@@ -775,9 +814,9 @@
         }
 
         // Form handlers
-        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+        document.getElementById('addProductForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const newProduct = {
                 id: document.getElementById('productId').value,
                 name: document.getElementById('productName').value,
@@ -786,18 +825,18 @@
                 price: parseFloat(document.getElementById('productPrice').value),
                 description: document.getElementById('productDescription').value
             };
-            
+
             products.push(newProduct);
             renderProductsTable();
             closeAddProductModal();
-            
+
             // Show success message
             alert('Product added successfully!');
         });
 
-        document.getElementById('editProductForm').addEventListener('submit', function(e) {
+        document.getElementById('editProductForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const index = parseInt(document.getElementById('editProductIndex').value);
             products[index] = {
                 id: document.getElementById('editProductId').value,
@@ -807,10 +846,10 @@
                 price: parseFloat(document.getElementById('editProductPrice').value),
                 description: document.getElementById('editProductDescription').value
             };
-            
+
             renderProductsTable();
             closeEditProductModal();
-            
+
             // Show success message
             alert('Product updated successfully!');
         });
@@ -825,7 +864,7 @@
             document.getElementById('editStockQuantity').value = product.stock;
             document.getElementById('editProductPrice').value = product.price;
             document.getElementById('editProductDescription').value = product.description;
-            
+
             openEditProductModal();
         }
 
@@ -857,16 +896,16 @@
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const categoryFilter = document.querySelectorAll('.filter-select')[0].value;
             const statusFilter = document.querySelectorAll('.filter-select')[1].value;
-            
+
             const filteredProducts = products.filter(product => {
-                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
-                                    product.id.toLowerCase().includes(searchTerm);
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
+                    product.id.toLowerCase().includes(searchTerm);
                 const matchesCategory = categoryFilter === 'all' || product.category === categoryFilter;
                 const matchesStatus = statusFilter === 'all' || getStockStatus(product.stock) === statusFilter;
-                
+
                 return matchesSearch && matchesCategory && matchesStatus;
             });
-            
+
             renderFilteredProducts(filteredProducts);
         }
 
@@ -898,10 +937,10 @@
         }
 
         // Close modals when clicking outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const addModal = document.getElementById('addProductModal');
             const editModal = document.getElementById('editProductModal');
-            
+
             if (event.target === addModal) {
                 closeAddProductModal();
             }
@@ -910,5 +949,23 @@
             }
         }
     </script>
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <p class="text-[#3AA6A0]">&copy; 2025 WareHost. All rights reserved.</p>
+            <div class="space-x-4">
+                <a href="#" class="hover:text-[#3AA6A0]">Help</a>
+                <a href="#" class="hover:text-[#3AA6A0]">Privacy</a>
+                <a href="#" class="hover:text-[#3AA6A0]">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Three.js + Vanta + shared 3D/interaction script (header-only for this page) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <script src="assets/js/resources-common.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function () { if (window.feather) feather.replace(); });</script>
+
 </body>
+
 </html>
