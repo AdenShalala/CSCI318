@@ -1,0 +1,5 @@
+To do for Stock MS
+- implement acl file (outboundservices)
+    - for interacting with other microservices
+
+- GET RID OF RED LINES
