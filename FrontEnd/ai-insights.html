@@ -10,7 +10,24 @@
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="assets/css/resources-common.css">
-  <!-- Tailwind config removed to use shared theme from resources-common.css -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              500: '#4f46e5',
+              600: '#4338ca',
+            },
+            secondary: {
+              500: '#10b981',
+              600: '#059669',
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
     .insight-card {
       transition: all 0.3s ease;
