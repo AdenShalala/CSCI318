@@ -47,8 +47,13 @@
 
       function animate() {
         requestAnimationFrame(animate);
+        const t = performance.now();
+        // gentle spinning
         torusKnot.rotation.x += 0.01;
         torusKnot.rotation.y += 0.01;
+        torusKnot.rotation.z += 0.002;
+        // floating effect (vertical sinusoidal movement)
+        torusKnot.position.y = Math.sin(t * 0.002) * 0.12;
         renderer.render(scene, camera);
       }
       animate();
