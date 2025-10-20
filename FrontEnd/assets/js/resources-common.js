@@ -21,42 +21,68 @@
   if (window.THREE) {
     try {
       const container = document.getElementById('teal-3d-object');
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ alpha: true });
-      renderer.setSize(150, 150);
-      container.appendChild(renderer.domElement);
+      // don't initialize on small screens or if container not present/hidden
+      if (!container || window.innerWidth < 768 || getComputedStyle(container).display === 'none') {
+        // skip heavy animation on small screens / when not visible
+      } else {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        const BASE_SIZE = 130;
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.setSize(BASE_SIZE, BASE_SIZE);
+        container.appendChild(renderer.domElement);
 
-      const geometry = new THREE.TorusKnotGeometry(0.7, 0.2, 100, 16);
-      const material = new THREE.MeshPhongMaterial({
-        color: 0x3AA6A0,
-        specular: 0x111111,
-        shininess: 30,
-        flatShading: true
-      });
-      const torusKnot = new THREE.Mesh(geometry, material);
-      scene.add(torusKnot);
+        const geometry = new THREE.TorusKnotGeometry(0.6, 0.15, 100, 16);
+        const material = new THREE.MeshPhongMaterial({
+          color: 0x3AA6A0,
+          specular: 0x111111,
+          shininess: 10,
+          flatShading: true,
+          transparent: true,
+          opacity: 0.95
+        });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        scene.add(torusKnot);
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-      scene.add(ambientLight);
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-      directionalLight.position.set(1, 1, 1);
-      scene.add(directionalLight);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.7);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
 
-      camera.position.z = 2;
+        camera.position.z = 2.5;
 
-      function animate() {
-        requestAnimationFrame(animate);
-        const t = performance.now();
-        // gentle spinning
-        torusKnot.rotation.x += 0.01;
-        torusKnot.rotation.y += 0.01;
-        torusKnot.rotation.z += 0.002;
-        // floating effect (vertical sinusoidal movement)
-        torusKnot.position.y = Math.sin(t * 0.002) * 0.12;
-        renderer.render(scene, camera);
+        // pause animation when tab is hidden to save CPU
+        let running = true;
+        document.addEventListener('visibilitychange', function () {
+          running = !document.hidden;
+        });
+
+        function onResize() {
+          const rect = container.getBoundingClientRect();
+          const size = Math.max(80, Math.min(BASE_SIZE, rect.width, rect.height));
+          renderer.setSize(size, size);
+          camera.aspect = 1;
+          camera.updateProjectionMatrix();
+        }
+        window.addEventListener('resize', onResize);
+        onResize();
+
+        function animate() {
+          requestAnimationFrame(animate);
+          if (!running) return;
+          const t = performance.now();
+          // reduced rotation speeds for gentler motion
+          torusKnot.rotation.x += 0.003;
+          torusKnot.rotation.y += 0.004;
+          torusKnot.rotation.z += 0.001;
+          // smaller floating amplitude
+          torusKnot.position.y = Math.sin(t * 0.002) * 0.04;
+          renderer.render(scene, camera);
+        }
+        animate();
       }
-      animate();
     } catch (e) {
       console.warn('Three.js animation failed to initialize', e);
     }

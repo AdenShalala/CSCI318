@@ -129,14 +129,16 @@
                             <input type="text" id="searchInput" placeholder="Search products..."
                                 onkeyup="filterProducts()">
                         </div>
-                        <select class="filter-select" onchange="filterProducts()">
+                        <select class="filter-select" id="categoryFilter" aria-label="Category filter"
+                            onchange="filterProducts()">
                             <option value="all">All Categories</option>
                             <option value="outdoor">Outdoor Gear</option>
                             <option value="cooking">Cooking</option>
                             <option value="clothing">Clothing</option>
                             <option value="electronics">Electronics</option>
                         </select>
-                        <select class="filter-select" onchange="filterProducts()">
+                        <select class="filter-select" id="statusFilter" aria-label="Status filter"
+                            onchange="filterProducts()">
                             <option value="all">All Status</option>
                             <option value="good">In Stock</option>
                             <option value="low">Low Stock</option>
@@ -223,7 +225,7 @@
                     <label for="productDescription">Description (Optional)</label>
                     <textarea id="productDescription" rows="3"></textarea>
                 </div>
-                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <div class="modal-actions">
                     <button type="button" class="btn btn-outline" onclick="closeAddProductModal()">Cancel</button>
                     <button type="submit" class="btn btn-primary">Add Product</button>
                 </div>
@@ -273,7 +275,7 @@
                     <label for="editProductDescription">Description</label>
                     <textarea id="editProductDescription" rows="3"></textarea>
                 </div>
-                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <div class="modal-actions">
                     <button type="button" class="btn btn-outline" onclick="closeEditProductModal()">Cancel</button>
                     <button type="submit" class="btn btn-primary">Update Product</button>
                 </div>
