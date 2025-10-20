@@ -4,6 +4,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 
 import com.example.sales.domain.model.commands.SalesCommand;
 import com.example.sales.domain.model.entities.Charge;
+import com.example.shareddomain.events.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Embedded;
@@ -69,6 +70,8 @@ public class Sale extends AbstractAggregateRoot<Sale> {
                                            })
                                            .collect(Collectors.toList());
     }
+
+    registerEvent(new SaleCreatedEvent(saleID.getSaleID(), itemID));
 }
     //Highlight your getters and setters and the like
     public SaleID getSaleID(){return this.saleID;}

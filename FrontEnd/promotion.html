@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromoGenius AI | WareHost</title>
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              500: '#6366f1',
+              600: '#4f46e5',
+            },
+            secondary: {
+              500: '#ec4899',
+              600: '#db2777',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .promo-card {
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+    }
+
+    .promo-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      border-left-color: #6366f1;
+    }
+
+    .ai-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: linear-gradient(135deg, #ec4899, #db2777);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    .product-tag {
+      background-color: #e0e7ff;
+      color: #4f46e5;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 flex items-center">
+            <i data-feather="package" class="h-8 w-8 text-primary-500"></i>
+            <span class="ml-2 text-xl font-bold text-gray-900">WareHost</span>
+          </div>
+        </div>
+        <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+          <a href="index.html" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium">Dashboard</a>
+          <a href="inventory.html" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium">Inventory</a>
+          <a href="resources.html" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium">Resources</a>
+          <a href="insights.html" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium">AI
+            Insights</a>
+          <a href="promotions.html"
+            class="text-primary-600 border-b-2 border-primary-600 px-3 py-2 text-sm font-medium">Promotions</a>
+        </div>
+        <div class="flex items-center">
+          <button
+            class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-150">
+            New Promotion
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="mb-10">
+      <div class="flex items-center mb-4">
+        <div class="p-3 rounded-lg bg-gradient-to-r from-primary-500 to-secondary-500 text-white mr-4">
+          <i data-feather="zap" class="h-6 w-6"></i>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">PromoGenius AI</h1>
+          <p class="text-gray-600">Smart promotion recommendations based on your inventory and sales patterns</p>
+        </div>
+      </div>
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <i data-feather="alert-circle" class="h-5 w-5 text-blue-500"></i>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-blue-700">
+              Our AI has analyzed your inventory and suggests these promotions to maximize sales and clear slow-moving
+              stock.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Generated Promotions -->
+    <div class="mb-12">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-semibold text-gray-900">AI-Generated Promotions</h2>
+        <div class="flex items-center space-x-2">
+          <span class="text-sm text-gray-500">Sort by:</span>
+          <select class="border-gray-300 rounded-lg text-sm focus:ring-primary-500 focus:border-primary-500">
+            <option>Potential Impact</option>
+            <option>Start Date</option>
+            <option>Discount %</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Promotion 1 -->
+        <div class="promo-card relative bg-white rounded-lg shadow p-6">
+          <div class="ai-badge">AI RECOMMENDED</div>
+          <h3 class="font-bold text-lg text-gray-900 mb-2">Summer Tech Bundle</h3>
+          <div class="flex items-center mb-3">
+            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">ACTIVE</span>
+            <span class="ml-2 text-sm text-gray-500">Jul 1 - Jul 31</span>
+          </div>
+          <div class="mb-4">
+            <span class="text-2xl font-bold text-primary-600">20%</span>
+            <span class="text-gray-500"> discount</span>
+          </div>
+          <div class="mb-4">
+            <p class="text-sm text-gray-600">Bundle wireless headphones with smartwatch for summer fitness enthusiasts.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="product-tag">Premium Smartwatch</span>
+            <span class="product-tag">Wireless Headphones</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-xs text-gray-500">Projected revenue:</span>
+              <span class="block text-sm font-medium">$12,450 (+18%)</span>
+            </div>
+            <button class="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center">
+              <i data-feather="edit" class="w-4 h-4 mr-1"></i> Customize
+            </button>
+          </div>
+        </div>
+
+        <!-- Promotion 2 -->
+        <div class="promo-card relative bg-white rounded-lg shadow p-6">
+          <div class="ai-badge">AI RECOMMENDED</div>
+          <h3 class="font-bold text-lg text-gray-900 mb-2">Weekend Gamer Deal</h3>
+          <div class="flex items-center mb-3">
+            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">UPCOMING</span>
+            <span class="ml-2 text-sm text-gray-500">Starts tomorrow</span>
+          </div>
+          <div class="mb-4">
+            <span class="text-2xl font-bold text-primary-600">15%</span>
+            <span class="text-gray-500"> discount</span>
+          </div>
+          <div class="mb-4">
+            <p class="text-sm text-gray-600">Special weekend pricing on gaming laptops and accessories.</p>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="product-tag">Gaming Laptop</span>
+            <span class="product-tag">Gaming Mouse</span>
+            <span class="product-tag">Mechanical Keyboard</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-xs text-gray-500">Projected revenue:</span>
+              <span class="block text-sm font-medium">$8,720 (+12%)</span>
+            </div>
+            <button class="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center">
+              <i data-feather="edit" class="w-4 h-4 mr-1"></i> Customize
+            </button>
+          </div>
+        </div>
+
+        <!-- Promotion 3 -->
+        <div class="promo-card relative bg-white rounded-lg shadow p-6">
+          <h3 class="font-bold text-lg text-gray-900 mb-2">Back-to-School Essentials</h3>
+          <div class="flex items-center mb-3">
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">DRAFT</span>
+            <span class="ml-2 text-sm text-gray-500">Aug 15 - Sep 15</span>
+          </div>
+          <div class="mb-4">
+            <span class="text-2xl font-bold text-primary-600">10%</span>
+            <span class="text-gray-500"> discount</span>
+          </div>
+          <div class="mb-4">
+            <p class="text-sm text-gray-600">All tech essentials for students going back to school.</p>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="product-tag">Laptops</span>
+            <span class="product-tag">Tablets</span>
+            <span class="product-tag">Headphones</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-xs text-gray-500">Projected revenue:</span>
+              <span class="block text-sm font-medium">$15,300 (+22%)</span>
+            </div>
+            <button class="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center">
+              <i data-feather="edit" class="w-4 h-4 mr-1"></i> Customize
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create New Section -->
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-900">Create New Promotion</h2>
+      </div>
+      <div class="p-6">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div
+            class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-500 hover:bg-primary-50 transition duration-150 cursor-pointer">
+            <div
+              class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-primary-100 text-primary-500 mb-4">
+              <i data-feather="zap"></i>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">AI-Generated</h3>
+            <p class="text-sm text-gray-500">Let our AI create the optimal promotion based on your inventory</p>
+          </div>
+          <div
+            class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-500 hover:bg-primary-50 transition duration-150 cursor-pointer">
+            <div
+              class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-primary-100 text-primary-500 mb-4">
+              <i data-feather="star"></i>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Standard Sale</h3>
+            <p class="text-sm text-gray-500">Create a basic percentage or fixed amount discount</p>
+          </div>
+          <div
+            class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-500 hover:bg-primary-50 transition duration-150 cursor-pointer">
+            <div
+              class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-primary-100 text-primary-500 mb-4">
+              <i data-feather="package"></i>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Bundle Deal</h3>
+            <p class="text-sm text-gray-500">Combine products for special pricing</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize feather icons
+    document.addEventListener('DOMContentLoaded', function () {
+      feather.replace();
+    });
+
+    // Make promotion cards clickable
+    document.querySelectorAll('.promo-card').forEach(card => {
+      card.addEventListener('click', function () {
+        // In a real app, this would navigate to edit view
+        console.log('Editing promotion:', this.querySelector('h3').textContent);
+      });
+    });
+  </script>
+  <script>feather.replace();</script>
+  <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <p>&copy; 2025 WareHost. All rights reserved.</p>
+      <div class="space-x-4">
+        <a href="#" class="hover:text-green-400">Help</a>
+        <a href="#" class="hover:text-green-400">Privacy</a>
+        <a href="#" class="hover:text-green-400">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
