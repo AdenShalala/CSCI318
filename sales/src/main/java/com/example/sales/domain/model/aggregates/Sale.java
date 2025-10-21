@@ -71,7 +71,7 @@ public class Sale extends AbstractAggregateRoot<Sale> {
                                            .collect(Collectors.toList());
     }
 
-    registerEvent(new SaleCreatedEvent(saleID.getSaleID(), itemID));
+    registerEvent(new SaleCreatedEvent(saleID.getSaleID(), this.getTotalPrice(), itemID));
 }
     //Highlight your getters and setters and the like
     public SaleID getSaleID(){return this.saleID;}
