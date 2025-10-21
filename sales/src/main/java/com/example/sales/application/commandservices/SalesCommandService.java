@@ -1,9 +1,12 @@
 package com.example.sales.application.commandservices;
 
 import com.example.sales.infrastructure.repositories.*;
+import com.example.shareddomain.events.SaleCreatedEvent;
 import com.example.sales.domain.model.aggregates.*;
 import com.example.sales.domain.model.commands.SalesCommand;
 import com.example.sales.domain.model.entities.Charge;
+import com.example.shareddomain.events.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import org.springframework.stereotype.Service;
 import java.util.UUID;
@@ -37,6 +40,8 @@ public class SalesCommandService {
         }
 
         salesRepository.save(sale);
+        sale.saleRegisterCreatedEvent();
+        // registerEvent(new SaleCreatedEvent(saleID, sale.getTotalPrice(), sale.getItemID()));
         return new SaleID(saleID);
     }
 
