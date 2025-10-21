@@ -28,13 +28,9 @@ public class ItemCommandService {
 
     public void decrementStock(ItemID itemID) {
         Item item = itemRepository.findItemWithID(itemID);
-        itemRepository.removeItemByID(itemID.getItemID());
-
-        int quantity = item.getItemQuantity().getQuantityInt();
-        quantity--;
-        ItemQuantity itemQuantity = new ItemQuantity(quantity);
-
-        item.setItemQuantity(itemQuantity);
+        
+        item.getItemQuantity().setQuantityInt(item.getItemQuantity().getQuantityInt() - 1);
+        
         itemRepository.save(item);
     }
 }
