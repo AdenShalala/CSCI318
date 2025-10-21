@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.shareddomain.events.*;
 import com.example.warehost.application.commandservices.ItemCommandService;
+import com.example.warehost.domain.model.aggregates.ItemID;
 
 @Component
 public class SaleEventConsumer {
@@ -22,8 +23,6 @@ public class SaleEventConsumer {
     )
     public void handleSaleCreated(SaleCreatedEvent event) {
         System.out.println("Inventory received SaleCreatedEvent: " + event);
-        //inventoryService.decrementStock(event.getItemID());
-        //
-        //HANDLE SALE CREATIONS HERE
+        inventoryService.decrementStock(new ItemID(event.getItemID()));
     }
 }
