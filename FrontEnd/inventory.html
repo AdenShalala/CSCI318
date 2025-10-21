@@ -25,7 +25,7 @@
             color: #333;
         }
 
-        .container {
+        .dashboard-container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
@@ -80,7 +80,7 @@
 </head>
 
 <body>
-    <div class="dashboard-container container">
+    <div class="dashboard-container">
         <!-- Header (dashboard-style) -->
         <header class="bg-[#3AA6A0] text-white shadow-md relative overflow-hidden">
             <div id="vanta-bg" class="absolute inset-0"></div>
@@ -91,15 +91,12 @@
                     <h1 class="text-2xl font-bold">WareHost</h1>
                 </div>
                 <nav class="hidden md:flex space-x-8">
-                    <a href="index.html"
-                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Dashboard</a>
-                    <a href="inventory-management.html"
-                        class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">Inventory</a>
+                    <a href="index.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Dashboard</a>
+                    <a href="inventory.html" class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">Inventory</a>
                     <a href="ai-insights.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">AI
                         Insights</a>
                     <a href="sales.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Sales</a>
-                    <a href="resources.html"
-                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Resources</a>
+                    <a href="resources.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Resources</a>
                 </nav>
             </div>
         </header>
@@ -114,10 +111,10 @@
                         <h2 class="card-title">Inventory Management</h2>
                         <div class="action-buttons">
                             <button class="btn btn-primary" onclick="openAddProductModal()">
-                                <i class="fas fa-plus"></i>Add Product
+                                <i class="fas fa-plus"></i> Add Product
                             </button>
                             <a href="purchase-stock.html" class="btn btn-outline">
-                                <i class="fas fa-shopping-cart"></i>Purchase Stock
+                                <i class="fas fa-shopping-cart"></i> Purchase Stock
                             </a>
                         </div>
                     </div>
@@ -126,19 +123,16 @@
                     <div class="search-section">
                         <div class="search-box">
                             <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Search products..."
-                                onkeyup="filterProducts()">
+                            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
                         </div>
-                        <select class="filter-select" id="categoryFilter" aria-label="Category filter"
-                            onchange="filterProducts()">
+                        <select class="filter-select" id="categoryFilter" aria-label="Category filter" onchange="filterProducts()">
                             <option value="all">All Categories</option>
                             <option value="outdoor">Outdoor Gear</option>
                             <option value="cooking">Cooking</option>
                             <option value="clothing">Clothing</option>
                             <option value="electronics">Electronics</option>
                         </select>
-                        <select class="filter-select" id="statusFilter" aria-label="Status filter"
-                            onchange="filterProducts()">
+                        <select class="filter-select" id="statusFilter" aria-label="Status filter" onchange="filterProducts()">
                             <option value="all">All Status</option>
                             <option value="good">In Stock</option>
                             <option value="low">Low Stock</option>
@@ -447,20 +441,20 @@
 
         // Modal functions
         function openAddProductModal() {
-            document.getElementById('addProductModal').style.display = 'flex';
+            document.getElementById('addProductModal').classList.add('active');
         }
 
         function closeAddProductModal() {
-            document.getElementById('addProductModal').style.display = 'none';
+            document.getElementById('addProductModal').classList.remove('active');
             document.getElementById('addProductForm').reset();
         }
 
         function openEditProductModal() {
-            document.getElementById('editProductModal').style.display = 'flex';
+            document.getElementById('editProductModal').classList.add('active');
         }
 
         function closeEditProductModal() {
-            document.getElementById('editProductModal').style.display = 'none';
+            document.getElementById('editProductModal').classList.remove('active');
         }
 
         // Form handlers

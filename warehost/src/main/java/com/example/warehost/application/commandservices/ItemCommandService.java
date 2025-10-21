@@ -52,7 +52,10 @@ public class ItemCommandService {
 
         ItemQuantity itemQuantity = new ItemQuantity(quantity);
 
-        item.setItemQuantity(itemQuantity);
+        item.setItemQuantity(itemQuantity);   
+
+        item.getItemQuantity().setQuantityInt(item.getItemQuantity().getQuantityInt() - 1);
+        
         itemRepository.save(item);
     }
 }

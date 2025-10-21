@@ -26,4 +26,14 @@ public class PromoCommandService {
 
         return new PromoID(promoID);
     }
+
+    public void deletePromotion(PromoID promoID) {
+        Promotion promotion = promoRepository.findPromotionByPromoID(promoID);
+        promoRepository.delete(promotion);
+    }
+    public void updatePromotion(PromoCommand promoCommand) {
+        Promotion promotion = promoRepository.findPromotionByPromoID(new PromoID(promoCommand.getPromoID()));
+        promotion.updateDetails(promoCommand);
+        promoRepository.save(promotion);
+    }
 }

@@ -1,12 +1,9 @@
 package com.example.sales.domain.model.aggregates;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import com.example.sales.domain.model.commands.SalesCommand;
 import com.example.sales.domain.model.entities.Charge;
-import com.example.shareddomain.events.SaleCreatedEvent;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Embedded;
@@ -114,6 +111,27 @@ public class Sale extends AbstractAggregateRoot<Sale> {
         output += "Total Price: $" + this.getTotalPrice();
 
         return output;
+    }
+
+    public void updateFromCommand(SalesCommand updatedSale) {
+        this.date = updatedSale.getDate();
+
+        if (updatedSale.getCharge() != null) {
+            this.charge = updatedSale.getCharge();
+            this.charge.setSale(this);
+            this.charge.setIsMain(true);
+        } else {
+            this.charge = null;
+        }
+
+        this.additionalCharges.clear();
+        if (updatedSale.getAdditionalCharges() != null) {
+            for (Charge addCharge : updatedSale.getAdditionalCharges()) {
+                addCharge.setSale(this);
+                addCharge.setIsMain(false);
+                this.additionalCharges.add(addCharge);
+            }
+        }
     }
     
 }

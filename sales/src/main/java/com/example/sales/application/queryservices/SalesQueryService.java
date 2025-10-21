@@ -58,4 +58,11 @@ public class SalesQueryService {
         sale.setAdditionalCharges(extras);
         return sale;
     }
+
+    public List<Sale> findSalesAboveAmount(double amount) {
+        List<Sale> sales = salesRepository.findAllSales();
+        return sales.stream()
+                .filter(sale -> sale.getTotalPrice() > amount)
+                .collect(Collectors.toList());
+    }
 }
