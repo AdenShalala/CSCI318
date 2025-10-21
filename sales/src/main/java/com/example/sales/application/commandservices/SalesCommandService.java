@@ -5,9 +5,6 @@ import com.example.shareddomain.events.SaleCreatedEvent;
 import com.example.sales.domain.model.aggregates.*;
 import com.example.sales.domain.model.commands.SalesCommand;
 import com.example.sales.domain.model.entities.Charge;
-import com.example.shareddomain.events.*;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +52,16 @@ public class SalesCommandService {
         return new SaleID(saleID);
     }
 
+    @Transactional
+    public void deleteSale(SaleID saleID) {
+        Sale sale = salesRepository.findSaleWithID(saleID);
+        salesRepository.delete(sale);
+    }
 
+    @Transactional
+    public void updateSale(SaleID saleID, SalesCommand updatedSale) {
+        Sale existingSale = salesRepository.findSaleWithID(saleID);
+        existingSale.updateFromCommand(updatedSale);
+        salesRepository.save(existingSale);
+    }
 }
