@@ -1,10 +1,12 @@
 package com.example.sales.domain.model.aggregates;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import com.example.sales.domain.model.commands.SalesCommand;
 import com.example.sales.domain.model.entities.Charge;
-import com.example.shareddomain.events.*;
+import com.example.shareddomain.events.SaleCreatedEvent;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Embedded;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
     @NamedQuery (name="Sale.findSalesByItemID", query="Select s from Sale s where s.itemID = ?1")
     } )
 public class Sale extends AbstractAggregateRoot<Sale> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -71,7 +74,6 @@ public class Sale extends AbstractAggregateRoot<Sale> {
                                            .collect(Collectors.toList());
     }
 
-    registerEvent(new SaleCreatedEvent(saleID.getSaleID(), itemID));
 }
     //Highlight your getters and setters and the like
     public SaleID getSaleID(){return this.saleID;}
@@ -93,6 +95,12 @@ public class Sale extends AbstractAggregateRoot<Sale> {
 
         return total;
     }
+
+    // public void saleRegisterCreatedEvent() {
+    //     System.out.println("This much worked?!");
+    //     registerEvent(new SaleCreatedEvent(this.saleID.getSaleID(), this.getTotalPrice(), this.itemID));
+    //     publisher.publishEvent(event);
+    // }
 
     public String toString(){
         String output = "[Sale Details]\n";

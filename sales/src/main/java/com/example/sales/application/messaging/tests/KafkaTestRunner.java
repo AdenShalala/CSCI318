@@ -1,4 +1,4 @@
-package com.example.sales;
+package com.example.sales.application.messaging.tests;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -23,6 +23,6 @@ public class KafkaTestRunner implements CommandLineRunner {
         SaleCreatedEvent testEvent = new SaleCreatedEvent("TEST123", 150.00, "ITEM001");
         kafkaTemplate.send("sales.created", testEvent.getSaleID(), testEvent);
 
-        System.out.println("✅ Test event sent!");
+        System.out.println("Test event sent!");
     }
 }
