@@ -4,47 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TealTide ResourceMaster | Resources</title>
+  <title>ResourceMaster | Resources</title>
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
-  <style>
-    .sidebar {
-      scrollbar-width: thin;
-      scrollbar-color: #4B5563 #1F2937;
-    }
-
-    .sidebar::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .sidebar::-webkit-scrollbar-track {
-      background: #1F2937;
-    }
-
-    .sidebar::-webkit-scrollbar-thumb {
-      background-color: #4B5563;
-      border-radius: 3px;
-    }
-
-    .highlight-card {
-      box-shadow:
-        0 10px 15px -3px rgba(58, 166, 160, 0.2),
-        0 4px 6px -2px rgba(58, 125, 120, 0.1);
-    }
-
-    #teal-3d-object {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      right: 40px;
-      top: 40px;
-      z-index: 10;
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/resources-common.css">
+  <!-- Polyfill / extra styles can be added in assets/css/resources-common.css -->
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
@@ -379,56 +345,6 @@
   </div>
 
   <script>
-    // Vanta.js background
-    VANTA.GLOBE({
-      el: "#vanta-bg",
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      color: "#3AA6A0",
-      backgroundColor: "#3AA6A0",
-      size: 0.80
-    });
-
-    // 3D Teal Object
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(150, 150);
-    document.getElementById('teal-3d-object').appendChild(renderer.domElement);
-
-    // Create teal torus knot
-    const geometry = new THREE.TorusKnotGeometry(0.7, 0.2, 100, 16);
-    const material = new THREE.MeshPhongMaterial({
-      color: 0x3AA6A0,
-      specular: 0x111111,
-      shininess: 30,
-      flatShading: true
-    });
-    const torusKnot = new THREE.Mesh(geometry, material);
-    scene.add(torusKnot);
-
-    // Add lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(1, 1, 1);
-    scene.add(directionalLight);
-
-    camera.position.z = 2;
-
-    function animate() {
-      requestAnimationFrame(animate);
-      torusKnot.rotation.x += 0.01;
-      torusKnot.rotation.y += 0.01;
-      renderer.render(scene, camera);
-    }
-    animate();
-
     // Toggle forms
     document.querySelectorAll('[data-feather="plus"]').forEach(button => {
       button.addEventListener('click', function () {
@@ -443,6 +359,9 @@
       nav.classList.toggle('hidden');
     });
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+  <script src="assets/js/resources-common.js"></script>
   <script>feather.replace();</script>
   <footer class="bg-gray-800 text-white text-center py-4 mt-8">
     <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">

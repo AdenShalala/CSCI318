@@ -1,0 +1,43 @@
+.sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: #4B5563 #1F2937;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #1F2937;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #4B5563;
+  border-radius: 3px;
+}
+
+.highlight-card {
+  box-shadow:
+    0 10px 15px -3px rgba(58, 166, 160, 0.2),
+    0 4px 6px -2px rgba(58, 125, 120, 0.1);
+}
+
+#teal-3d-object {
+  /* position fixed so the object floats over the page body (not limited to header) */
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  right: 40px;
+  top: 120px;
+  /* move below header so it appears over the body */
+  z-index: 50;
+  pointer-events: none;
+  /* do not block clicks */
+}
+
+@media (max-width: 768px) {
+  #teal-3d-object {
+    display: none;
+    /* hide on small screens */
+  }
+}

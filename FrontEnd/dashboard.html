@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WareHost - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="stylesheet" href="assets/css/resources-common.css">
+    <link rel="stylesheet" href="assets/css/ai-insights-dashboard.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            500: '#4f46e5',
+                            600: '#4338ca',
+                        },
+                        secondary: {
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
+        /* Keep only minimal page layout styles here; moving visual styles to ai-insights-dashboard.css */
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +39,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #67ab9f 0%, #4a8c7d 100%);
+            background: #ffffff;
             min-height: 100vh;
             color: #333;
         }
@@ -25,95 +50,12 @@
             padding: 20px;
         }
 
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem 2rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #67ab9f;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            background: #67ab9f;
-            color: white;
-        }
-
+        /* Layout and utility classes retained */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
-            border-left: 4px solid #67ab9f;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-card i {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #67ab9f;
-        }
-
-        .stat-number {
-            font-size: 2.2rem;
-            font-weight: bold;
-            margin: 0.5rem 0;
-            color: #2c3e50;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .alert {
-            color: #e74c3c;
-        }
-
-        .success {
-            color: #27ae60;
-        }
-
-        .warning {
-            color: #f39c12;
         }
 
         .main-content {
@@ -122,216 +64,38 @@
             gap: 1.5rem;
         }
 
-        .content-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
+        .left-column {}
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f1f3f4;
-        }
+        .right-column {}
 
-        .card-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .btn {
-            padding: 0.7rem 1.3rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        .btn-primary {
-            background: #67ab9f;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5a9a8f;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(103, 171, 159, 0.4);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid #67ab9f;
-            color: #67ab9f;
-        }
-
-        .btn-outline:hover {
-            background: #67ab9f;
-            color: white;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        .status-badge {
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .status-low {
-            background-color: #ffeaa7;
-            color: #e17055;
-        }
-
-        .status-good {
-            background-color: #55efc4;
-            color: #00b894;
-        }
-
-        .status-out {
-            background-color: #fab1a0;
-            color: #d63031;
-        }
-
-        .notification-item {
-            display: flex;
-            align-items: flex-start;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-            transition: background-color 0.3s ease;
-        }
-
-        .notification-item:hover {
-            background-color: #f8f9fa;
-        }
-
-        .notification-item i {
-            margin-right: 1rem;
-            font-size: 1.2rem;
-            margin-top: 0.2rem;
-        }
-
-        .notification-warning i {
-            color: #e74c3c;
-        }
-
-        .notification-info i {
-            color: #67ab9f;
-        }
-
-        .notification-success i {
-            color: #27ae60;
-        }
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .action-btn {
-            background: white;
-            border: 2px solid #f1f3f4;
-            padding: 1.2rem 0.5rem;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn:hover {
-            border-color: #67ab9f;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(103, 171, 159, 0.2);
-        }
-
-        .action-btn i {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            color: #67ab9f;
-        }
-
-        .action-btn div {
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        .badge {
-            background: #67ab9f;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-        }
+        /* Keep header/footer visuals untouched per request */
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo">WareHost</div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#" class="active">Dashboard</a></li>
-                    <li><a href="inventory-management.html">Inventory</a></li>
-                    <li><a href="ai-insights.html">AI Insights</a></li>
-                    <li><a href="#">Sales</a></li>
-                    <li><a href="resources.html">Resources</a></li>
-                </ul>
-            </nav>
+        <!-- Header (shared style with resources.html) -->
+        <header class="bg-[#3AA6A0] text-white shadow-md relative overflow-hidden">
+            <div id="vanta-bg" class="absolute inset-0"></div>
+            <div id="teal-3d-object"></div>
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center relative z-10">
+                <div class="flex items-center space-x-2">
+                    <i data-feather="users" class="w-6 h-6"></i>
+                    <h1 class="text-2xl font-bold">WareHost</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html"
+                        class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">Dashboard</a>
+                    <a href="inventory.html"
+                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Inventory</a>
+                    <a href="resources.html"
+                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Resources</a>
+                    <a href="ai-insights.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">AI
+                        Insights</a>
+                    <a href="promotions.html"
+                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Promotions</a>
+                </nav>
+            </div>
         </header>
 
         <!-- Stats Grid -->
@@ -531,6 +295,16 @@
             </div>
         </div>
     </div>
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <p class="text-[#3AA6A0]">&copy; 2025 WareHost. All rights reserved.</p>
+            <div class="space-x-4">
+                <a href="#" class="hover:text-[#3AA6A0]">Help</a>
+                <a href="#" class="hover:text-[#3AA6A0]">Privacy</a>
+                <a href="#" class="hover:text-[#3AA6A0]">Contact</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Navigation functions
@@ -551,11 +325,11 @@
         }
 
         // Add interactivity to buttons
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Add click handlers to all buttons
             const buttons = document.querySelectorAll('.btn, .action-btn');
             buttons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     // Add a simple click effect
                     this.style.transform = 'scale(0.95)';
                     setTimeout(() => {
@@ -576,14 +350,14 @@
             }, 8000);
 
             // Check if files exist and update navigation accordingly
-            checkFileExists('inventory.html', function(exists) {
+            checkFileExists('inventory.html', function (exists) {
                 if (!exists) {
                     document.querySelector('a[href="inventory.html"]').style.opacity = '0.5';
                     document.querySelector('a[href="inventory.html"]').title = 'File not found';
                 }
             });
 
-            checkFileExists('purchase-stock.html', function(exists) {
+            checkFileExists('purchase-stock.html', function (exists) {
                 if (!exists) {
                     // Disable purchase stock buttons
                     document.querySelectorAll('[onclick*="goToPurchaseStock"]').forEach(btn => {
@@ -594,7 +368,7 @@
                 }
             });
 
-            checkFileExists('ai-insights.html', function(exists) {
+            checkFileExists('ai-insights.html', function (exists) {
                 if (!exists) {
                     document.querySelector('a[href="ai-insights.html"]').style.opacity = '0.5';
                     document.querySelector('a[href="ai-insights.html"]').title = 'File not found';
@@ -604,7 +378,7 @@
                 }
             });
 
-            checkFileExists('resources.html', function(exists) {
+            checkFileExists('resources.html', function (exists) {
                 if (!exists) {
                     document.querySelector('a[href="resources.html"]').style.opacity = '0.5';
                     document.querySelector('a[href="resources.html"]').title = 'File not found';
@@ -622,5 +396,11 @@
                 .catch(() => callback(false));
         }
     </script>
+    <!-- Three.js + Vanta + shared 3D/interaction script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <script src="assets/js/resources-common.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function () { if (window.feather) feather.replace(); });</script>
 </body>
+
 </html>

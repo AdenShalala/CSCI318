@@ -1,0 +1,16 @@
+/* ...existing code... */
+
+/* Modal action helper (replaces inline styles in inventory modals) */
+.dashboard-container .modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+/* Small screens: stack modal actions vertically */
+@media (max-width: 480px) {
+  .dashboard-container .modal-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

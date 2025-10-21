@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WareHost - Inventory Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/resources-common.css">
+    <link rel="stylesheet" href="assets/css/ai-insights-dashboard.css">
+
     <style>
+        /* Keep only minimal page layout styles here; moving visual styles to ai-insights-dashboard.css */
+        /* Keep header/footer visuals untouched per request */
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +20,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #67ab9f 0%, #4a8c7d 100%);
+            background: #ffffff;
             min-height: 100vh;
             color: #333;
         }
@@ -25,397 +31,77 @@
             padding: 20px;
         }
 
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem 2rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #67ab9f;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            background: #67ab9f;
-            color: white;
-        }
-
         .main-content {
             display: grid;
             grid-template-columns: 1fr 400px;
             gap: 2rem;
         }
 
-        .content-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f1f3f4;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .btn {
-            padding: 0.7rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .btn-primary {
-            background: #67ab9f;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5a9a8f;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(103, 171, 159, 0.4);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid #67ab9f;
-            color: #67ab9f;
-        }
-
-        .btn-outline:hover {
-            background: #67ab9f;
-            color: white;
-        }
-
-        .btn-success {
-            background: #27ae60;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #219a52;
-            transform: translateY(-2px);
-        }
-
-        .btn-danger {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
-        }
-
-        .btn-sm {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.8rem;
-        }
-
-        /* Search and Filter */
-        .search-section {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 300px;
-            position: relative;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 0.8rem 1rem 0.8rem 2.5rem;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: #67ab9f;
-        }
-
-        .search-box i {
+        /* Page-specific header overrides: constrain 3D object to header and keep canvas behind content, reduce intensity */
+        header #teal-3d-object {
             position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666;
+            width: 150px;
+            height: 150px;
+            right: 1.5rem;
+            top: 0.6rem;
+            z-index: 60;
+            pointer-events: none;
+            transform: translateZ(0);
         }
 
-        .filter-select {
-            padding: 0.8rem 1rem;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            background: white;
-            font-size: 1rem;
-            min-width: 150px;
+        header>.container {
+            position: relative;
+            z-index: 70;
         }
 
-        /* Table Styles */
-        .table-responsive {
-            overflow-x: auto;
+        header #vanta-bg,
+        header #vanta-bg canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            pointer-events: none;
+            opacity: 0.55;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-            color: #2c3e50;
-            position: sticky;
-            top: 0;
-        }
-
-        tr:hover {
-            background-color: #f8f9fa;
-        }
-
-        .status-badge {
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .status-low {
-            background-color: #ffeaa7;
-            color: #e17055;
-        }
-
-        .status-good {
-            background-color: #55efc4;
-            color: #00b894;
-        }
-
-        .status-out {
-            background-color: #fab1a0;
-            color: #d63031;
-        }
-
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #2c3e50;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #67ab9f;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f1f3f4;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #666;
-        }
-
-        /* Recommendation Cards */
-        .recommendation-card {
-            background: white;
-            border-left: 4px solid #67ab9f;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .recommendation-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .recommendation-title {
-            font-weight: bold;
-            color: #2c3e50;
-            font-size: 1.1rem;
-        }
-
-        .recommendation-meta {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .recommendation-reason {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .recommendation-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-
+        /* Hide heavy visuals on small screens */
         @media (max-width: 768px) {
+
+            header #teal-3d-object,
+            header #vanta-bg,
+            header #vanta-bg canvas {
+                display: none !important;
+            }
+
             .main-content {
                 grid-template-columns: 1fr;
-            }
-            
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            
-            .search-section {
-                flex-direction: column;
-            }
-            
-            .search-box {
-                min-width: 100%;
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo">WareHost</div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="#" class="active">Inventory</a></li>
-                    <li><a href="ai-insights.html">AI Insights</a></li>
-                    <li><a href="#">Sales</a></li>
-                    <li><a href="#">Resources</a></li>
-                </ul>
-            </nav>
+    <div class="dashboard-container container">
+        <!-- Header (dashboard-style) -->
+        <header class="bg-[#3AA6A0] text-white shadow-md relative overflow-hidden">
+            <div id="vanta-bg" class="absolute inset-0"></div>
+            <div id="teal-3d-object"></div>
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center relative z-10">
+                <div class="flex items-center space-x-2">
+                    <i data-feather="users" class="w-6 h-6 text-white"></i>
+                    <h1 class="text-2xl font-bold">WareHost</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html"
+                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Dashboard</a>
+                    <a href="inventory-management.html"
+                        class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">Inventory</a>
+                    <a href="ai-insights.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">AI
+                        Insights</a>
+                    <a href="sales.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Sales</a>
+                    <a href="resources.html"
+                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Resources</a>
+                </nav>
+            </div>
         </header>
 
         <!-- Main Content -->
@@ -440,16 +126,19 @@
                     <div class="search-section">
                         <div class="search-box">
                             <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+                            <input type="text" id="searchInput" placeholder="Search products..."
+                                onkeyup="filterProducts()">
                         </div>
-                        <select class="filter-select" onchange="filterProducts()">
+                        <select class="filter-select" id="categoryFilter" aria-label="Category filter"
+                            onchange="filterProducts()">
                             <option value="all">All Categories</option>
                             <option value="outdoor">Outdoor Gear</option>
                             <option value="cooking">Cooking</option>
                             <option value="clothing">Clothing</option>
                             <option value="electronics">Electronics</option>
                         </select>
-                        <select class="filter-select" onchange="filterProducts()">
+                        <select class="filter-select" id="statusFilter" aria-label="Status filter"
+                            onchange="filterProducts()">
                             <option value="all">All Status</option>
                             <option value="good">In Stock</option>
                             <option value="low">Low Stock</option>
@@ -485,7 +174,7 @@
                         <h2 class="card-title">Stock Recommendations</h2>
                         <span class="status-badge status-good" id="recommendationCount">3 New</span>
                     </div>
-                    
+
                     <div id="recommendationsList">
                         <!-- Recommendations will be populated by JavaScript -->
                     </div>
@@ -536,7 +225,7 @@
                     <label for="productDescription">Description (Optional)</label>
                     <textarea id="productDescription" rows="3"></textarea>
                 </div>
-                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <div class="modal-actions">
                     <button type="button" class="btn btn-outline" onclick="closeAddProductModal()">Cancel</button>
                     <button type="submit" class="btn btn-primary">Add Product</button>
                 </div>
@@ -586,7 +275,7 @@
                     <label for="editProductDescription">Description</label>
                     <textarea id="editProductDescription" rows="3"></textarea>
                 </div>
-                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <div class="modal-actions">
                     <button type="button" class="btn btn-outline" onclick="closeEditProductModal()">Cancel</button>
                     <button type="submit" class="btn btn-primary">Update Product</button>
                 </div>
@@ -662,7 +351,7 @@
         ];
 
         // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             renderProductsTable();
             renderRecommendations();
         });
@@ -699,11 +388,11 @@
             const container = document.getElementById('recommendationsList');
             const countElement = document.getElementById('recommendationCount');
             const pendingRecommendations = recommendations.filter(rec => rec.status === 'pending');
-            
+
             countElement.textContent = `${pendingRecommendations.length} New`;
-            
+
             container.innerHTML = '';
-            
+
             pendingRecommendations.forEach(recommendation => {
                 const card = document.createElement('div');
                 card.className = 'recommendation-card';
@@ -775,9 +464,9 @@
         }
 
         // Form handlers
-        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+        document.getElementById('addProductForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const newProduct = {
                 id: document.getElementById('productId').value,
                 name: document.getElementById('productName').value,
@@ -786,18 +475,18 @@
                 price: parseFloat(document.getElementById('productPrice').value),
                 description: document.getElementById('productDescription').value
             };
-            
+
             products.push(newProduct);
             renderProductsTable();
             closeAddProductModal();
-            
+
             // Show success message
             alert('Product added successfully!');
         });
 
-        document.getElementById('editProductForm').addEventListener('submit', function(e) {
+        document.getElementById('editProductForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const index = parseInt(document.getElementById('editProductIndex').value);
             products[index] = {
                 id: document.getElementById('editProductId').value,
@@ -807,10 +496,10 @@
                 price: parseFloat(document.getElementById('editProductPrice').value),
                 description: document.getElementById('editProductDescription').value
             };
-            
+
             renderProductsTable();
             closeEditProductModal();
-            
+
             // Show success message
             alert('Product updated successfully!');
         });
@@ -825,7 +514,7 @@
             document.getElementById('editStockQuantity').value = product.stock;
             document.getElementById('editProductPrice').value = product.price;
             document.getElementById('editProductDescription').value = product.description;
-            
+
             openEditProductModal();
         }
 
@@ -857,16 +546,16 @@
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const categoryFilter = document.querySelectorAll('.filter-select')[0].value;
             const statusFilter = document.querySelectorAll('.filter-select')[1].value;
-            
+
             const filteredProducts = products.filter(product => {
-                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
-                                    product.id.toLowerCase().includes(searchTerm);
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
+                    product.id.toLowerCase().includes(searchTerm);
                 const matchesCategory = categoryFilter === 'all' || product.category === categoryFilter;
                 const matchesStatus = statusFilter === 'all' || getStockStatus(product.stock) === statusFilter;
-                
+
                 return matchesSearch && matchesCategory && matchesStatus;
             });
-            
+
             renderFilteredProducts(filteredProducts);
         }
 
@@ -898,10 +587,10 @@
         }
 
         // Close modals when clicking outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const addModal = document.getElementById('addProductModal');
             const editModal = document.getElementById('editProductModal');
-            
+
             if (event.target === addModal) {
                 closeAddProductModal();
             }
@@ -910,5 +599,23 @@
             }
         }
     </script>
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <p class="text-[#3AA6A0]">&copy; 2025 WareHost. All rights reserved.</p>
+            <div class="space-x-4">
+                <a href="#" class="hover:text-[#3AA6A0]">Help</a>
+                <a href="#" class="hover:text-[#3AA6A0]">Privacy</a>
+                <a href="#" class="hover:text-[#3AA6A0]">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Three.js + Vanta + shared 3D/interaction script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <script src="assets/js/resources-common.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function () { if (window.feather) feather.replace(); });</script>
+
 </body>
+
 </html>
