@@ -19,8 +19,8 @@ public class PromoQueryService {
         List<Promotion> promotions = promoRepository.findAllPromotions();
         return promotions;
     }
-    public List<Promotion> findPromotionByID(String promoID) {
-        List<Promotion> promotions = promoRepository.findPromotionByPromoID(new PromoID(promoID));
-        return promotions;
+    public Promotion findPromotionByID(String promoID) {
+        Promotion promotion = promoRepository.findPromotionByPromoID(new PromoID(promoID));
+        return promotion;
     }
 }
