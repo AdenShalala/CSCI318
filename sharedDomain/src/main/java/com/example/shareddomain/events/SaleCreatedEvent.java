@@ -9,11 +9,14 @@ public class SaleCreatedEvent {
     private double totalAmount;
     private Instant timestamp;
 
-    public SaleCreatedEvent(String saleID, String itemID) {
+    public SaleCreatedEvent(String saleID, double totalAmount, String itemID) {
         this.saleID = saleID;
+        this.totalAmount = totalAmount;
         this.itemID = itemID;
         this.timestamp = Instant.now();
     }
+
+    public SaleCreatedEvent() {}
 
     public String getSaleID() { return saleID; }
     public String getItemID() { return itemID; }

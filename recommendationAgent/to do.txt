@@ -1,5 +1,3 @@
-Recommendation Enging MS
-
-Infrastructure
-AgentConfig
-- modify the content retriever if applicable
+Recommendation Engine MS
+- Allow Agent to read Inventory in Stock MS
+- Add events

@@ -4,7 +4,6 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 
 import com.example.sales.domain.model.commands.SalesCommand;
 import com.example.sales.domain.model.entities.Charge;
-import com.example.shareddomain.events.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Embedded;
@@ -31,6 +30,7 @@ import java.util.stream.Collectors;
     @NamedQuery (name="Sale.findSalesByItemID", query="Select s from Sale s where s.itemID = ?1")
     } )
 public class Sale extends AbstractAggregateRoot<Sale> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -71,7 +71,6 @@ public class Sale extends AbstractAggregateRoot<Sale> {
                                            .collect(Collectors.toList());
     }
 
-    registerEvent(new SaleCreatedEvent(saleID.getSaleID(), itemID));
 }
     //Highlight your getters and setters and the like
     public SaleID getSaleID(){return this.saleID;}
@@ -94,6 +93,12 @@ public class Sale extends AbstractAggregateRoot<Sale> {
         return total;
     }
 
+    // public void saleRegisterCreatedEvent() {
+    //     System.out.println("This much worked?!");
+    //     registerEvent(new SaleCreatedEvent(this.saleID.getSaleID(), this.getTotalPrice(), this.itemID));
+    //     publisher.publishEvent(event);
+    // }
+
     public String toString(){
         String output = "[Sale Details]\n";
         output += "Sale ID: " + this.saleID.getSaleID() + "\n";
@@ -106,6 +111,27 @@ public class Sale extends AbstractAggregateRoot<Sale> {
         output += "Total Price: $" + this.getTotalPrice();
 
         return output;
+    }
+
+    public void updateFromCommand(SalesCommand updatedSale) {
+        this.date = updatedSale.getDate();
+
+        if (updatedSale.getCharge() != null) {
+            this.charge = updatedSale.getCharge();
+            this.charge.setSale(this);
+            this.charge.setIsMain(true);
+        } else {
+            this.charge = null;
+        }
+
+        this.additionalCharges.clear();
+        if (updatedSale.getAdditionalCharges() != null) {
+            for (Charge addCharge : updatedSale.getAdditionalCharges()) {
+                addCharge.setSale(this);
+                addCharge.setIsMain(false);
+                this.additionalCharges.add(addCharge);
+            }
+        }
     }
     
 }

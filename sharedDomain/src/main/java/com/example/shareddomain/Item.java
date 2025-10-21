@@ -3,20 +3,20 @@ package com.example.shareddomain;
 import java.io.Serializable;
 
 public class Item implements Serializable{
-    private String itemId;
+    private String itemID;
     private String type;
     private String description;
     private String order_date;
 
-    public Item(String itemId, String type, String description, String order_date) {
-        this.itemId = itemId;
+    public Item(String itemID, String type, String description, String order_date) {
+        this.itemID = itemID;
         this.type = type;
         this.description = description;
         this.order_date = order_date;
     }
 
-    public String getItemId() { return itemId; }
-    public void setItemId(String itemId) { this.itemId = itemId; }
+    public String getItemId() { return itemID; }
+    public void setItemId(String itemId) { this.itemID = itemId; }
 
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }

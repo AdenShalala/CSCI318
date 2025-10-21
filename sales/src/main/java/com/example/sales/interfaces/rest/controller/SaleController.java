@@ -60,5 +60,31 @@ public class SaleController {
         return sale;
     }
 
+    // UPDATE - Edit an existing Sale
+    @PostMapping("/updateSale")
+    @ResponseBody
+    public void updateSale(@RequestParam("SaleID") String saleID, @RequestBody SalesResource updatedSale) {
+        salesCommandService.updateSale(new SaleID(saleID), SalesCommandDTOAssembler.toCommandFromDTO(updatedSale));
+    }
+
+    // DELETE - Remove a Sale
+    @PostMapping("/deleteSale")
+    @ResponseBody
+    public void deleteSale(@RequestParam("SaleID") String saleID) {
+        salesCommandService.deleteSale(new SaleID(saleID));
+    }
+
+    // FIND - Sales above a certain amount (example filter)
+    @GetMapping("/findSalesAboveAmount")
+    @ResponseBody
+    public List<Sale> findSalesAboveAmount(@RequestParam("amount") double amount) {
+        final List<Sale> sales = salesQueryService.findSalesAboveAmount(amount);
+        System.out.println("[[SALES ABOVE " + amount + "]]");
+        for (Sale sale : sales) {
+            System.out.println(sale);
+        }
+        return sales;
+    }
+
     
 }
