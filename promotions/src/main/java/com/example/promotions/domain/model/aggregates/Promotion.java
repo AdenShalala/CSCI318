@@ -79,4 +79,12 @@ public class Promotion extends AbstractAggregateRoot<Promotion>{
 
     public Discount getDiscount() { return this.discount; }
     public void setDiscount(Discount discount) { this.discount = discount; }
+
+    public void updateDetails(PromoCommand promoCommand) {
+        this.startDate = promoCommand.getStartDate();
+        this.endDate = promoCommand.getEndDate();
+        this.items = promoCommand.getItems();
+        this.promoCode = promoCommand.getPromoCode();
+        this.discount = promoCommand.getDiscount();
+    }
 }

@@ -44,9 +44,21 @@ public class PromoController {
 
     @GetMapping("/findPromotionByID")
     @ResponseBody
-    public List<Promotion> findPromotionByID(@RequestParam("PromoID") String promoID) {
-        final List<Promotion> promotions = promoQueryService.findPromotionByID(promoID);
-        return promotions;
+    public Promotion findPromotionByID(@RequestParam("PromoID") String promoID) {
+        final Promotion promotion = promoQueryService.findPromotionByID(promoID);
+        return promotion;
+    }
+
+    @PostMapping("/deletePromotion")
+    @ResponseBody
+    public void deletePromotion(@RequestParam("PromoID") String promoID) {
+        promoCommandService.deletePromotion(new PromoID(promoID));
+    }
+
+    @PostMapping("/updatePromotion")
+    @ResponseBody
+    public void updatePromotion(@RequestBody PromoResource promoResource) {
+        promoCommandService.updatePromotion(PromoCommandDTOAssembler.toCommandFromDTO(promoResource));
     }
 
 }
