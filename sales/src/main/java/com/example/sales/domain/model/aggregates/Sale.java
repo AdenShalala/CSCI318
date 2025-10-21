@@ -1,5 +1,7 @@
 package com.example.sales.domain.model.aggregates;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import com.example.sales.domain.model.commands.SalesCommand;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
     @NamedQuery (name="Sale.findSalesByItemID", query="Select s from Sale s where s.itemID = ?1")
     } )
 public class Sale extends AbstractAggregateRoot<Sale> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -93,9 +96,11 @@ public class Sale extends AbstractAggregateRoot<Sale> {
         return total;
     }
 
-    public void saleRegisterCreatedEvent() {
-        registerEvent(new SaleCreatedEvent(this.saleID.getSaleID(), this.getTotalPrice(), this.itemID));
-    }
+    // public void saleRegisterCreatedEvent() {
+    //     System.out.println("This much worked?!");
+    //     registerEvent(new SaleCreatedEvent(this.saleID.getSaleID(), this.getTotalPrice(), this.itemID));
+    //     publisher.publishEvent(event);
+    // }
 
     public String toString(){
         String output = "[Sale Details]\n";
