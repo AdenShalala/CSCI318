@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.warehost.domain.model.aggregates.Item;
 import com.example.warehost.domain.model.aggregates.ItemID;
 import com.example.warehost.domain.model.commands.ItemCommand;
+import com.example.warehost.domain.model.valueobjects.ItemQuantity;
 import com.example.warehost.infrastructure.repository.ItemRepository;
 
 @Service
@@ -23,5 +24,17 @@ public class ItemCommandService {
         Item item = new Item(itemCommand);
         itemRepository.save(item);
         return new ItemID(itemIdStr);
+    }
+
+    public void decrementStock(ItemID itemID) {
+        Item item = itemRepository.findItemWithID(itemID);
+        itemRepository.removeItemByID(itemID.getItemID());
+
+        int quantity = item.getItemQuantity().getQuantityInt();
+        quantity--;
+        ItemQuantity itemQuantity = new ItemQuantity(quantity);
+
+        item.setItemQuantity(itemQuantity);
+        itemRepository.save(item);
     }
 }

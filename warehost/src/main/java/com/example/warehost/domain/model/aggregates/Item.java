@@ -49,6 +49,8 @@ public class Item extends AbstractAggregateRoot<Item> {
     private ItemDescription description;
     @Embedded
     private ItemDate order_date;
+    @Embedded
+    private ItemQuantity quantity;
 
     public Item() {}
 
@@ -58,6 +60,7 @@ public class Item extends AbstractAggregateRoot<Item> {
         this.type = new ItemType(command.getType());
         this.description = new ItemDescription(command.getDescription());
         this.order_date = new ItemDate(command.getOrderDate());
+        this.quantity = new ItemQuantity(Integer.valueOf(command.getQuantity()));
 
         // addDomainEvent(
         //     new ItemAddedEvent(
@@ -70,11 +73,23 @@ public class Item extends AbstractAggregateRoot<Item> {
     }
 
     public ItemID getItemID() {return this.itemID;}
+
+    public ItemName getItemName() {return this.name;}
+    public void setItemName(ItemName itemName) {this.name = itemName;}
+
     public ItemType getType() {return this.type;}
+    public void setType(ItemType type) {this.type = type;}
+
     public ItemDescription getDescription() {return this.description;}
+    public void setDescription(ItemDescription description) {this.description = description;}
+    
     public ItemDate getOrderDate() {return this.order_date;}
+    public void setOrderDate(ItemDate order_date) {this.order_date = order_date;}
+   
+    public ItemQuantity getItemQuantity() {return this.quantity;}
+    public void setItemQuantity(ItemQuantity quantity) {this.quantity = quantity;}
 
     public String toString() {
-        return "=== Item ===\n" + this.name + "\nID: " + this.itemID + "\nType: " + this.type + "\nDescription: " + this.description + "\nOrder Date: " + this.order_date;
+        return "=== Item ===\n" + this.name + "\nID: " + this.itemID + "\nType: " + this.type + "\nDescription: " + this.description + "\nOrder Date: " + this.order_date + "\nQuantity: " + this.quantity;
     }
 }
