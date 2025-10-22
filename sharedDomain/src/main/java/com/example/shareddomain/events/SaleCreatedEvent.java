@@ -18,10 +18,10 @@ public class SaleCreatedEvent {
 
     public SaleCreatedEvent() {}
 
-    public String getSaleID() { return saleID; }
-    public String getItemID() { return itemID; }
-    public double getTotalAmount() { return totalAmount; }
-    public Instant getTimestamp() { return timestamp; }
+    public String getSaleID() { return this.saleID; }
+    public String getItemID() { return this.itemID; }
+    public double getTotalAmount() { return this.totalAmount; }
+    public Instant getTimestamp() { return this.timestamp; }
 
     @Override
     public String toString() {

@@ -34,6 +34,7 @@ public class SaleController {
     public SaleID addSale(@RequestBody SalesResource salesResource) {
         SaleID saleID = salesCommandService.addSale(SalesCommandDTOAssembler.toCommandFromDTO(salesResource));
         System.out.println("Now adding Sale " + saleID);
+        System.out.println(salesResource.getItemID());
         return saleID;
     }
 

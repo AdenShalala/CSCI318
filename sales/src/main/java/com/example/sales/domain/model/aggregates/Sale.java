@@ -54,6 +54,7 @@ public class Sale extends AbstractAggregateRoot<Sale> {
 
     public Sale(SalesCommand salesCommand) {
     this.saleID = new SaleID(salesCommand.getSaleID());
+    this.itemID = salesCommand.getItemID();
     this.date = salesCommand.getDate(); // if applicable
 
     if (salesCommand.getCharge() != null) {
