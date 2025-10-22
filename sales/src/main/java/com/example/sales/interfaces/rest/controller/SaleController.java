@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.sales.application.commandservices.SalesCommandService;
 import com.example.sales.application.queryservices.SalesQueryService;
@@ -17,6 +18,7 @@ import com.example.sales.domain.model.aggregates.SaleID;
 import com.example.sales.interfaces.rest.dto.SalesResource;
 import com.example.sales.interfaces.rest.transform.SalesCommandDTOAssembler;
 
+@CrossOrigin
 @Controller
 @RequestMapping("/sales")
 public class SaleController {
