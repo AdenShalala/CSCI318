@@ -25,6 +25,12 @@ public class StockQueryService {
     }
 
     public void removeItemByID(String id){
-        
+        itemRepository.removeItemByID(id);
+    }
+
+    public void updateItem(ItemID itemID, Item updatedItem) {
+        Item item = itemRepository.findItemWithID(itemID);
+        item.updateFromCommand(updatedItem);
+        itemRepository.save(item);
     }
 }

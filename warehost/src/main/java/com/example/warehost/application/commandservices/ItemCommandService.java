@@ -11,7 +11,12 @@ import org.springframework.stereotype.Service;
 import com.example.warehost.domain.model.aggregates.Item;
 import com.example.warehost.domain.model.aggregates.ItemID;
 import com.example.warehost.domain.model.commands.ItemCommand;
+import com.example.warehost.domain.model.valueobjects.ItemDescription;
+import com.example.warehost.domain.model.valueobjects.ItemName;
+import com.example.warehost.domain.model.valueobjects.ItemQuantity;
+import com.example.warehost.domain.model.valueobjects.ItemType;
 import com.example.warehost.infrastructure.repository.ItemRepository;
+import com.example.shareddomain.Sale;
 import com.example.shareddomain.events.StockLowEvent;
 
 @Service
@@ -55,5 +60,18 @@ public class ItemCommandService {
         
         
        
+    }
+
+    @Transactional
+    public void deleteSale(ItemID itemID) {
+        Item item = itemRepository.findItemWithID(itemID);
+        itemRepository.delete(item);
+    }
+
+    @Transactional
+    public void updateItem(ItemID id, ItemCommand command) {
+        Item existingItem = itemRepository.findItemWithID(id);
+        existingItem.updateFromCommand(command);
+        itemRepository.save(existingItem);
     }
 }

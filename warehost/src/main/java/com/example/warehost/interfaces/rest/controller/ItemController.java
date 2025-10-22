@@ -46,12 +46,22 @@ public class ItemController {
         }
         return items;
     }
-    @GetMapping("findItemWithID")
+    @GetMapping("/findItemWithID")
     @ResponseBody
     public Item findItemWithID(@RequestParam("ItemID") String id) {
         
         Item item = itemQueryService.findItemWithID(new ItemID(id));
-        System.out.println(item);
+        System.out.println(item.getItemName());
         return item;
+    }
+    @GetMapping("/deleteItem")
+    @ResponseBody
+    public void removeItemByID(@RequestParam("ItemID") String id) {
+        itemQueryService.removeItemByID(id);
+    }
+    @GetMapping("/updateItem")
+    @ResponseBody
+    public void updateItemWithID(@RequestParam("ItemID") String id, @RequestBody ItemResource updatedItem) {
+        itemCommandService.updateItem(new ItemID(id), ItemCommandDTOAssembler.toCommandFromDTO(updatedItem));
     }
 }

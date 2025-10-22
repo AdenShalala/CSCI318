@@ -84,6 +84,13 @@ public class Item extends AbstractAggregateRoot<Item> {
     public ItemQuantity getItemQuantity() {return this.quantity;}
     public void setItemQuantity(ItemQuantity quantity) {this.quantity = quantity;}
 
+    public void updateFromCommand(ItemCommand command) {
+        this.name = new ItemName(command.getItemName());
+        this.type = new ItemType(command.getType());
+        this.description = new ItemDescription(command.getDescription());
+        this.quantity = new ItemQuantity(Integer.valueOf(command.getQuantity()));
+    }
+
     public String toString() {
         return "=== Item ===\n" + this.name + "\nID: " + this.itemID + "\nType: " + this.type + "\nDescription: " + this.description + "\nQuantity: " + this.quantity;
     }

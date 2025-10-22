@@ -8,15 +8,15 @@ import java.io.Serializable;
 public class ItemID implements Serializable {
 
     @Column(name="ItemID")
-    private String ItemID;
+    private String itemID;
 
     public ItemID(){}
 
-    public ItemID(String ItemID){this.ItemID = ItemID;}
+    public ItemID(String ItemID){this.itemID = ItemID;}
 
-    public String getItemID(){return this.ItemID;}
+    public String getItemID(){return this.itemID;}
 
     public String toString() {
-        return this.ItemID;
+        return this.itemID;
     }
 }   

@@ -11,6 +11,10 @@ public class ItemDescription {
     public ItemDescription(String description) {
         this.description = description;
     }
+
+    public String getDescription() {return description;}
+    public void setDescription(String description) {this.description = description;}
+
     public String toString() {
         return this.description;
     }
