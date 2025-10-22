@@ -22,6 +22,18 @@ public class StockEventConsumer {
     )
     public void handleStockLow(StockLowEvent event) {
         System.out.println("Promotions received StockLowEvent " + event);
-        // then create a promo for item
+        String time = event.getTimestamp().toString();
+        String datePart = time.substring(0, 10); // "2025-10-22"
+        
+        // Split into components
+        String[] parts = datePart.split("-");
+        String year = parts[0];
+        String month = parts[1];
+        String day = parts[2];
+        
+        // Reformat into DDMMYYYY
+        String formatted = day + month + year;
+
+        promoService.createPromotionForLowStock(event.getItemID(), event.getItemName(), event.getQuantity(), formatted);
     }
 }
