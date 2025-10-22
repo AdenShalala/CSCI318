@@ -9,8 +9,10 @@ public class StockLowEvent {
     private int quantity;
     private Instant timestamp;
 
-    public StockLowEvent(String itemID) {
+    public StockLowEvent(String itemID, String name, int quantity) {
         this.itemID = itemID;
+        this.itemName = name;
+        this.quantity = quantity;
         this.timestamp = Instant.now();
     }
 
