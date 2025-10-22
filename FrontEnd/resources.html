@@ -12,26 +12,7 @@
   <link rel="stylesheet" href="assets/css/resources-common.css">
   <!-- Polyfill / extra styles can be added in assets/css/resources-common.css -->
 
-  <script>
-    // Frontend config — update API_BASE when running backend on a different port/host
-    (function () {
-      var defaultApi = 'http://localhost:8080/api';
-
-      window.WAREHOST_CONFIG = {
-        API_BASE: defaultApi,
-        get PRODUCTS() { return this.API_BASE + '/products'; },
-        get RECOMMENDATIONS() { return this.API_BASE + '/recommendations'; },
-        get REORDERS() { return this.API_BASE + '/inventory/reorders'; }
-      };
-
-      // simple fetch helper: path may be absolute or relative to API_BASE
-      window.apiFetch = function (path, opts) {
-        var url = path && path.indexOf('http') === 0 ? path : (window.WAREHOST_CONFIG.API_BASE + path);
-        return fetch(url, opts);
-      };
-
-    })();
-  </script>
+  <script src="assets/js/frontend-config.js"></script>
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
