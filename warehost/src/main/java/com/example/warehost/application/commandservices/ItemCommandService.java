@@ -26,22 +26,23 @@ public class ItemCommandService {
         this.itemRepository = itemRepository;
     }
 
-    @Transactional
+    
     public ItemID addItem(ItemCommand itemCommand) {
         String itemIdStr = UUID.randomUUID().toString();
         itemCommand.setItemID(itemIdStr);
         Item item = new Item(itemCommand);
         itemRepository.save(item);
 
-        
-
         return new ItemID(itemIdStr);
     }
-
+    
+    @Transactional
     public void decrementStock(ItemID itemID) {
+        System.out.println("Decrement Stock Function");
         Item item = itemRepository.findItemWithID(itemID);
 
         if(item != null) { 
+            System.out.println("Decrement Stock Function 2");
             //TEMP CATCH FOR TESTING
             int quantity = item.getItemQuantity().getQuantityInt();
             item.getItemQuantity().setQuantityInt(quantity - 1);
