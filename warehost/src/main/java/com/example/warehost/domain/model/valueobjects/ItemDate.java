@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Embeddable
 public class ItemDate {
     // format ddmmyyyy
+    @Column(name="order_date")
     private String orderDate;
 
     public ItemDate() {}
