@@ -128,6 +128,39 @@
           </select>
         </div>
       </div>
+      <!-- New Promotion Form -->
+      <div class="mb-12 bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Create New Promotion</h2>
+        <form id="promoForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Promo Code</label>
+            <input type="text" id="promoCode" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Discount Amount</label>
+            <input type="number" id="amount" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Type</label>
+            <select id="type" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+              <option value="PERCENTAGE">Percentage</option>
+              <option value="FIXED">Fixed</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Start Date</label>
+            <input type="date" id="startDate" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">End Date</label>
+            <input type="date" id="endDate" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+          </div>
+          <button type="submit" class="bg-[#3AA6A0] text-white px-4 py-2 rounded-lg hover:bg-[#2f807c]">
+            Add Promotion
+          </button>
+        </form>
+      </div>
+
       <!-- Live Promotions from Backend -->
       <div class="mb-12">
         <h2 class="text-xl font-semibold text-gray-900 mb-6">Live Promotions (from Backend)</h2>
@@ -320,6 +353,37 @@
     document.addEventListener("DOMContentLoaded", loadPromotions);
   </script>
 
+  <script>
+    document.getElementById("promoForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const promo = {
+        promoCode: document.getElementById("promoCode").value,
+        amount: parseFloat(document.getElementById("amount").value),
+        type: document.getElementById("type").value,
+        startDate: document.getElementById("startDate").value,
+        endDate: document.getElementById("endDate").value
+      };
+
+      try {
+        const response = await fetch("http://localhost:8083/promotion", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(promo)
+        });
+
+        if (response.ok) {
+          alert("Promotion added successfully!");
+          document.getElementById("promoForm").reset();
+          loadPromotions(); // refresh the table
+        } else {
+          alert("Failed to add promotion");
+        }
+      } catch (err) {
+        console.error("Error adding promotion:", err);
+      }
+    });
+  </script>
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
