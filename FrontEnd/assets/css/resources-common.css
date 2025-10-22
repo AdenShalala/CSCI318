@@ -1,6 +1,10 @@
 .sidebar {
   scrollbar-width: thin;
   scrollbar-color: #4B5563 #1F2937;
+  /* keep vertical scrollable list but constrain height to viewport */
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  /* ensure scrolling if content overflows */
 }
 
 .sidebar::-webkit-scrollbar {
@@ -33,6 +37,13 @@
   z-index: 50;
   pointer-events: none;
   /* do not block clicks */
+}
+
+@media (max-width: 640px) {
+  .sidebar {
+    max-height: none;
+    /* allow full height on small screens */
+  }
 }
 
 @media (max-width: 768px) {
