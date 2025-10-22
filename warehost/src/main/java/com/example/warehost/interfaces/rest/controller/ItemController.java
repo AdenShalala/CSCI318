@@ -3,12 +3,12 @@ package com.example.warehost.interfaces.rest.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.warehost.application.commandservices.ItemCommandService;
 import com.example.warehost.application.queryservices.StockQueryService;
@@ -17,6 +17,7 @@ import com.example.warehost.domain.model.aggregates.ItemID;
 import com.example.warehost.interfaces.rest.dto.ItemResource;
 import com.example.warehost.interfaces.rest.transform.ItemCommandDTOAssembler;
 
+@CrossOrigin
 @Controller
 @RequestMapping("/items")
 public class ItemController {

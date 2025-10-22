@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.promotions.application.commandservices.PromoCommandService;
 import com.example.promotions.application.queryservices.PromoQueryService;
@@ -17,6 +18,7 @@ import com.example.promotions.domain.model.aggregates.Promotion;
 import com.example.promotions.interfaces.rest.dto.PromoResource;
 import com.example.promotions.interfaces.rest.transform.PromoCommandDTOAssembler;
 
+@CrossOrigin
 @Controller
 @RequestMapping("/promotion")
 public class PromoController {
