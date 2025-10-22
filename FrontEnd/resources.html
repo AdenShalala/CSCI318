@@ -11,6 +11,27 @@
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <link rel="stylesheet" href="assets/css/resources-common.css">
   <!-- Polyfill / extra styles can be added in assets/css/resources-common.css -->
+
+  <script>
+    // Frontend config — update API_BASE when running backend on a different port/host
+    (function () {
+      var defaultApi = 'http://localhost:8080/api';
+
+      window.WAREHOST_CONFIG = {
+        API_BASE: defaultApi,
+        get PRODUCTS() { return this.API_BASE + '/products'; },
+        get RECOMMENDATIONS() { return this.API_BASE + '/recommendations'; },
+        get REORDERS() { return this.API_BASE + '/inventory/reorders'; }
+      };
+
+      // simple fetch helper: path may be absolute or relative to API_BASE
+      window.apiFetch = function (path, opts) {
+        var url = path && path.indexOf('http') === 0 ? path : (window.WAREHOST_CONFIG.API_BASE + path);
+        return fetch(url, opts);
+      };
+
+    })();
+  </script>
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
@@ -64,31 +85,8 @@
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
                 <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Sarah Johnson</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Cashier</td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <span
-                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <span class="bg-[#3AA6A0]/10 text-[#3AA6A0] text-xs px-2 py-1 rounded mr-1">Morning Shift</span>
-                    <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Trained</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Michael Chen</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Manager</td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <span
-                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Supervisor</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Emma Rodriguez</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Stock Clerk</td>
+                  <td class="px-6 py-4 whitespace
+                  <td class=" px-6 py-4 whitespace-nowrap text-sm text-gray-500">Stock Clerk</td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <span
                       class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">On
