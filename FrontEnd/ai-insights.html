@@ -132,18 +132,18 @@
 
           data.forEach(insight => {
             const card = `
-        <div class="insight-card bg-white p-6 rounded-lg shadow">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-gray-500 font-medium">${insight.title}</h3>
-            <i data-feather="${insight.icon}" class="text-${insight.color}-500"></i>
-          </div>
-          <div class="flex items-end">
-            <span class="text-3xl font-bold text-gray-900">${insight.value}</span>
-            ${insight.subtext ? `<span class="ml-2 text-${insight.color}-500 text-sm font-medium">${insight.subtext}</span>` : ""}
-          </div>
-          ${insight.footer ? `<div class="mt-2 text-sm text-gray-500">${insight.footer}</div>` : ""}
+      <div class="insight-card bg-white p-6 rounded-lg shadow">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-gray-500 font-medium">${insight.title}</h3>
+          <i data-feather="${insight.icon}" class="text-${insight.color}-500"></i>
         </div>
-        `;
+        <div class="flex items-end">
+          <span class="text-3xl font-bold text-gray-900">${insight.value}</span>
+          ${insight.subtext ? `<span class="ml-2 text-${insight.color}-500 text-sm font-medium">${insight.subtext}</span>` : ""}
+        </div>
+        ${insight.footer ? `<div class="mt-2 text-sm text-gray-500">${insight.footer}</div>` : ""}
+      </div>
+      `;
             container.innerHTML += card;
           });
 
@@ -162,24 +162,25 @@
 
           data.forEach(rec => {
             const card = `
-        <div class="p-6 flex items-start">
-          <div class="flex-shrink-0 bg-${rec.color}-100 rounded-lg p-3 mr-4">
-            <i data-feather="${rec.icon}" class="h-5 w-5 text-${rec.color}-600"></i>
-          </div>
-          <div>
-            <h3 class="font-medium text-gray-900 mb-1">${rec.title}</h3>
-            <p class="text-gray-600 text-sm mb-2">${rec.description}</p>
-            <div class="flex space-x-4 text-sm">
-              <span class="text-gray-500">Confidence: ${rec.confidence}</span>
-              <span class="text-gray-500">Impact: ${rec.impact}</span>
-            </div>
-          </div>
-          <button
-            class="ml-auto bg-${rec.color}-50 text-${rec.color}-600 hover:bg-${rec.color}-100 px-4 py-2 rounded-lg text-sm font-medium">
-            ${rec.action}
-          </button>
+      <div class="p-6 flex items-start">
+        <div class="flex-shrink-0 bg-${rec.color}-100 rounded-lg p-3 mr-4">
+          <i data-feather="${rec.icon}" class="h-5 w-5 text-${rec.color}-600"></i>
         </div>
-        `;
+        <div>
+          <h3 class="font-medium text-gray-900 mb-1">${rec.title}</h3>
+          <p class="text-gray-600 text-sm mb-2">${rec.description}</p>
+          <div class="flex space-x-4 text-sm">
+            <span class="text-gray-500">Confidence: ${rec.confidence}</span>
+            <span class="text-gray-500">Impact: ${rec.impact}</span>
+          </div>
+        </div>
+        <button
+          onclick="applyRecommendation(${rec.id})"
+          class="ml-auto bg-${rec.color}-50 text-${rec.color}-600 hover:bg-${rec.color}-100 px-4 py-2 rounded-lg text-sm font-medium">
+          ${rec.action}
+        </button>
+      </div>
+      `;
             container.innerHTML += card;
           });
 
@@ -189,11 +190,25 @@
         }
       }
 
+      async function applyRecommendation(id) {
+        try {
+          const response = await fetch(`http://localhost:8083/recommendations/${id}/apply`, {
+            method: "POST"
+          });
+          const result = await response.text();
+          alert(result); // show confirmation to the user
+        } catch (err) {
+          console.error("Error applying recommendation:", err);
+          alert("Failed to apply recommendation.");
+        }
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
         loadInsights();
         loadRecommendations();
       });
     </script>
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
