@@ -41,19 +41,19 @@ public class ItemCommandService {
         System.out.println("Decrement Stock Function");
         Item item = itemRepository.findItemWithID(itemID);
 
-        if(item != null) { 
+        try {
             System.out.println("Decrement Stock Function 2");
             //TEMP CATCH FOR TESTING
             int quantity = item.getItemQuantity().getQuantityInt();
             item.getItemQuantity().setQuantityInt(quantity - 1);
 
-            if (quantity <= 5) {
             StockLowEvent event = new StockLowEvent(item.getItemID().getItemID(), item.getItemName().toString(), quantity);
             publisher.publishEvent(event);
+            itemRepository.save(item);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
         
-            itemRepository.save(item);
-        }
         
        
     }
