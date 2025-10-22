@@ -28,9 +28,14 @@ public class ItemCommandService {
 
     public void decrementStock(ItemID itemID) {
         Item item = itemRepository.findItemWithID(itemID);
+
+        if(item != null) { 
+            //TEMP CATCH FOR TESTING
+            item.getItemQuantity().setQuantityInt(item.getItemQuantity().getQuantityInt() - 1);
         
-        item.getItemQuantity().setQuantityInt(item.getItemQuantity().getQuantityInt() - 1);
+            itemRepository.save(item);
+        }
         
-        itemRepository.save(item);
+       
     }
 }
