@@ -5,15 +5,14 @@ import jakarta.persistence.*;
 @Embeddable
 public class ItemDate {
     // format ddmmyyyy
-    @Column(name="order_date")
-    private String orderDate;
+    private String itemDate;
 
     public ItemDate() {}
 
-    public ItemDate(String orderDate) {
-        this.orderDate = orderDate;
+    public ItemDate(String itemDate) {
+        this.itemDate = itemDate;
     }
     public String toString() {
-        return this.orderDate;
+        return this.itemDate;
     }
 }

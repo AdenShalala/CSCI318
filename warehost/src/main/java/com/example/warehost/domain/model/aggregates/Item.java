@@ -51,7 +51,7 @@ public class Item extends AbstractAggregateRoot<Item> {
     @Embedded
     private ItemDescription description;
     @Embedded
-    private ItemDate order_date;
+    private ItemDate itemDate;
     @Embedded
     private ItemQuantity quantity;
 
@@ -62,7 +62,7 @@ public class Item extends AbstractAggregateRoot<Item> {
         this.name = new ItemName(command.getItemName());
         this.type = new ItemType(command.getType());
         this.description = new ItemDescription(command.getDescription());
-        this.order_date = new ItemDate(command.getOrderDate());
+        this.itemDate = new ItemDate(command.getOrderDate());
         this.quantity = new ItemQuantity(Integer.valueOf(command.getQuantity()));
 
         // addDomainEvent(
@@ -87,17 +87,17 @@ public class Item extends AbstractAggregateRoot<Item> {
     public void setDescription(ItemDescription description) {this.description = description;}
     
     public ItemDate getOrderDate() {
-        if (this.order_date == null) {
-            this.order_date = new ItemDate(LocalDate.now().toString());
+        if (this.itemDate == null) {
+            this.itemDate = new ItemDate(LocalDate.now().toString());
         }
-        return this.order_date;
+        return this.itemDate;
     }
-    public void setOrderDate(ItemDate order_date) {this.order_date = order_date;}
+    public void setOrderDate(ItemDate itemDate) {this.itemDate = itemDate;}
    
     public ItemQuantity getItemQuantity() {return this.quantity;}
     public void setItemQuantity(ItemQuantity quantity) {this.quantity = quantity;}
 
     public String toString() {
-        return "=== Item ===\n" + this.name + "\nID: " + this.itemID + "\nType: " + this.type + "\nDescription: " + this.description + "\nOrder Date: " + this.order_date + "\nQuantity: " + this.quantity;
+        return "=== Item ===\n" + this.name + "\nID: " + this.itemID + "\nType: " + this.type + "\nDescription: " + this.description + "\nOrder Date: " + this.itemDate + "\nQuantity: " + this.quantity;
     }
 }
