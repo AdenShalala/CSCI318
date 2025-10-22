@@ -40,22 +40,20 @@ public class ItemCommandService {
 
     public void decrementStock(ItemID itemID) {
         Item item = itemRepository.findItemWithID(itemID);
-        itemRepository.removeItemByID(itemID.getItemID());
 
-        int quantity = item.getItemQuantity().getQuantityInt();
-        quantity--;
-        
-        if (quantity <= 5) {
+        if(item != null) { 
+            //TEMP CATCH FOR TESTING
+            int quantity = item.getItemQuantity().getQuantityInt();
+            item.getItemQuantity().setQuantityInt(quantity - 1);
+
+            if (quantity <= 5) {
             StockLowEvent event = new StockLowEvent(item.getItemID().getItemID(), item.getItemName().toString(), quantity);
             publisher.publishEvent(event);
         }
-
-        ItemQuantity itemQuantity = new ItemQuantity(quantity);
-
-        item.setItemQuantity(itemQuantity);   
-
-        item.getItemQuantity().setQuantityInt(item.getItemQuantity().getQuantityInt() - 1);
         
-        itemRepository.save(item);
+            itemRepository.save(item);
+        }
+        
+       
     }
 }
