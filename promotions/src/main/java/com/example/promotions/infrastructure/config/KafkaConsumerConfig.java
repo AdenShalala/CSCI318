@@ -23,13 +23,13 @@ public class KafkaConsumerConfig {
     public ConsumerFactory<String, SaleCreatedEvent> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "inventory-service");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "promotions-service");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+        // props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 
         // ✅ Use no-arg constructor
         JsonDeserializer<SaleCreatedEvent> deserializer = new JsonDeserializer<>();
-        deserializer.addTrustedPackages("*");
+        // deserializer.addTrustedPackages("*");
         deserializer.setUseTypeMapperForKey(false);
 
         return new DefaultKafkaConsumerFactory<>(
