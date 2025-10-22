@@ -312,31 +312,169 @@
   </div>
 
   <script>
-    async function loadPromotions() {
+    // --- Load Employees into the Employees table ---
+    async function loadEmployees() {
       try {
-        const response = await fetch("http://localhost:8083/promotion/findAllPromotions");
+        const response = await fetch("http://localhost:8083/resources/employees");
         const data = await response.json();
-
         const tbody = document.querySelector("#promoTable tbody");
-        tbody.innerHTML = "";
 
-        data.forEach(promo => {
+        data.forEach(emp => {
           const row = `
           <tr>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${promo.promoID?.promoID || "—"}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${promo.promoCode || "—"}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${promo.discount || "—"}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${emp.promoId}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${emp.code}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${emp.discount}</td>
           </tr>
         `;
           tbody.innerHTML += row;
         });
       } catch (err) {
-        console.error("Error fetching promotions:", err);
+        console.error("Error fetching employees:", err);
       }
     }
 
-    document.addEventListener("DOMContentLoaded", loadPromotions);
+    // --- Load Equipment into the Equipment table ---
+    async function loadEquipment() {
+      try {
+        const response = await fetch("http://localhost:8083/resources/equipment");
+        const data = await response.json();
+        const tbody = document.querySelector("#equipmentTable tbody");
+
+        data.forEach(eq => {
+          const row = `
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${eq.name}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${eq.type}</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                ${eq.status === 'Operational' ? 'bg-green-100 text-green-800' :
+              eq.status === 'Maintenance' ? 'bg-yellow-100 text-yellow-800' :
+                'bg-red-100 text-red-800'}">
+                ${eq.status}
+              </span>
+            </td>
+          </tr>
+        `;
+          tbody.innerHTML += row;
+        });
+      } catch (err) {
+        console.error("Error fetching equipment:", err);
+      }
+    }
+
+    // --- Populate Assignment dropdowns with backend data (append to hard-coded options) ---
+    async function loadAssignmentOptions() {
+      try {
+        const empRes = await fetch("http://localhost:8083/resources/employees");
+        const employees = await empRes.json();
+        const empSelect = document.getElementById("assign-employee");
+
+        employees.forEach(emp => {
+          const option = document.createElement("option");
+          option.value = emp.code;
+          option.textContent = emp.code;
+          empSelect.appendChild(option);
+        });
+
+        const eqRes = await fetch("http://localhost:8083/resources/equipment");
+        const equipment = await eqRes.json();
+        const eqSelect = document.getElementById("assign-equipment");
+
+        equipment.forEach(eq => {
+          const option = document.createElement("option");
+          option.value = eq.name;
+          option.textContent = eq.name;
+          eqSelect.appendChild(option);
+        });
+      } catch (err) {
+        console.error("Error loading assignment options:", err);
+      }
+    }
+
+    // --- Handle assignment form submission ---
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.querySelector(".highlight-card form");
+      if (form) {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const employee = document.getElementById("assign-employee").value;
+          const equipment = document.getElementById("assign-equipment").value;
+
+          try {
+            const response = await fetch("http://localhost:8083/resources/assign", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ employee, equipment })
+            });
+            const result = await response.text();
+            alert(result);
+          } catch (err) {
+            console.error("Error assigning resource:", err);
+            alert("Failed to assign resource.");
+          }
+        });
+      }
+    });
+
+    // --- Load AI Suggestions dynamically (append to hard-coded ones) ---
+    async function loadSuggestions() {
+      try {
+        const response = await fetch("http://localhost:8083/resources/suggestions");
+        const data = await response.json();
+        const sidebar = document.querySelector(".sidebar");
+
+        data.forEach(sug => {
+          const card = document.createElement("div");
+          card.className = "mb-6";
+          card.innerHTML = `
+          <div class="flex items-start mb-3">
+            <div class="bg-[#3AA6A0]/20 p-2 rounded-full mr-3">
+              <i data-feather="zap" class="text-[#3AA6A0] w-4 h-4"></i>
+            </div>
+            <div>
+              <h3 class="font-medium text-gray-800">${sug.title}</h3>
+              <p class="text-sm text-gray-600 mt-1">${sug.description}</p>
+              <button onclick="applySuggestion(${sug.id})"
+                class="mt-2 text-sm text-[#3AA6A0] hover:text-[#2E8C87] font-medium flex items-center">
+                <i data-feather="check-circle" class="mr-1 w-4 h-4"></i> Apply Suggestion
+              </button>
+            </div>
+          </div>
+        `;
+          sidebar.appendChild(card);
+        });
+
+        feather.replace();
+      } catch (err) {
+        console.error("Error loading suggestions:", err);
+      }
+    }
+
+    // --- Apply suggestion ---
+    async function applySuggestion(id) {
+      try {
+        const response = await fetch(`http://localhost:8083/resources/suggestions/${id}/apply`, {
+          method: "POST"
+        });
+        const result = await response.text();
+        alert(result);
+      } catch (err) {
+        console.error("Error applying suggestion:", err);
+        alert("Failed to apply suggestion.");
+      }
+    }
+
+    // --- Initialize everything on page load ---
+    document.addEventListener("DOMContentLoaded", () => {
+      loadEmployees();
+      loadEquipment();
+      loadAssignmentOptions();
+      loadSuggestions();
+    });
   </script>
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
   <script src="assets/js/resources-common.js"></script>
