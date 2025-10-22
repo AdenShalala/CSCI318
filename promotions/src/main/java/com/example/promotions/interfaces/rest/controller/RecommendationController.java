@@ -1,7 +1,10 @@
 package com.example.promotions.interfaces.rest.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +29,11 @@ public class RecommendationController {
         new Recommendation(3, "Create bundle deal",
             "Market basket analysis shows 62% of customers who buy premium headphones also buy DACs.",
             "95%", "+$3,500/mo", "tag", "purple", "Create Bundle"));
+  }
+
+  @PostMapping("/{id}/apply")
+  public ResponseEntity<String> applyRecommendation(@PathVariable int id) {
+    System.out.println("Applying recommendation with ID: " + id);
+    return ResponseEntity.ok("Recommendation " + id + " applied successfully!");
   }
 }
