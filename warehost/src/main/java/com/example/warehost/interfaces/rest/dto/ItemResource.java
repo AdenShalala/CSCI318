@@ -5,17 +5,15 @@ public class ItemResource {
     private String name;
     private String type;
     private String description;
-    private String order_date;
     private String quantity;
 
     public ItemResource() {}
 
-    public ItemResource(String itemID, String name, String type, String description, String order_date, String quantity) {
+    public ItemResource(String itemID, String name, String type, String description, String quantity) {
         this.itemID = itemID;
         this.name =name;
         this.type = type;
         this.description = description;
-        this.order_date = order_date;
         this.quantity = quantity;
     }
 
@@ -23,7 +21,6 @@ public class ItemResource {
     public String getName(){return this.name;}
     public String getType(){return this.type;}
     public String getDescription(){return this.description;}
-    public String getOrderDate(){return this.order_date;}
     public String getQuantity(){return this.quantity;}
 
 }

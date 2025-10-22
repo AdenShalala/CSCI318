@@ -47,7 +47,9 @@ public class SalesCommandService {
         }
 
         salesRepository.save(sale);
+        System.out.println(sale.getItemID());
         SaleCreatedEvent event = new SaleCreatedEvent(saleID, sale.getTotalPrice(), sale.getItemID());
+        System.out.println(event);
         publisher.publishEvent(event);
         return new SaleID(saleID);
     }

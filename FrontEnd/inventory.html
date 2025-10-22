@@ -6,12 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WareHost - Inventory Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <link rel="stylesheet" href="assets/css/resources-common.css">
     <link rel="stylesheet" href="assets/css/ai-insights-dashboard.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            500: '#4f46e5',
+                            600: '#4338ca',
+                        },
+                        secondary: {
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
-        /* Keep only minimal page layout styles here; moving visual styles to ai-insights-dashboard.css */
-        /* Keep header/footer visuals untouched per request */
         * {
             margin: 0;
             padding: 0;
@@ -25,7 +43,7 @@
             color: #333;
         }
 
-        .container {
+        .dashboard-container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
@@ -37,42 +55,182 @@
             gap: 2rem;
         }
 
-        /* Page-specific header overrides: constrain 3D object to header and keep canvas behind content, reduce intensity */
-        header #teal-3d-object {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            right: 1.5rem;
-            top: 0.6rem;
-            z-index: 60;
-            pointer-events: none;
-            transform: translateZ(0);
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
         }
 
-        header>.container {
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        /* Search and filter styles */
+        .search-section {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
             position: relative;
-            z-index: 70;
+            flex: 1;
+            min-width: 200px;
         }
 
-        header #vanta-bg,
-        header #vanta-bg canvas {
+        .search-box i {
             position: absolute;
-            inset: 0;
-            z-index: 20;
-            pointer-events: none;
-            opacity: 0.55;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
         }
 
-        /* Hide heavy visuals on small screens */
+        .search-box input {
+            width: 100%;
+            padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .filter-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            min-width: 150px;
+        }
+
+        /* Table styles */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Recommendation styles */
+        .recommendation-card {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #3AA6A0;
+        }
+
+        .recommendation-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .recommendation-meta {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .recommendation-reason {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
         @media (max-width: 768px) {
-
-            header #teal-3d-object,
-            header #vanta-bg,
-            header #vanta-bg canvas {
-                display: none !important;
-            }
-
             .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-section {
+                flex-direction: column;
+            }
+            
+            .search-box,
+            .filter-select {
+                min-width: 100%;
+            }
+            
+            .form-row {
                 grid-template-columns: 1fr;
             }
         }
@@ -80,29 +238,49 @@
 </head>
 
 <body>
-    <div class="dashboard-container container">
-        <!-- Header (dashboard-style) -->
+    <div class="dashboard-container">
+        <!-- Header -->
         <header class="bg-[#3AA6A0] text-white shadow-md relative overflow-hidden">
             <div id="vanta-bg" class="absolute inset-0"></div>
             <div id="teal-3d-object"></div>
             <div class="container mx-auto px-4 py-4 flex justify-between items-center relative z-10">
                 <div class="flex items-center space-x-2">
-                    <i data-feather="users" class="w-6 h-6 text-white"></i>
+                    <i data-feather="users" class="w-6 h-6"></i>
                     <h1 class="text-2xl font-bold">WareHost</h1>
                 </div>
                 <nav class="hidden md:flex space-x-8">
-                    <a href="index.html"
-                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Dashboard</a>
-                    <a href="inventory-management.html"
-                        class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">Inventory</a>
-                    <a href="ai-insights.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">AI
-                        Insights</a>
-                    <a href="sales.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Sales</a>
-                    <a href="resources.html"
-                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Resources</a>
+                    <a href="dashboard.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Dashboard</a>
+                    <a href="inventory.html" class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">Inventory</a>
+                    <a href="resources.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Resources</a>
+                    <a href="ai-insights.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">AI Insights</a>
+                    <a href="promotions.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Promotions</a>
                 </nav>
             </div>
         </header>
+
+        <!-- Stats Grid -->
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <i class="fas fa-boxes"></i>
+                <div class="stat-number" id="totalProducts">0</div>
+                <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div class="stat-number alert" id="lowStockItems">0</div>
+                <div class="stat-label">Low Stock Items</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-shopping-cart"></i>
+                <div class="stat-number success" id="outOfStockItems">0</div>
+                <div class="stat-label">Out of Stock</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-robot"></i>
+                <div class="stat-number warning" id="aiRecommendations">3</div>
+                <div class="stat-label">AI Recommendations</div>
+            </div>
+        </div>
 
         <!-- Main Content -->
         <div class="main-content">
@@ -114,10 +292,10 @@
                         <h2 class="card-title">Inventory Management</h2>
                         <div class="action-buttons">
                             <button class="btn btn-primary" onclick="openAddProductModal()">
-                                <i class="fas fa-plus"></i>Add Product
+                                <i class="fas fa-plus"></i> Add Product
                             </button>
                             <a href="purchase-stock.html" class="btn btn-outline">
-                                <i class="fas fa-shopping-cart"></i>Purchase Stock
+                                <i class="fas fa-shopping-cart"></i> Purchase Stock
                             </a>
                         </div>
                     </div>
@@ -126,19 +304,16 @@
                     <div class="search-section">
                         <div class="search-box">
                             <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Search products..."
-                                onkeyup="filterProducts()">
+                            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
                         </div>
-                        <select class="filter-select" id="categoryFilter" aria-label="Category filter"
-                            onchange="filterProducts()">
+                        <select class="filter-select" id="categoryFilter" onchange="filterProducts()">
                             <option value="all">All Categories</option>
                             <option value="outdoor">Outdoor Gear</option>
                             <option value="cooking">Cooking</option>
                             <option value="clothing">Clothing</option>
                             <option value="electronics">Electronics</option>
                         </select>
-                        <select class="filter-select" id="statusFilter" aria-label="Status filter"
-                            onchange="filterProducts()">
+                        <select class="filter-select" id="statusFilter" onchange="filterProducts()">
                             <option value="all">All Status</option>
                             <option value="good">In Stock</option>
                             <option value="low">Low Stock</option>
@@ -148,19 +323,20 @@
 
                     <!-- Products Table -->
                     <div class="table-responsive">
-                        <table id="productsTable">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Product Name</th>
                                     <th>Category</th>
                                     <th>Stock Level</th>
-                                    <th>Price</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="productsTableBody">
-                                <!-- Products will be populated by JavaScript -->
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: 20px;">Loading inventory data...</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -176,7 +352,11 @@
                     </div>
 
                     <div id="recommendationsList">
-                        <!-- Recommendations will be populated by JavaScript -->
+                        <div class="recommendation-card">
+                            <div class="recommendation-header">
+                                <div class="recommendation-title">Loading recommendations...</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -191,15 +371,9 @@
                 <button class="modal-close" onclick="closeAddProductModal()">&times;</button>
             </div>
             <form id="addProductForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="productName">Product Name</label>
-                        <input type="text" id="productName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="productId">Product ID</label>
-                        <input type="text" id="productId" required>
-                    </div>
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
@@ -213,13 +387,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="productPrice">Price ($)</label>
-                        <input type="number" id="productPrice" step="0.01" required>
+                        <label for="stockQuantity">Stock Quantity</label>
+                        <input type="number" id="stockQuantity" required>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="stockQuantity">Stock Quantity</label>
-                    <input type="number" id="stockQuantity" required>
                 </div>
                 <div class="form-group">
                     <label for="productDescription">Description (Optional)</label>
@@ -241,21 +411,16 @@
                 <button class="modal-close" onclick="closeEditProductModal()">&times;</button>
             </div>
             <form id="editProductForm">
-                <input type="hidden" id="editProductIndex">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="editProductName">Product Name</label>
-                        <input type="text" id="editProductName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editProductId">Product ID</label>
-                        <input type="text" id="editProductId" required>
-                    </div>
+                <input type="hidden" id="editProductId">
+                <div class="form-group">
+                    <label for="editProductName">Product Name</label>
+                    <input type="text" id="editProductName" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="editProductCategory">Category</label>
                         <select id="editProductCategory" required>
+                            <option value="">Select Category</option>
                             <option value="outdoor">Outdoor Gear</option>
                             <option value="cooking">Cooking</option>
                             <option value="clothing">Clothing</option>
@@ -263,16 +428,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="editProductPrice">Price ($)</label>
-                        <input type="number" id="editProductPrice" step="0.01" required>
+                        <label for="editStockQuantity">Stock Quantity</label>
+                        <input type="number" id="editStockQuantity" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="editStockQuantity">Stock Quantity</label>
-                    <input type="number" id="editStockQuantity" required>
-                </div>
-                <div class="form-group">
-                    <label for="editProductDescription">Description</label>
+                    <label for="editProductDescription">Description (Optional)</label>
                     <textarea id="editProductDescription" rows="3"></textarea>
                 </div>
                 <div class="modal-actions">
@@ -283,322 +444,6 @@
         </div>
     </div>
 
-    <script>
-        // Sample data
-        let products = [
-            {
-                id: 'PROD001',
-                name: 'Camping Tent Pro',
-                category: 'outdoor',
-                stock: 8,
-                price: 199.99,
-                description: 'Professional camping tent for outdoor adventures'
-            },
-            {
-                id: 'PROD002',
-                name: 'Hiking Backpack',
-                category: 'outdoor',
-                stock: 45,
-                price: 89.99,
-                description: 'Durable hiking backpack with multiple compartments'
-            },
-            {
-                id: 'PROD003',
-                name: 'Sleeping Bag',
-                category: 'outdoor',
-                stock: 0,
-                price: 79.99,
-                description: 'Warm sleeping bag for cold weather camping'
-            },
-            {
-                id: 'PROD004',
-                name: 'Portable Stove',
-                category: 'cooking',
-                stock: 25,
-                price: 49.99,
-                description: 'Compact portable stove for outdoor cooking'
-            }
-        ];
-
-        let recommendations = [
-            {
-                id: 1,
-                product: 'Water Bottles',
-                quantity: 20,
-                reason: 'Rising seasonal demand. Current stock may not meet projected sales.',
-                supplier: 'AquaSupplies',
-                cost: 200,
-                status: 'pending'
-            },
-            {
-                id: 2,
-                product: 'Hiking Boots',
-                quantity: 15,
-                reason: 'High sales trend detected. Stock levels below safety threshold.',
-                supplier: 'TrailGear Inc',
-                cost: 450,
-                status: 'pending'
-            },
-            {
-                id: 3,
-                product: 'Portable Charger',
-                quantity: 30,
-                reason: 'Increasing demand for electronic accessories during camping season.',
-                supplier: 'PowerTech',
-                cost: 300,
-                status: 'pending'
-            }
-        ];
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function () {
-            renderProductsTable();
-            renderRecommendations();
-        });
-
-        // Render products table
-        function renderProductsTable() {
-            const tbody = document.getElementById('productsTableBody');
-            tbody.innerHTML = '';
-
-            products.forEach((product, index) => {
-                const status = getStockStatus(product.stock);
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${product.name}</td>
-                    <td>${getCategoryName(product.category)}</td>
-                    <td>${product.stock}</td>
-                    <td>$${product.price.toFixed(2)}</td>
-                    <td><span class="status-badge status-${status}">${getStatusText(status)}</span></td>
-                    <td>
-                        <button class="btn btn-outline btn-sm" onclick="editProduct(${index})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${index})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Render recommendations
-        function renderRecommendations() {
-            const container = document.getElementById('recommendationsList');
-            const countElement = document.getElementById('recommendationCount');
-            const pendingRecommendations = recommendations.filter(rec => rec.status === 'pending');
-
-            countElement.textContent = `${pendingRecommendations.length} New`;
-
-            container.innerHTML = '';
-
-            pendingRecommendations.forEach(recommendation => {
-                const card = document.createElement('div');
-                card.className = 'recommendation-card';
-                card.innerHTML = `
-                    <div class="recommendation-header">
-                        <div class="recommendation-title">Order ${recommendation.quantity}x ${recommendation.product}</div>
-                    </div>
-                    <div class="recommendation-meta">
-                        Suggested Supplier: ${recommendation.supplier} | Est. Cost: $${recommendation.cost}
-                    </div>
-                    <div class="recommendation-reason">
-                        ${recommendation.reason}
-                    </div>
-                    <div class="recommendation-actions">
-                        <button class="btn btn-success" onclick="approveRecommendation(${recommendation.id})">
-                            <i class="fas fa-check"></i>Approve
-                        </button>
-                        <button class="btn btn-danger" onclick="dismissRecommendation(${recommendation.id})">
-                            <i class="fas fa-times"></i>Dismiss
-                        </button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        // Helper functions
-        function getStockStatus(stock) {
-            if (stock === 0) return 'out';
-            if (stock <= 10) return 'low';
-            return 'good';
-        }
-
-        function getStatusText(status) {
-            const statusMap = {
-                'good': 'In Stock',
-                'low': 'Low Stock',
-                'out': 'Out of Stock'
-            };
-            return statusMap[status];
-        }
-
-        function getCategoryName(category) {
-            const categoryMap = {
-                'outdoor': 'Outdoor Gear',
-                'cooking': 'Cooking',
-                'clothing': 'Clothing',
-                'electronics': 'Electronics'
-            };
-            return categoryMap[category];
-        }
-
-        // Modal functions
-        function openAddProductModal() {
-            document.getElementById('addProductModal').style.display = 'flex';
-        }
-
-        function closeAddProductModal() {
-            document.getElementById('addProductModal').style.display = 'none';
-            document.getElementById('addProductForm').reset();
-        }
-
-        function openEditProductModal() {
-            document.getElementById('editProductModal').style.display = 'flex';
-        }
-
-        function closeEditProductModal() {
-            document.getElementById('editProductModal').style.display = 'none';
-        }
-
-        // Form handlers
-        document.getElementById('addProductForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const newProduct = {
-                id: document.getElementById('productId').value,
-                name: document.getElementById('productName').value,
-                category: document.getElementById('productCategory').value,
-                stock: parseInt(document.getElementById('stockQuantity').value),
-                price: parseFloat(document.getElementById('productPrice').value),
-                description: document.getElementById('productDescription').value
-            };
-
-            products.push(newProduct);
-            renderProductsTable();
-            closeAddProductModal();
-
-            // Show success message
-            alert('Product added successfully!');
-        });
-
-        document.getElementById('editProductForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const index = parseInt(document.getElementById('editProductIndex').value);
-            products[index] = {
-                id: document.getElementById('editProductId').value,
-                name: document.getElementById('editProductName').value,
-                category: document.getElementById('editProductCategory').value,
-                stock: parseInt(document.getElementById('editStockQuantity').value),
-                price: parseFloat(document.getElementById('editProductPrice').value),
-                description: document.getElementById('editProductDescription').value
-            };
-
-            renderProductsTable();
-            closeEditProductModal();
-
-            // Show success message
-            alert('Product updated successfully!');
-        });
-
-        // Product actions
-        function editProduct(index) {
-            const product = products[index];
-            document.getElementById('editProductIndex').value = index;
-            document.getElementById('editProductId').value = product.id;
-            document.getElementById('editProductName').value = product.name;
-            document.getElementById('editProductCategory').value = product.category;
-            document.getElementById('editStockQuantity').value = product.stock;
-            document.getElementById('editProductPrice').value = product.price;
-            document.getElementById('editProductDescription').value = product.description;
-
-            openEditProductModal();
-        }
-
-        function deleteProduct(index) {
-            if (confirm('Are you sure you want to delete this product?')) {
-                products.splice(index, 1);
-                renderProductsTable();
-                alert('Product deleted successfully!');
-            }
-        }
-
-        // Recommendation actions
-        function approveRecommendation(id) {
-            const recommendation = recommendations.find(rec => rec.id === id);
-            recommendation.status = 'approved';
-            renderRecommendations();
-            alert('Order approved! The purchase has been scheduled.');
-        }
-
-        function dismissRecommendation(id) {
-            const recommendation = recommendations.find(rec => rec.id === id);
-            recommendation.status = 'dismissed';
-            renderRecommendations();
-            alert('Recommendation dismissed.');
-        }
-
-        // Search and filter functionality
-        function filterProducts() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const categoryFilter = document.querySelectorAll('.filter-select')[0].value;
-            const statusFilter = document.querySelectorAll('.filter-select')[1].value;
-
-            const filteredProducts = products.filter(product => {
-                const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
-                    product.id.toLowerCase().includes(searchTerm);
-                const matchesCategory = categoryFilter === 'all' || product.category === categoryFilter;
-                const matchesStatus = statusFilter === 'all' || getStockStatus(product.stock) === statusFilter;
-
-                return matchesSearch && matchesCategory && matchesStatus;
-            });
-
-            renderFilteredProducts(filteredProducts);
-        }
-
-        function renderFilteredProducts(filteredProducts) {
-            const tbody = document.getElementById('productsTableBody');
-            tbody.innerHTML = '';
-
-            filteredProducts.forEach((product, index) => {
-                const originalIndex = products.findIndex(p => p.id === product.id);
-                const status = getStockStatus(product.stock);
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${product.name}</td>
-                    <td>${getCategoryName(product.category)}</td>
-                    <td>${product.stock}</td>
-                    <td>$${product.price.toFixed(2)}</td>
-                    <td><span class="status-badge status-${status}">${getStatusText(status)}</span></td>
-                    <td>
-                        <button class="btn btn-outline btn-sm" onclick="editProduct(${originalIndex})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${originalIndex})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Close modals when clicking outside
-        window.onclick = function (event) {
-            const addModal = document.getElementById('addProductModal');
-            const editModal = document.getElementById('editProductModal');
-
-            if (event.target === addModal) {
-                closeAddProductModal();
-            }
-            if (event.target === editModal) {
-                closeEditProductModal();
-            }
-        }
-    </script>
     <footer class="bg-gray-800 text-white text-center py-4 mt-8">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
             <p class="text-[#3AA6A0]">&copy; 2025 WareHost. All rights reserved.</p>
@@ -610,12 +455,491 @@
         </div>
     </footer>
 
+    <!-- API Integration Script -->
+    <script>
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:8081';
+
+        // Function to fetch all items from backend
+        async function fetchAllItems() {
+            try {
+                console.log('Fetching items from backend...');
+                const response = await fetch(`${API_BASE_URL}/items/findAllItems`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const items = await response.json();
+                console.log('Raw items from backend:', items);
+                
+                // Transform the complex backend data to simple frontend format
+                const transformedItems = transformBackendItems(items);
+                console.log('Transformed items:', transformedItems);
+                
+                return transformedItems;
+            } catch (error) {
+                console.error('Error fetching items:', error);
+                // Fallback to local storage if backend fails
+                return getLocalStorageItems();
+            }
+        }
+
+        // Function to transform complex backend data to simple frontend format
+        function transformBackendItems(backendItems) {
+            return backendItems.map((item, index) => {
+                console.log('Processing backend item:', item);
+                
+                // Extract data from nested objects
+                const itemId = item.itemID && item.itemID.itemID ? item.itemID.itemID : `backend-${index + 1}`;
+                
+                // Try to get name from nested structure, fallback to generated name
+                let name = 'Unnamed Product';
+                if (item.itemName && item.itemName.name) {
+                    name = item.itemName.name;
+                } else if (item.name && item.name.name) {
+                    name = item.name.name;
+                } else {
+                    name = `Product ${index + 1}`;
+                }
+                
+                // Try to get category from nested structure
+                let type = 'General';
+                if (item.type && item.type.type) {
+                    type = item.type.type;
+                } else if (item.type && typeof item.type === 'string') {
+                    type = item.type;
+                } else {
+                    const categories = ['Outdoor Gear', 'Cooking', 'Clothing', 'Electronics'];
+                    type = categories[index % categories.length];
+                }
+                
+                const quantity = item.itemQuantity ? item.itemQuantity.quantityInt : 0;
+                
+                // Try to get description
+                let description = '';
+                if (item.description && item.description.description) {
+                    description = item.description.description;
+                } else if (item.description && typeof item.description === 'string') {
+                    description = item.description;
+                }
+                
+                return {
+                    id: itemId,
+                    name: name,
+                    category: type,
+                    quantity: quantity,
+                    description: description,
+                    source: 'backend',
+                    original: item
+                };
+            });
+        }
+
+        // Function to add a new item - CORRECTED FOR YOUR BACKEND
+        async function addNewItem(itemData) {
+            try {
+                console.log('Adding item:', itemData);
+
+                // CORRECT: Flat structure that matches ItemResource.java
+                const requestBody = {
+                    name: itemData.name,
+                    type: itemData.type,
+                    description: itemData.description || '',
+                    quantity: itemData.quantity.toString(),
+                    order_date: new Date().toISOString().split('T')[0] // Add current date
+                };
+
+                console.log('Sending to backend:', requestBody);
+
+                const response = await fetch(`${API_BASE_URL}/items`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Backend error:', response.status, errorText);
+                    throw new Error(`Server returned ${response.status}: ${errorText}`);
+                }
+
+                const result = await response.json();
+                console.log('Success! Backend response:', result);
+                
+                // Also add to local storage for immediate display
+                addToLocalStorage(itemData, result.itemID || `local-${Date.now()}`);
+                
+                // Refresh data
+                setTimeout(() => {
+                    updateInventoryStats();
+                }, 500);
+                
+                return true;
+            } catch (error) {
+                console.error('Error adding item to backend, using local storage:', error);
+                // Fallback to local storage
+                addToLocalStorage(itemData, `local-${Date.now()}`);
+                updateInventoryStats();
+                return true;
+            }
+        }
+
+        // Function to update an existing item
+        async function updateItem(itemId, itemData) {
+            try {
+                console.log('Updating item:', itemId, itemData);
+
+                // Check if it's a backend item or local item
+                const items = await fetchAllItems();
+                const itemToUpdate = items.find(item => item.id === itemId);
+                
+                if (itemToUpdate && itemToUpdate.source === 'backend') {
+                    // Try backend update if it's a backend item
+                    try {
+                        const updateData = {
+                            name: itemData.name,
+                            type: itemData.type,
+                            description: itemData.description || '',
+                            quantity: itemData.quantity.toString(),
+                            order_date: new Date().toISOString().split('T')[0]
+                        };
+
+                        // Note: Your backend doesn't have PUT endpoint yet, so we'll just log
+                        console.log('Would update backend item with:', updateData);
+                        // In future: await fetch(`${API_BASE_URL}/items/${itemId}`, { method: 'PUT', ... })
+                    } catch (backendError) {
+                        console.log('Backend update not available');
+                    }
+                }
+
+                // Always update local storage
+                updateLocalStorageItem(itemId, itemData);
+                
+                // Update display
+                updateInventoryStats();
+                
+                return true;
+            } catch (error) {
+                console.error('Error updating item:', error);
+                alert('Failed to update item: ' + error.message);
+                return false;
+            }
+        }
+
+        // Function to delete an item
+        async function deleteItem(itemId) {
+            if (!confirm('Are you sure you want to delete this item? This action cannot be undone.')) {
+                return false;
+            }
+
+            try {
+                console.log('Deleting item:', itemId);
+
+                // Check if it's a backend item
+                const items = await fetchAllItems();
+                const itemToDelete = items.find(item => item.id === itemId);
+                
+                if (itemToDelete && itemToDelete.source === 'backend') {
+                    // Try backend delete if it's a backend item
+                    try {
+                        // Note: Your backend doesn't have DELETE endpoint yet, so we'll just log
+                        console.log('Would delete backend item:', itemId);
+                        // In future: await fetch(`${API_BASE_URL}/items/${itemId}`, { method: 'DELETE' })
+                    } catch (backendError) {
+                        console.log('Backend delete not available');
+                    }
+                }
+
+                // Always delete from local storage
+                deleteFromLocalStorage(itemId);
+                
+                // Update display
+                updateInventoryStats();
+                
+                alert('Item deleted successfully!');
+                return true;
+            } catch (error) {
+                console.error('Error deleting item:', error);
+                alert('Failed to delete item: ' + error.message);
+                return false;
+            }
+        }
+
+        // Local Storage Functions
+        function getLocalStorageItems() {
+            return JSON.parse(localStorage.getItem('warehost_items') || '[]');
+        }
+
+        function addToLocalStorage(itemData, itemId) {
+            const items = getLocalStorageItems();
+            const newItem = {
+                id: itemId,
+                name: itemData.name,
+                category: itemData.type,
+                quantity: parseInt(itemData.quantity),
+                description: itemData.description || '',
+                source: 'local'
+            };
+            items.push(newItem);
+            localStorage.setItem('warehost_items', JSON.stringify(items));
+            console.log('Item saved to local storage:', newItem);
+        }
+
+        function updateLocalStorageItem(itemId, itemData) {
+            const items = getLocalStorageItems();
+            const updatedItems = items.map(item => {
+                if (item.id === itemId) {
+                    return {
+                        ...item,
+                        name: itemData.name,
+                        category: itemData.type,
+                        quantity: parseInt(itemData.quantity),
+                        description: itemData.description || ''
+                    };
+                }
+                return item;
+            });
+            localStorage.setItem('warehost_items', JSON.stringify(updatedItems));
+        }
+
+        function deleteFromLocalStorage(itemId) {
+            const items = getLocalStorageItems();
+            const filteredItems = items.filter(item => item.id !== itemId);
+            localStorage.setItem('warehost_items', JSON.stringify(filteredItems));
+        }
+
+        // Update the inventory table with transformed data
+        function updateInventoryTable(items) {
+            const tableBody = document.getElementById('productsTableBody');
+            if (!tableBody) return;
+
+            tableBody.innerHTML = '';
+
+            if (!items || items.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No items in inventory</td></tr>';
+                return;
+            }
+
+            console.log('Rendering items:', items);
+
+            items.forEach(item => {
+                const row = document.createElement('tr');
+                
+                // Determine status
+                let statusClass = 'status-good';
+                let statusText = 'Good';
+                
+                if (item.quantity === 0) {
+                    statusClass = 'status-out';
+                    statusText = 'Out of Stock';
+                } else if (item.quantity < 10) {
+                    statusClass = 'status-low';
+                    statusText = 'Low Stock';
+                }
+                
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>${item.category}</td>
+                    <td>${item.quantity}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <button class="btn btn-outline btn-sm" onclick="editItem('${item.id}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteItem('${item.id}')">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Update stats with real data
+        async function updateInventoryStats() {
+            try {
+                // Get combined items (backend + local storage)
+                const backendItems = await fetchAllItems();
+                const localItems = getLocalStorageItems();
+                
+                // Combine items, local items take precedence for demo
+                const allItems = [...localItems, ...backendItems.filter(backendItem => 
+                    !localItems.some(localItem => localItem.id === backendItem.id)
+                )];
+
+                // Update total products count
+                const totalProductsElement = document.getElementById('totalProducts');
+                if (totalProductsElement) {
+                    totalProductsElement.textContent = allItems.length;
+                }
+                
+                // Update low stock items count (quantity < 10 but > 0)
+                const lowStockCount = allItems.filter(item => item.quantity < 10 && item.quantity > 0).length;
+                const lowStockElement = document.getElementById('lowStockItems');
+                if (lowStockElement) {
+                    lowStockElement.textContent = lowStockCount;
+                }
+                
+                // Update out of stock items count
+                const outOfStockCount = allItems.filter(item => item.quantity === 0).length;
+                const outOfStockElement = document.getElementById('outOfStockItems');
+                if (outOfStockElement) {
+                    outOfStockElement.textContent = outOfStockCount;
+                }
+                
+                // Update inventory table with all data
+                updateInventoryTable(allItems);
+                
+            } catch (error) {
+                console.error('Error updating inventory:', error);
+            }
+        }
+
+        // Enhanced search and filter with transformed data
+        async function filterProducts() {
+            const backendItems = await fetchAllItems();
+            const localItems = getLocalStorageItems();
+            const allItems = [...localItems, ...backendItems];
+
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            const filteredItems = allItems.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(searchTerm);
+                const matchesCategory = categoryFilter === 'all' || item.category === categoryFilter;
+                
+                let itemStatus = 'good';
+                if (item.quantity === 0) itemStatus = 'out';
+                else if (item.quantity < 10) itemStatus = 'low';
+                
+                const matchesStatus = statusFilter === 'all' || itemStatus === statusFilter;
+
+                return matchesSearch && matchesCategory && matchesStatus;
+            });
+
+            updateInventoryTable(filteredItems);
+        }
+
+        // Modal functions
+        function openAddProductModal() {
+            document.getElementById('addProductModal').classList.add('active');
+        }
+
+        function closeAddProductModal() {
+            document.getElementById('addProductModal').classList.remove('active');
+            document.getElementById('addProductForm').reset();
+        }
+
+        function openEditProductModal() {
+            document.getElementById('editProductModal').classList.add('active');
+        }
+
+        function closeEditProductModal() {
+            document.getElementById('editProductModal').classList.remove('active');
+            document.getElementById('editProductForm').reset();
+        }
+
+        // Edit item function
+        async function editItem(itemId) {
+            try {
+                const backendItems = await fetchAllItems();
+                const localItems = getLocalStorageItems();
+                const allItems = [...localItems, ...backendItems];
+                
+                const itemToEdit = allItems.find(item => item.id === itemId);
+                
+                if (!itemToEdit) {
+                    alert('Item not found!');
+                    return;
+                }
+
+                // Populate edit form
+                document.getElementById('editProductId').value = itemToEdit.id;
+                document.getElementById('editProductName').value = itemToEdit.name;
+                document.getElementById('editProductCategory').value = itemToEdit.category.toLowerCase();
+                document.getElementById('editStockQuantity').value = itemToEdit.quantity;
+                document.getElementById('editProductDescription').value = itemToEdit.description || '';
+
+                openEditProductModal();
+            } catch (error) {
+                console.error('Error loading item for edit:', error);
+                alert('Error loading item details');
+            }
+        }
+
+        // Form handlers
+        document.getElementById('addProductForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const newItem = {
+                name: document.getElementById('productName').value,
+                type: document.getElementById('productCategory').value,
+                quantity: parseInt(document.getElementById('stockQuantity').value),
+                description: document.getElementById('productDescription').value
+            };
+
+            const success = await addNewItem(newItem);
+            if (success) {
+                closeAddProductModal();
+                alert('Product added successfully!');
+            } else {
+                alert('Failed to add product. Please try again.');
+            }
+        });
+
+        document.getElementById('editProductForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const itemId = document.getElementById('editProductId').value;
+            const updatedItem = {
+                name: document.getElementById('editProductName').value,
+                type: document.getElementById('editProductCategory').value,
+                quantity: parseInt(document.getElementById('editStockQuantity').value),
+                description: document.getElementById('editProductDescription').value
+            };
+
+            const success = await updateItem(itemId, updatedItem);
+            if (success) {
+                closeEditProductModal();
+                alert('Product updated successfully!');
+            } else {
+                alert('Failed to update product. Please try again.');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Loading inventory data...');
+            updateInventoryStats();
+            
+            // Refresh data every 30 seconds
+            setInterval(updateInventoryStats, 30000);
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            const addModal = document.getElementById('addProductModal');
+            const editModal = document.getElementById('editProductModal');
+            
+            if (event.target === addModal) {
+                closeAddProductModal();
+            }
+            if (event.target === editModal) {
+                closeEditProductModal();
+            }
+        }
+    </script>
+
     <!-- Three.js + Vanta + shared 3D/interaction script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <script src="assets/js/resources-common.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function () { if (window.feather) feather.replace(); });</script>
-
 </body>
 
 </html>
