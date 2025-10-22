@@ -43,7 +43,13 @@ public class ItemCommandService {
 
         if(item != null) { 
             //TEMP CATCH FOR TESTING
-            item.getItemQuantity().setQuantityInt(item.getItemQuantity().getQuantityInt() - 1);
+            int quantity = item.getItemQuantity().getQuantityInt();
+            item.getItemQuantity().setQuantityInt(quantity - 1);
+
+            if (quantity <= 5) {
+            StockLowEvent event = new StockLowEvent(item.getItemID().getItemID(), item.getItemName().toString(), quantity);
+            publisher.publishEvent(event);
+        }
         
             itemRepository.save(item);
         }
