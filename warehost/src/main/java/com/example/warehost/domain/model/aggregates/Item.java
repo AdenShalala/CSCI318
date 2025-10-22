@@ -1,6 +1,9 @@
 package com.example.warehost.domain.model.aggregates;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
+
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import com.example.warehost.domain.model.commands.ItemCommand;
@@ -83,7 +86,12 @@ public class Item extends AbstractAggregateRoot<Item> {
     public ItemDescription getDescription() {return this.description;}
     public void setDescription(ItemDescription description) {this.description = description;}
     
-    public ItemDate getOrderDate() {return this.order_date;}
+    public ItemDate getOrderDate() {
+        if (this.order_date == null) {
+            this.order_date = new ItemDate(LocalDate.now().toString());
+        }
+        return this.order_date;
+    }
     public void setOrderDate(ItemDate order_date) {this.order_date = order_date;}
    
     public ItemQuantity getItemQuantity() {return this.quantity;}
