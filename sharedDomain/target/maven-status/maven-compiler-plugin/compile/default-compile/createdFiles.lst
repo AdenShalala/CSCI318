@@ -1,0 +1,8 @@
+com/example/shareddomain/Sale.class
+com/example/shareddomain/events/StockLowEvent.class
+com/example/shareddomain/Item.class
+com/example/shareddomain/events/SaleCreatedEvent.class
+com/example/shareddomain/Discount.class
+com/example/Main.class
+com/example/shareddomain/Charge.class
+com/example/shareddomain/Promotion.class
