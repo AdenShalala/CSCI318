@@ -178,6 +178,7 @@
         </table>
       </div>
 
+
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Promotion 1 -->
         <div class="promo-card relative bg-white rounded-lg shadow p-6">
@@ -330,20 +331,40 @@
       try {
         const response = await fetch("http://localhost:8083/promotion/findAllPromotions");
         const data = await response.json();
-        const tbody = document.querySelector("#promoTable tbody");
-        tbody.innerHTML = "";
+        const container = document.getElementById("promoCards");
+        container.innerHTML = "";
 
         data.forEach(promo => {
-          const row = `
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900">${promo.id || "—"}</td>
-            <td class="px-6 py-4 text-sm text-gray-500">${promo.promoCode || "—"}</td>
-            <td class="px-6 py-4 text-sm text-gray-500">${promo.amount || promo.discount || "—"}</td>
-            <td class="px-6 py-4 text-sm text-gray-500">${promo.startDate || "—"}</td>
-            <td class="px-6 py-4 text-sm text-gray-500">${promo.endDate || "—"}</td>
-          </tr>
+          // Determine status based on dates
+          const today = new Date().toISOString().split("T")[0];
+          let status = "Scheduled";
+          if (promo.startDate <= today && promo.endDate >= today) {
+            status = "Active";
+          } else if (promo.endDate < today) {
+            status = "Expired";
+          }
+
+          const card = `
+          <div class="promo-card bg-white shadow rounded-lg p-6 hover:shadow-lg transition cursor-pointer">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">${promo.promoCode || "—"}</h3>
+            <p class="text-sm text-gray-600 mb-2">
+              <span class="font-semibold">Discount:</span> ${promo.amount || promo.discount || "—"}%
+            </p>
+            <p class="text-sm text-gray-600 mb-2">
+              <span class="font-semibold">Start:</span> ${promo.startDate || "—"}
+            </p>
+            <p class="text-sm text-gray-600 mb-4">
+              <span class="font-semibold">End:</span> ${promo.endDate || "—"}
+            </p>
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-medium
+              ${status === "Active" ? "bg-green-100 text-green-800" :
+              status === "Scheduled" ? "bg-blue-100 text-blue-800" :
+                "bg-gray-200 text-gray-600"}">
+              ${status}
+            </span>
+          </div>
         `;
-          tbody.innerHTML += row;
+          container.innerHTML += card;
         });
       } catch (err) {
         console.error("Error fetching promotions:", err);
@@ -352,6 +373,7 @@
 
     document.addEventListener("DOMContentLoaded", loadPromotions);
   </script>
+
 
   <script>
     document.getElementById("promoForm").addEventListener("submit", async function (e) {
