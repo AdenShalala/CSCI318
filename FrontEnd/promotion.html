@@ -346,7 +346,7 @@
           <div class="promo-card bg-white shadow rounded-lg p-6 hover:shadow-lg transition cursor-pointer">
             <h3 class="text-lg font-bold text-gray-900 mb-2">${promo.promoCode || "—"}</h3>
             <p class="text-sm text-gray-600 mb-2">
-              <span class="font-semibold">Discount:</span> ${promo.amount || promo.discount || "—"}%
+              <span class="font-semibold">Discount:</span> ${promo.discount?.amount ?? (promo.amount ?? "—")}%
             </p>
             <p class="text-sm text-gray-600 mb-2">
               <span class="font-semibold">Start:</span> ${promo.startDate || "—"}
@@ -379,10 +379,15 @@
 
       const promo = {
         promoCode: document.getElementById("promoCode").value,
-        amount: parseFloat(document.getElementById("amount").value),
-        type: document.getElementById("type").value,
         startDate: document.getElementById("startDate").value,
-        endDate: document.getElementById("endDate").value
+        endDate: document.getElementById("endDate").value,
+        // package discount as object to match backend Discount embeddable
+        discount: {
+          type: document.getElementById("type").value,
+          amount: parseFloat(document.getElementById("amount").value)
+        },
+        // items not collected in the simple form; send empty list
+        items: []
       };
 
       try {
