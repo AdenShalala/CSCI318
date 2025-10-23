@@ -253,16 +253,6 @@ make kafka-down
 3. **AI features**: Gemini API key is pre-configured in application properties
 4. **Database**: H2 consoles available at each service's `/h2-console` endpoint
 
-### Verification
-
-```bash
-# Check all services are running
-curl http://localhost:8081/actuator/health
-curl http://localhost:8082/actuator/health
-curl http://localhost:8083/actuator/health
-curl http://localhost:8084/actuator/health
-`
-
 ## Information
 ```
 This project was submitted by Group 16 for CSIT318 Project.
