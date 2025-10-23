@@ -214,12 +214,25 @@ curl -X POST -H "Content-Type:application/json" -d
 ```
 
 ### AI Recommendations (8084)
-```bash
-# Get stock recommendations
-curl -X POST http://localhost:8084/api/recommendations \
-  -H "Content-Type: application/json" \
-  -d '{"message":"What electronics should I stock?"}'
-```
+# Ask AI for stock recommendations
+curl -X POST -H "Content-Type:application/json" -d 
+  -H "Content-Type: application/json" -d 
+  '{
+    "message": "Which promotions should I prioritize or adjust?",
+    "context": {
+      "promotions": [
+        {
+          "id": 1,
+          "title": "Summer Tech Bundle",
+          "status": "ACTIVE",
+          "discount": "20%",
+          "startDate": "2025-07-01",
+          "endDate": "2025-07-31",
+          "description": "Bundle wireless headphones with smartwatch for summer tech savings.",
+          "products": ["Premium Smartwatch", "Wireless Headphones"],
+          "price": 12450
+        },]}}' http://localhost:8084/promotions
+
 
 ## Stopping Services
 
