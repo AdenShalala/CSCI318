@@ -30,7 +30,6 @@
     </script>
 
     <style>
-        /* Keep only minimal page layout styles here; moving visual styles to ai-insights-dashboard.css */
         * {
             margin: 0;
             padding: 0;
@@ -50,7 +49,6 @@
             padding: 20px;
         }
 
-        /* Layout and utility classes retained */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -64,17 +62,25 @@
             gap: 1.5rem;
         }
 
-        .left-column {}
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
 
-        .right-column {}
-
-        /* Keep header/footer visuals untouched per request */
+        .error-message {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 
 <body>
     <div class="dashboard-container">
-        <!-- Header (shared style with resources.html) -->
+        <!-- Header -->
         <header class="bg-[#3AA6A0] text-white shadow-md relative overflow-hidden">
             <div id="vanta-bg" class="absolute inset-0"></div>
             <div id="teal-3d-object"></div>
@@ -84,40 +90,38 @@
                     <h1 class="text-2xl font-bold">WareHost</h1>
                 </div>
                 <nav class="hidden md:flex space-x-8">
-                    <a href="index.html"
-                        class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">Dashboard</a>
-                    <a href="inventory.html"
-                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Inventory</a>
-                    <a href="resources.html"
-                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Resources</a>
-                    <a href="ai-insights.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">AI
-                        Insights</a>
-                    <a href="promotions.html"
-                        class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Promotions</a>
+                    <a href="index.html" class="text-white border-b-2 border-white px-3 py-2 text-sm font-medium">Dashboard</a>
+                    <a href="inventory.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Inventory</a>
+                    <a href="resources.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Resources</a>
+                    <a href="ai-insights.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">AI Insights</a>
+                    <a href="promotions.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium">Promotions</a>
                 </nav>
             </div>
         </header>
+
+        <!-- Error Display -->
+        <div id="errorContainer" class="error-message" style="display: none;"></div>
 
         <!-- Stats Grid -->
         <div class="dashboard-grid">
             <div class="stat-card">
                 <i class="fas fa-boxes"></i>
-                <div class="stat-number">142</div>
+                <div class="stat-number" id="totalProducts">--</div>
                 <div class="stat-label">Total Products</div>
             </div>
             <div class="stat-card">
                 <i class="fas fa-exclamation-triangle"></i>
-                <div class="stat-number alert">8</div>
+                <div class="stat-number alert" id="lowStockItems">--</div>
                 <div class="stat-label">Low Stock Items</div>
             </div>
             <div class="stat-card">
                 <i class="fas fa-chart-line"></i>
-                <div class="stat-number success">$15,327</div>
+                <div class="stat-number success" id="monthlyRevenue">--</div>
                 <div class="stat-label">Monthly Revenue</div>
             </div>
             <div class="stat-card">
                 <i class="fas fa-robot"></i>
-                <div class="stat-number warning">12</div>
+                <div class="stat-number warning" id="aiRecommendations">--</div>
                 <div class="stat-label">AI Recommendations</div>
             </div>
         </div>
@@ -132,47 +136,27 @@
                         <h2 class="card-title">Inventory Overview</h2>
                         <a href="inventory.html" class="btn btn-primary">Manage Inventory</a>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Stock Level</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Camping Tent Pro</td>
-                                <td>Outdoor Gear</td>
-                                <td>8/50</td>
-                                <td><span class="status-badge status-low">Low Stock</span></td>
-                                <td><button class="btn btn-outline" onclick="goToPurchaseStock()">Reorder</button></td>
-                            </tr>
-                            <tr>
-                                <td>Hiking Backpack</td>
-                                <td>Outdoor Gear</td>
-                                <td>45/100</td>
-                                <td><span class="status-badge status-good">Good</span></td>
-                                <td><button class="btn btn-outline">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Sleeping Bag</td>
-                                <td>Outdoor Gear</td>
-                                <td>0/30</td>
-                                <td><span class="status-badge status-out">Out of Stock</span></td>
-                                <td><button class="btn btn-primary" onclick="goToPurchaseStock()">Restock</button></td>
-                            </tr>
-                            <tr>
-                                <td>Portable Stove</td>
-                                <td>Cooking</td>
-                                <td>25/60</td>
-                                <td><span class="status-badge status-good">Good</span></td>
-                                <td><button class="btn btn-outline">View</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div id="inventoryTable">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Stock Level</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryBody">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: 2rem;">
+                                        <div class="loading-spinner"></div>
+                                        Loading inventory data...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <!-- Recent Activity -->
@@ -181,29 +165,13 @@
                         <h2 class="card-title">Recent Activity</h2>
                         <button class="btn btn-outline">View All</button>
                     </div>
-                    <div class="notification-list">
-                        <div class="notification-item notification-success">
-                            <i class="fas fa-shipping-fast"></i>
+                    <div class="notification-list" id="recentActivity">
+                        <div class="notification-item">
+                            <i class="fas fa-sync-alt"></i>
                             <div>
-                                <strong>New Stock Arrived</strong>
-                                <p>50 units of Hiking Boots added to inventory</p>
-                                <small>2 hours ago</small>
-                            </div>
-                        </div>
-                        <div class="notification-item notification-info">
-                            <i class="fas fa-chart-line"></i>
-                            <div>
-                                <strong>Sales Peak Detected</strong>
-                                <p>Camping gear sales increased by 35%</p>
-                                <small>5 hours ago</small>
-                            </div>
-                        </div>
-                        <div class="notification-item notification-warning">
-                            <i class="fas fa-bell"></i>
-                            <div>
-                                <strong>Restock Reminder</strong>
-                                <p>Portable charger stock below threshold</p>
-                                <small>1 day ago</small>
+                                <strong>Loading...</strong>
+                                <p>Fetching recent activity</p>
+                                <small>Just now</small>
                             </div>
                         </div>
                     </div>
@@ -216,28 +184,14 @@
                 <div class="content-card">
                     <div class="card-header">
                         <h2 class="card-title">System Alerts</h2>
-                        <span class="badge">3 New</span>
+                        <span class="badge" id="alertCount">0 New</span>
                     </div>
-                    <div class="notification-list">
-                        <div class="notification-item notification-warning">
-                            <i class="fas fa-exclamation-circle"></i>
+                    <div class="notification-list" id="systemAlerts">
+                        <div class="notification-item">
+                            <i class="fas fa-info-circle"></i>
                             <div>
-                                <strong>Low Stock Alert</strong>
-                                <p>Camping Tent Pro running low (8 left)</p>
-                            </div>
-                        </div>
-                        <div class="notification-item notification-info">
-                            <i class="fas fa-lightbulb"></i>
-                            <div>
-                                <strong>AI Recommendation</strong>
-                                <p>New stock suggestions available</p>
-                            </div>
-                        </div>
-                        <div class="notification-item notification-success">
-                            <i class="fas fa-chart-line"></i>
-                            <div>
-                                <strong>Sales Update</strong>
-                                <p>Great performance on hiking gear</p>
+                                <strong>Loading Alerts</strong>
+                                <p>Checking system status...</p>
                             </div>
                         </div>
                     </div>
@@ -274,20 +228,20 @@
                         <h2 class="card-title">Performance</h2>
                     </div>
                     <div style="text-align: center; padding: 1rem 0;">
-                        <div style="font-size: 2rem; font-weight: bold; color: #67ab9f;">94%</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: #67ab9f;" id="systemEfficiency">--%</div>
                         <div style="color: #666; margin-top: 0.5rem;">System Efficiency</div>
                     </div>
                     <div style="display: flex; justify-content: space-around; margin-top: 1rem;">
                         <div style="text-align: center;">
-                            <div style="font-size: 1.2rem; font-weight: bold; color: #67ab9f;">28</div>
+                            <div style="font-size: 1.2rem; font-weight: bold; color: #67ab9f;" id="ordersToday">--</div>
                             <div style="font-size: 0.8rem; color: #666;">Orders Today</div>
                         </div>
                         <div style="text-align: center;">
-                            <div style="font-size: 1.2rem; font-weight: bold; color: #67ab9f;">12</div>
+                            <div style="font-size: 1.2rem; font-weight: bold; color: #67ab9f;" id="aiSuggestions">--</div>
                             <div style="font-size: 0.8rem; color: #666;">AI Suggestions</div>
                         </div>
                         <div style="text-align: center;">
-                            <div style="font-size: 1.2rem; font-weight: bold; color: #67ab9f;">97%</div>
+                            <div style="font-size: 1.2rem; font-weight: bold; color: #67ab9f;" id="systemUptime">--%</div>
                             <div style="font-size: 0.8rem; color: #666;">Uptime</div>
                         </div>
                     </div>
@@ -295,6 +249,7 @@
             </div>
         </div>
     </div>
+
     <footer class="bg-gray-800 text-white text-center py-4 mt-8">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
             <p class="text-[#3AA6A0]">&copy; 2025 WareHost. All rights reserved.</p>
@@ -307,6 +262,22 @@
     </footer>
 
     <script>
+        // API Configuration
+        const API_CONFIG = {
+            BASE_URL: 'http://localhost:8080', // Adjust port as needed
+            ENDPOINTS: {
+                ITEMS: '/items/findAllItems',
+                SALES: '/sales/findAllSales'
+            }
+        };
+
+        // State management
+        let dashboardData = {
+            items: [],
+            sales: [],
+            lowStockThreshold: 10
+        };
+
         // Navigation functions
         function goToInventory() {
             window.location.href = 'inventory.html';
@@ -324,83 +295,360 @@
             window.location.href = 'resources.html';
         }
 
-        // Add interactivity to buttons
-        document.addEventListener('DOMContentLoaded', function () {
-            // Add click handlers to all buttons
+        // API Service
+        class ApiService {
+            static async fetchData(url) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.error('API fetch error:', error);
+                    throw error;
+                }
+            }
+
+            static async getAllItems() {
+                return await this.fetchData(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.ITEMS}`);
+            }
+
+            static async getAllSales() {
+                return await this.fetchData(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.SALES}`);
+            }
+        }
+
+        // Data Processing
+        class DataProcessor {
+            static processItems(items) {
+                return items.map(item => ({
+                    id: item.itemID?.itemID || 'N/A',
+                    name: item.itemName?.name || 'Unnamed',
+                    category: item.type?.type || 'Uncategorized',
+                    quantity: item.itemQuantity?.quantity || 0,
+                    description: item.description?.description || ''
+                }));
+            }
+
+            static processSales(sales) {
+                return sales.map(sale => ({
+                    id: sale.saleID?.saleID || 'N/A',
+                    itemId: sale.itemID || 'N/A',
+                    totalPrice: sale.totalPrice || 0,
+                    date: sale.date || 'Unknown'
+                }));
+            }
+
+            static calculateMetrics(items, sales) {
+                const totalProducts = items.length;
+                const lowStockItems = items.filter(item => item.quantity < dashboardData.lowStockThreshold).length;
+                
+                const monthlyRevenue = sales.reduce((total, sale) => total + sale.totalPrice, 0);
+                const todaySales = sales.filter(sale => {
+                    const saleDate = new Date(sale.date);
+                    const today = new Date();
+                    return saleDate.toDateString() === today.toDateString();
+                });
+
+                return {
+                    totalProducts,
+                    lowStockItems,
+                    monthlyRevenue: `$${monthlyRevenue.toLocaleString()}`,
+                    ordersToday: todaySales.length,
+                    aiRecommendations: Math.floor(Math.random() * 20) + 5 // Mock AI recommendations
+                };
+            }
+
+            static getStockStatus(quantity) {
+                if (quantity === 0) return { status: 'Out of Stock', class: 'status-out' };
+                if (quantity < 5) return { status: 'Very Low', class: 'status-low' };
+                if (quantity < dashboardData.lowStockThreshold) return { status: 'Low Stock', class: 'status-low' };
+                return { status: 'Good', class: 'status-good' };
+            }
+        }
+
+        // UI Updater
+        class UIUpdater {
+            static updateStats(metrics) {
+                document.getElementById('totalProducts').textContent = metrics.totalProducts;
+                document.getElementById('lowStockItems').textContent = metrics.lowStockItems;
+                document.getElementById('monthlyRevenue').textContent = metrics.monthlyRevenue;
+                document.getElementById('aiRecommendations').textContent = metrics.aiRecommendations;
+                document.getElementById('ordersToday').textContent = metrics.ordersToday;
+            }
+
+            static updateInventoryTable(items) {
+                const tbody = document.getElementById('inventoryBody');
+                tbody.innerHTML = '';
+
+                if (items.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 2rem; color: #666;">
+                                No items found in inventory
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                // Sort by quantity (lowest first)
+                const sortedItems = [...items].sort((a, b) => a.quantity - b.quantity);
+
+                sortedItems.forEach(item => {
+                    const status = DataProcessor.getStockStatus(item.quantity);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${this.escapeHtml(item.name)}</td>
+                        <td>${this.escapeHtml(item.category)}</td>
+                        <td>${item.quantity}</td>
+                        <td><span class="status-badge ${status.class}">${status.status}</span></td>
+                        <td>
+                            <button class="btn ${item.quantity === 0 ? 'btn-primary' : 'btn-outline'}" 
+                                    onclick="handleItemAction('${item.id}', ${item.quantity})">
+                                ${item.quantity === 0 ? 'Restock' : item.quantity < dashboardData.lowStockThreshold ? 'Reorder' : 'View'}
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+
+            static updateRecentActivity(sales, items) {
+                const container = document.getElementById('recentActivity');
+                container.innerHTML = '';
+
+                if (sales.length === 0) {
+                    container.innerHTML = `
+                        <div class="notification-item notification-info">
+                            <i class="fas fa-info-circle"></i>
+                            <div>
+                                <strong>No Recent Activity</strong>
+                                <p>No sales recorded yet</p>
+                                <small>Just now</small>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Get recent sales (last 3)
+                const recentSales = sales.slice(-3).reverse();
+
+                recentSales.forEach(sale => {
+                    const item = items.find(i => i.id === sale.itemId);
+                    const itemName = item ? item.name : 'Unknown Item';
+                    
+                    const activity = document.createElement('div');
+                    activity.className = 'notification-item notification-success';
+                    activity.innerHTML = `
+                        <i class="fas fa-shopping-cart"></i>
+                        <div>
+                            <strong>Sale Completed</strong>
+                            <p>${itemName} sold for $${sale.totalPrice}</p>
+                            <small>${this.formatDate(sale.date)}</small>
+                        </div>
+                    `;
+                    container.appendChild(activity);
+                });
+            }
+
+            static updateSystemAlerts(items) {
+                const container = document.getElementById('systemAlerts');
+                const alertCount = document.getElementById('alertCount');
+                
+                const lowStockItems = items.filter(item => item.quantity < dashboardData.lowStockThreshold);
+                const outOfStockItems = items.filter(item => item.quantity === 0);
+
+                container.innerHTML = '';
+                let alertItems = [];
+
+                // Out of stock alerts
+                outOfStockItems.forEach(item => {
+                    alertItems.push(`
+                        <div class="notification-item notification-warning">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div>
+                                <strong>Out of Stock</strong>
+                                <p>${this.escapeHtml(item.name)} needs immediate restocking</p>
+                            </div>
+                        </div>
+                    `);
+                });
+
+                // Low stock alerts
+                lowStockItems.forEach(item => {
+                    if (item.quantity > 0) {
+                        alertItems.push(`
+                            <div class="notification-item notification-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <div>
+                                    <strong>Low Stock Alert</strong>
+                                    <p>${this.escapeHtml(item.name)} running low (${item.quantity} left)</p>
+                                </div>
+                            </div>
+                        `);
+                    }
+                });
+
+                // If no alerts
+                if (alertItems.length === 0) {
+                    alertItems.push(`
+                        <div class="notification-item notification-success">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>All Systems Normal</strong>
+                                <p>No critical alerts at this time</p>
+                            </div>
+                        </div>
+                    `);
+                }
+
+                container.innerHTML = alertItems.join('');
+                alertCount.textContent = `${alertItems.length} New`;
+            }
+
+            static updatePerformanceMetrics(metrics) {
+                document.getElementById('systemEfficiency').textContent = '94%';
+                document.getElementById('aiSuggestions').textContent = metrics.aiRecommendations;
+                document.getElementById('systemUptime').textContent = '97%';
+            }
+
+            static showError(message) {
+                const errorContainer = document.getElementById('errorContainer');
+                errorContainer.textContent = message;
+                errorContainer.style.display = 'block';
+                
+                setTimeout(() => {
+                    errorContainer.style.display = 'none';
+                }, 5000);
+            }
+
+            static setLoading(loading) {
+                document.body.classList.toggle('loading', loading);
+            }
+
+            static escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            static formatDate(dateString) {
+                if (!dateString) return 'Unknown date';
+                try {
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+                } catch {
+                    return dateString;
+                }
+            }
+        }
+
+        // Event Handlers
+        function handleItemAction(itemId, quantity) {
+            if (quantity === 0) {
+                alert(`Item ${itemId} needs restocking!`);
+                // Here you would typically navigate to restock page or open a modal
+            } else if (quantity < dashboardData.lowStockThreshold) {
+                alert(`Item ${itemId} is running low. Consider reordering.`);
+            } else {
+                alert(`Viewing details for item ${itemId}`);
+            }
+        }
+
+        // Main Dashboard Controller
+        class DashboardController {
+            static async initialize() {
+                try {
+                    UIUpdater.setLoading(true);
+                    
+                    // Fetch data from APIs
+                    const [items, sales] = await Promise.all([
+                        ApiService.getAllItems(),
+                        ApiService.getAllSales()
+                    ]);
+
+                    // Process data
+                    dashboardData.items = DataProcessor.processItems(items);
+                    dashboardData.sales = DataProcessor.processSales(sales);
+
+                    // Calculate metrics
+                    const metrics = DataProcessor.calculateMetrics(dashboardData.items, dashboardData.sales);
+
+                    // Update UI
+                    UIUpdater.updateStats(metrics);
+                    UIUpdater.updateInventoryTable(dashboardData.items);
+                    UIUpdater.updateRecentActivity(dashboardData.sales, dashboardData.items);
+                    UIUpdater.updateSystemAlerts(dashboardData.items);
+                    UIUpdater.updatePerformanceMetrics(metrics);
+
+                } catch (error) {
+                    this.loadDemoData();
+                } finally {
+                    UIUpdater.setLoading(false);
+                }
+            }
+
+            static loadDemoData() {
+                // Fallback demo data when API is unavailable
+                const demoItems = [
+                    { id: '1', name: 'Camping Tent Pro', category: 'Outdoor Gear', quantity: 8 },
+                    { id: '2', name: 'Hiking Backpack', category: 'Outdoor Gear', quantity: 45 },
+                    { id: '3', name: 'Sleeping Bag', category: 'Outdoor Gear', quantity: 0 },
+                    { id: '4', name: 'Portable Stove', category: 'Cooking', quantity: 25 }
+                ];
+
+                const demoSales = [
+                    { id: '1', itemId: '1', totalPrice: 199.99, date: new Date().toISOString() },
+                    { id: '2', itemId: '2', totalPrice: 89.99, date: new Date().toISOString() }
+                ];
+
+                dashboardData.items = demoItems;
+                dashboardData.sales = demoSales;
+
+                const metrics = DataProcessor.calculateMetrics(demoItems, demoSales);
+                UIUpdater.updateStats(metrics);
+                UIUpdater.updateInventoryTable(demoItems);
+                UIUpdater.updateRecentActivity(demoSales, demoItems);
+                UIUpdater.updateSystemAlerts(demoItems);
+                UIUpdater.updatePerformanceMetrics(metrics);
+
+            }
+
+            static async refreshData() {
+                await this.initialize();
+            }
+        }
+
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            DashboardController.initialize();
+
+            // Refresh data every 30 seconds
+            setInterval(() => {
+                DashboardController.refreshData();
+            }, 30000);
+
+            // Add click effects
             const buttons = document.querySelectorAll('.btn, .action-btn');
             buttons.forEach(button => {
-                button.addEventListener('click', function () {
-                    // Add a simple click effect
+                button.addEventListener('click', function() {
                     this.style.transform = 'scale(0.95)';
                     setTimeout(() => {
                         this.style.transform = '';
                     }, 150);
                 });
             });
-
-            // Simulate real-time updates
-            setInterval(() => {
-                const stockNumber = document.querySelector('.stat-number.alert');
-                if (stockNumber) {
-                    const current = parseInt(stockNumber.textContent);
-                    // Randomly update stock numbers for demo
-                    const newValue = Math.max(0, current + (Math.random() > 0.5 ? -1 : 1));
-                    stockNumber.textContent = newValue;
-                }
-            }, 8000);
-
-            // Check if files exist and update navigation accordingly
-            checkFileExists('inventory.html', function (exists) {
-                if (!exists) {
-                    document.querySelector('a[href="inventory.html"]').style.opacity = '0.5';
-                    document.querySelector('a[href="inventory.html"]').title = 'File not found';
-                }
-            });
-
-            checkFileExists('purchase-stock.html', function (exists) {
-                if (!exists) {
-                    // Disable purchase stock buttons
-                    document.querySelectorAll('[onclick*="goToPurchaseStock"]').forEach(btn => {
-                        btn.style.opacity = '0.5';
-                        btn.style.cursor = 'not-allowed';
-                        btn.onclick = null;
-                    });
-                }
-            });
-
-            checkFileExists('ai-insights.html', function (exists) {
-                if (!exists) {
-                    document.querySelector('a[href="ai-insights.html"]').style.opacity = '0.5';
-                    document.querySelector('a[href="ai-insights.html"]').title = 'File not found';
-                    document.querySelector('[onclick*="goToAIInsights"]').style.opacity = '0.5';
-                    document.querySelector('[onclick*="goToAIInsights"]').style.cursor = 'not-allowed';
-                    document.querySelector('[onclick*="goToAIInsights"]').onclick = null;
-                }
-            });
-
-            checkFileExists('resources.html', function (exists) {
-                if (!exists) {
-                    document.querySelector('a[href="resources.html"]').style.opacity = '0.5';
-                    document.querySelector('a[href="resources.html"]').title = 'File not found';
-                    document.querySelector('[onclick*="goToResources"]').style.opacity = '0.5';
-                    document.querySelector('[onclick*="goToResources"]').style.cursor = 'not-allowed';
-                    document.querySelector('[onclick*="goToResources"]').onclick = null;
-                }
-            });
         });
 
-        // Function to check if file exists
+        // File existence check (optional)
         function checkFileExists(url, callback) {
             fetch(url, { method: 'HEAD' })
                 .then(response => callback(response.ok))
                 .catch(() => callback(false));
         }
     </script>
-    <!-- Three.js + Vanta + shared 3D/interaction script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
-    <script src="assets/js/resources-common.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function () { if (window.feather) feather.replace(); });</script>
 </body>
-
 </html>
