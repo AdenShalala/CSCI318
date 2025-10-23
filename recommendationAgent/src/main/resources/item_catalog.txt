@@ -1,3 +1,4 @@
+CATALOG
 Name: Apples. Type: Food. Description: Fresh red apples perfect for snacking or baking.
 Name: Bananas. Type: Food. Description: Ripe yellow bananas packed with potassium.
 Name: Bread Loaf. Type: Food. Description: Soft wholemeal bread loaf for sandwiches.

@@ -1,0 +1,21 @@
+INVENTORY
+Name: Dishwashing Liquid. ID: 3a9b1f7d-6b9e-4d8a-8b42-9d4a735e1e02. Type: Cleaning. Description: Lemon-scented liquid for washing dishes. Quantity: 42
+Name: Paper Towels. ID: 4f8e8a2c-df71-49c5-9f8a-22e7b153a020. Type: Cleaning. Description: Absorbent rolls for kitchen use. Quantity: 7
+Name: Laundry Detergent. ID: a0c4e18a-ec31-4c1a-8f9a-93b002f2b57e. Type: Cleaning. Description: Concentrated detergent for washing clothes. Quantity: 120
+Name: Toilet Paper. ID: e93b219f-6ce0-4af9-93f3-b2d243f6b970. Type: Bathroom. Description: 3-ply toilet tissue rolls. Quantity: 18
+Name: Shampoo. ID: 9c26f5a7-4e1e-4c74-a86a-90a6cb72f180. Type: Bathroom. Description: Hydrating shampoo for dry hair. Quantity: 4
+Name: Conditioner. ID: 12f48f88-1b31-499a-9a91-5a6dcb85f671. Type: Bathroom. Description: Moisturizing conditioner for smooth hair. Quantity: 2
+Name: Toothpaste. ID: 4b22d736-d87c-4214-b7a0-5a1c0cfb9d2f. Type: Bathroom. Description: Whitening toothpaste with fluoride. Quantity: 35
+Name: Body Wash. ID: 84a17869-f2b3-496e-967d-6d46b94a3c50. Type: Bathroom. Description: Refreshing body wash with citrus scent. Quantity: 9
+Name: Hand Soap. ID: 2d4fca19-b0d0-43d1-a7de-d0c69b0a7f90. Type: Bathroom. Description: Antibacterial hand soap. Quantity: 60
+Name: Dog Food. ID: 00f94a77-1b73-4f26-931b-63123e3a20ee. Type: Pet Supplies. Description: Dry kibble for adult dogs. Quantity: 14
+Name: Cat Food. ID: 7f8b91f5-4c63-4d81-bc1b-2c9e1c9e9c0a. Type: Pet Supplies. Description: Canned wet food for cats. Quantity: 26
+Name: Pet Shampoo. ID: 3d621d44-02dc-4c89-a0d3-55fcd8e8b3f5. Type: Pet Supplies. Description: Gentle shampoo for pet fur. Quantity: 3
+Name: Dog Leash. ID: 13b4b691-d5e1-43b1-bb2f-70520cfb23f0. Type: Pet Supplies. Description: Strong nylon leash for walking dogs. Quantity: 6
+Name: Bluetooth Speaker. ID: 6614f6f9-3c4e-4a3c-8333-40a87b97b6a1. Type: Technology. Description: Portable wireless speaker. Quantity: 11
+Name: Phone Charger. ID: 935b8ad4-858e-40aa-b329-3a4c6123e8ab. Type: Technology. Description: USB-C fast charging cable. Quantity: 90
+Name: Mouse. ID: 01d4f3a9-b0a6-4ac0-8d8d-84dc35d7f2b3. Type: Technology. Description: Wireless computer mouse. Quantity: 13
+Name: Keyboard. ID: 6edfa1c2-8324-46cd-bd4d-23c951d90b7c. Type: Technology. Description: Full-size wireless keyboard. Quantity: 25
+Name: Extension Cord. ID: 09f12d47-7c4c-4a3c-b27d-3913b8f9d11b. Type: Technology. Description: Four-outlet power strip. Quantity: 5
+Name: Monitor. ID: 33e48d95-6f67-4dc3-bfe2-4a1d247e62c7. Type: Technology. Description: 24-inch HD computer monitor. Quantity: 2
+Name: Printer Ink. ID: e3b0d9a9-8a21-4d36-87b8-71005f8749c3. Type: Technology. Description: Black ink cartridge. Quantity: 56

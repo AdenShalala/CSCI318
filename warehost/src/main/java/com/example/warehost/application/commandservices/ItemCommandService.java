@@ -38,12 +38,9 @@ public class ItemCommandService {
     
     @Transactional
     public void decrementStock(ItemID itemID) {
-        System.out.println("Decrement Stock Function");
         Item item = itemRepository.findItemWithID(itemID);
 
         try {
-            System.out.println("Decrement Stock Function 2");
-            //TEMP CATCH FOR TESTING
             int quantity = item.getItemQuantity().getQuantityInt();
             item.getItemQuantity().setQuantityInt(quantity - 1);
 
@@ -53,9 +50,6 @@ public class ItemCommandService {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-        
-        
-       
     }
 
     @Transactional
