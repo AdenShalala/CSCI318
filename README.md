@@ -250,7 +250,7 @@ NEEEED TO ADDDD HEREEE
 This project was submitted by Group 16 for CSIT318 Project.
 Group 16:
     Aden Shalala
-    Aalok Mandal
+    Aalok Kumar Mandal
     Muhammad Ansari
     Henry Hocking
 ```
