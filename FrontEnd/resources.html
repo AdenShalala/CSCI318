@@ -10,13 +10,11 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <link rel="stylesheet" href="assets/css/resources-common.css">
-  <!-- Polyfill / extra styles can be added in assets/css/resources-common.css -->
 
   <script src="assets/js/frontend-config.js"></script>
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
-  <!-- 3D Teal Object -->
   <div id="teal-3d-object"></div>
 
   <!-- Header -->
@@ -366,7 +364,7 @@
       }
     }
 
-    // --- Populate Assignment dropdowns with backend data (append to hard-coded options) ---
+    // --- Populate Assignment dropdowns with backend data ---
     async function loadAssignmentOptions() {
       try {
         const empRes = await fetch("http://localhost:8083/resources/employees");
