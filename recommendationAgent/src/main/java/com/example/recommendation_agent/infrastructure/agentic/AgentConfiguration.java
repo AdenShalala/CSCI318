@@ -25,6 +25,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,19 +59,32 @@ public class AgentConfiguration {
 
         EmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
 
-        Resource resource = resourceLoader.getResource("classpath:item_catalog.txt"); // ADD RESOURCE OF ITEMS
-        Document document = loadDocument(resource.getFile().toPath(), new TextDocumentParser());
+        Resource catalog_resource = resourceLoader.getResource("classpath:item_catalog.txt"); // ADD RESOURCE OF ITEMS
+        Document catalog_document = loadDocument(catalog_resource.getFile().toPath(), new TextDocumentParser());
 
-        String[] lines = document.text().split("\r?\n");
-        List<TextSegment> segments = Arrays.stream(lines) // {
+        String[] c_lines = catalog_document.text().split("\r?\n");
+        List<TextSegment> c_segments = Arrays.stream(c_lines) // {
         .filter(line -> !line.trim()
         .isEmpty()).map(TextSegment::from)
         .collect(Collectors.toList());                    // }
 
-        List<Embedding> embeddings = embeddingModel.embedAll(segments).content();
-        embeddingStore.addAll(embeddings, segments);
+        Resource inv_resource = resourceLoader.getResource("classpath:sample_inventory.txt"); // ADD SAMPLE RESOURCE OF INVENTORY
+        Document inv_document = loadDocument(inv_resource.getFile().toPath(), new TextDocumentParser());
 
-        log.info("(#) Embedding store built with {} entries.", segments.size());
+        String[] i_lines = inv_document.text().split("\r?\n");
+        List<TextSegment> i_segments = Arrays.stream(i_lines) // {
+        .filter(line -> !line.trim()
+        .isEmpty()).map(TextSegment::from)
+        .collect(Collectors.toList());                    // }
+
+        List<TextSegment> allSegments = new ArrayList<>();
+        allSegments.addAll(c_segments);
+        allSegments.addAll(i_segments);
+
+        List<Embedding> embeddings = embeddingModel.embedAll(allSegments).content();
+        embeddingStore.addAll(embeddings, allSegments);
+
+        log.info("(#) Embedding store built with {} entries.", allSegments.size());
 
         return embeddingStore;
     }
@@ -78,8 +92,6 @@ public class AgentConfiguration {
     // fetches relevant segments from store for answering queries
     @Bean
     ContentRetriever contentRetriever(EmbeddingStore<TextSegment> embeddingStore, EmbeddingModel embeddingModel) {
-        // apparently these parameters need to be tuned depending on embedding model
-        // and data but i will leave this here for now
 
         int max_results = 10;
         double min_score = 0.4; // this is a minimum similarity score

@@ -10,7 +10,7 @@ public interface RecAgent {
     ("""
     You are a helpful item recommendation assistant
 
-    You will be provided a list of item types a user wishes to stock in their shop. 
+    You will be provided a list of item types a user wishes to stock in their shop and the user's current inventory.
     As well as this, you are provided with a catalog of items of a range of different types.
 
     Provide a list of 8 to 10 recommended items in the 'recommendedItems' field, choosing the most appropriate items to assist the user.
