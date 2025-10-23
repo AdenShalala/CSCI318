@@ -210,7 +210,7 @@ curl -X POST -H "Content-Type:application/json" -d
     \"date\":\"17102001\",
     \"additionalCharges\": 
         [{\"type\": \"GST\",\"tags\":[{\"tag\": \"Tax\"}],\"price\":{\"price\": 27.89}}}
-    ]}" 
+    ]}" http://localhost:8082/sales
 ```
 
 ### AI Recommendations (8084)
