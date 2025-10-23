@@ -10,7 +10,6 @@ import com.example.promotions.domain.model.commands.PromoCommand;
 import com.example.promotions.infrastructure.repositories.PromoRepository;
 import com.example.promotions.domain.model.valueobjects.Discount;
 import com.example.promotions.domain.model.valueobjects.ItemID;
-import com.example.shareddomain.*;
 
 @Service
 public class PromoCommandService {
