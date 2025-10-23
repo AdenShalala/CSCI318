@@ -189,20 +189,28 @@ make kafka-create-topic
 ### Inventory Management (8081)
 ```bash
 # Add item to inventory
-curl -X POST http://localhost:8081/api/items \
+curl -X POST http://localhost:8081/items \
   -H "Content-Type: application/json" \
-  -d '{"name":"Laptop", "type":"Electronics", "quantity":10}'
+  -d '{"name":"Laptop", "type":"Electronics", "description": "DELL H200", "quantity":10}'
 
 # Get all items
-curl http://localhost:8081/api/items
+curl http://localhost:8081/items/findAllItems
 ```
 
 ### Sales Tracking (8082)
 ```bash
 # Create sale
-curl -X POST http://localhost:8082/api/sales \
-  -H "Content-Type: application/json" \
-  -d '{"itemID":"item123", "quantity":1, "price":999.99}'
+curl -X POST -H "Content-Type:application/json" -d 
+"{  \"itemID\": \"<itemIDHere>\",
+    ,\"charge\":
+    {\"type\": \"Basic\",\"tags\":
+        [{\"tag\": \"Basic\"}],
+    \"price\":{\"price\": 278.99}
+    },
+    \"date\":\"17102001\",
+    \"additionalCharges\": 
+        [{\"type\": \"GST\",\"tags\":[{\"tag\": \"Tax\"}],\"price\":{\"price\": 27.89}}}
+    ]}" 
 ```
 
 ### AI Recommendations (8084)
