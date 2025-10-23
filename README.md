@@ -184,7 +184,7 @@ make kafka-logs
 make kafka-create-topic
 ```
 
-## API Examples
+## API Exampless
 
 ### Inventory Management (8081)
 ```bash
