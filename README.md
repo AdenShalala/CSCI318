@@ -261,10 +261,7 @@ curl http://localhost:8081/actuator/health
 curl http://localhost:8082/actuator/health
 curl http://localhost:8083/actuator/health
 curl http://localhost:8084/actuator/health
-
-# Check Kafka topics
-NEEEED TO ADDDD HEREEE
-```
+`
 
 ## Information
 ```
